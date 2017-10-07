@@ -1,0 +1,64 @@
+package servise;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+
+import org.hibernate.SessionFactory;
+
+import dao.Committent;
+
+public class CommittentServise 
+extends AbstractServise<Committent>
+{
+    public CommittentServise(SessionFactory factory)
+    {
+        super(factory);
+    }
+    
+    public void create(Committent object)
+    {
+        connect();
+        
+        session.save(object);
+        session.getTransaction().commit();
+    }
+    
+    public boolean remove(Serializable id)
+    {
+        connect();
+        
+        Committent committent = session.get(Committent.class, id);
+        
+        if (committent != null)
+        {
+            session.getTransaction().commit();
+            session.remove(committent);
+            
+            return true;
+        }
+        
+        return false;
+    }
+
+    public Committent find(Serializable id)
+    {
+        connect();
+        
+        Committent committent = session.find(Committent.class, id);
+        session.getTransaction().commit();
+        
+        return committent;
+    }
+
+    public List<Committent> findAll()
+    {
+        connect();
+        
+        TypedQuery<Committent> query = session.createQuery("SELECT a FROM Committent a", Committent.class);
+        session.getTransaction().commit();
+        
+        return query.getResultList();
+    }
+}
