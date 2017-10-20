@@ -9,7 +9,9 @@ import org.hibernate.SessionFactory;
 
 import dao.ProductImport;
 
-public class ProductImportService extends AbstractServise<ProductImport> {
+public class ProductImportService 
+extends AbstractServise<ProductImport> 
+{
     public ProductImportService(SessionFactory factory)
     {
         super(factory);

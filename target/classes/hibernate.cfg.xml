@@ -11,6 +11,9 @@
 		<property name="hibernate.connection.url">jdbc:postgresql://localhost/commissionShop</property>
 		<property name="hibernate.connection.username">postgres</property>
 		<property name="hibernate.connection.password">1111</property>
+		
+		<property name="hibernate.validator.apply_to_ddl">false</property> 
+		<property name="hibernate.validator.autoregister_listeners">false</property>
 
 		<!-- SQL dialect -->
 		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
@@ -19,7 +22,7 @@
 		<property name="show_sql">true</property>
 
 		<!-- Drop and re-create all database on startup -->
-		<property name="hibernate.hbm2ddl.auto">create-drop</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
 
 		<!-- Annotated entity classes -->
 		<mapping class="dao.Committent" />

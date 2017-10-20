@@ -11,13 +11,18 @@ import javax.persistence.Table;
 @Table(name = "District")
 public class District 
 implements Serializable
-{                
-    private static final long serialVersionUID = 4543928301197217785L;
+{                    
+    private static final long serialVersionUID = -5349742291113244498L;
     
     @Id
-    @Column(name = "Name", length = 30, unique = true, nullable = false)
+    @Column(name = "name", length = 30, unique = true, nullable = false)
     private String name;
-
+    
+    public District()
+    {
+        
+    }
+    
     public District(String name)
     {
         super();

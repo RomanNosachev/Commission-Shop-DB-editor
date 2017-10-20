@@ -11,13 +11,18 @@ import javax.persistence.Table;
 @Table(name = "SocialStatus")
 public class SocialStatus 
 implements Serializable
-{                
-    private static final long serialVersionUID = 74324605955615390L;
+{                    
+    private static final long serialVersionUID = -8371093617546670432L;
     
     @Id
-    @Column(name = "Name", length = 20, unique = true, nullable = false)
+    @Column(name = "name", length = 20, unique = true, nullable = false)
     private String name;
 
+    public SocialStatus()
+    {
+        
+    }
+    
     public SocialStatus(String name)
     {
         super();

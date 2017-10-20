@@ -7,6 +7,7 @@ view\MainForm.class
 dao\ProductImport.class
 servise\ProductImportService.class
 dao\Company.class
+SocketPull.class
 servise\CommittentServise.class
 dao\Deal.class
 dao\District.class

@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,36 +27,37 @@ implements Serializable
     private static final long serialVersionUID = 6358304485892511952L;
 
     @Id
-    @Column(name = "Id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "committent_gen")
+    @SequenceGenerator(name = "committent_gen", sequenceName = "committent_seq")
     private long id;
     
-    @Column(name = "Name", length = 20, nullable = false)
+    @Column(name = "name", length = 20, nullable = false)
     private String name;
     
-    @Column(name = "Surname", length = 40, nullable = false)
+    @Column(name = "surname", length = 40, nullable = false)
     private String surname;
     
-    @Column(name = "Patronymic", length = 25)
+    @Column(name = "patronymic", length = 25)
     private String patronymic;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "District")
+    @JoinColumn(name = "district")
     private District district;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SocialStatus")
+    @JoinColumn(name = "socialStatus")
     private SocialStatus socialStatus;
     
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "Company")
+    @JoinColumn(name = "company")
     private List<Company> companies;
     
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "Date", columnDefinition = "DATE")
+    @Column(name = "date", columnDefinition = "DATE")
     private Date date;
     
-    @Column(name = "TelephoneNumber", length = 20)
+    @Column(name = "telephoneNumber", length = 20)
     private String telephoneNumber;
   
     public Committent(String name, String surname, String patronymic, District district, SocialStatus socialStatus,

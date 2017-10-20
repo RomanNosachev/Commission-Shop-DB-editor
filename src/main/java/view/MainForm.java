@@ -1,7 +1,11 @@
 package view;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +26,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import servise.CommittentServise;
@@ -44,6 +47,16 @@ extends Application
     private BorderPane rootLayout;
     @FXML
     private TextArea   area;
+        
+    private Service<Company> companyServise;
+    private Service<Committent> committentServise;
+    private Service<District> districtService;
+    private Service<SocialStatus> socialStatusServise;
+    
+    private Service<Deal> dealService;
+    private Service<ProductGroup> productGroupService;
+    private Service<ProductImport> productImportService;
+    private Service<Product> productService;
     
     @Override
     public void start(Stage primaryStage)
@@ -78,68 +91,141 @@ extends Application
         {
             e.printStackTrace();
         }
+        
+        //listen();
     }
     
-    public static void main(String[] args)
+    public void main()
     {
-        launch(args);
+        launch();
+    }
+    
+    public void listen()
+    {
+        ServerSocket serverSocket = null;
+        Socket localSocket = null;
+        
+        DataInputStream in = null;
+        DataOutputStream out = null;
+        
+        try
+        {
+            serverSocket = new ServerSocket(2070);
+            
+            localSocket = new Socket("localhost", 2070);
+            
+            in = new DataInputStream(localSocket.getInputStream());
+            out = new DataOutputStream(localSocket.getOutputStream());
+            
+            if (serverSocket.accept() != null)
+            {
+                String message = in.readUTF();
+                
+                System.out.println("Socket:" + message);
+            }
+        } catch (IOException e1)
+        {
+            e1.printStackTrace();
+        }
+        finally 
+        {
+            try
+            {
+                serverSocket.close();
+                localSocket.close();
+                
+                in.close();
+                out.close();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
     
     public void test()
     { 
-        SessionFactory factory = new Configuration().configure().buildSessionFactory();
+        SessionFactory factory = null;
         
-        Service<Company> companyServise = new CompanyServise(factory);
-        Service<Committent> committentServise = new CommittentServise(factory);
-        Service<District> districtService = new DistrictService(factory);
-        Service<SocialStatus> socialStatusServise = new SocialStatusServise(factory);
-        
-        Service<Deal> dealService = new DealService(factory);
-        Service<ProductGroup> productGroupService = new ProductGroupService(factory);
-        Service<ProductImport> productImportService = new ProductImportService(factory);
-        Service<Product> productService = new ProductService(factory);
-        
-        District district = new District("Petrovsky");
-        SocialStatus socialStatus = new SocialStatus("Bomj");
-        
-        Company company = new Company();
-        company.setName("IBM");
-        
-        List<Company> companies = new LinkedList<Company>();
-        companies.add(company);
-        
-        List<Committent> committents = new LinkedList<Committent>();
-        
-        Committent committent = new Committent();
-        
-        committent.setName("Vasya");
-        committent.setSurname("Pupkin");
-        committent.setPatronymic("Antonovich");
-        committent.setDistrict(district);
-        committent.setSocialStatus(socialStatus);
-        committent.setDate(new Date());
-        committent.setTelephoneNumber("+380502728020");
-        committent.setCompanies(companies);
-        
-        committents.add(committent);
-        
-        districtService.create(district);
-        socialStatusServise.create(socialStatus);
-        companyServise.create(company);
-        committentServise.create(committent);
-        
-        ProductGroup productGroup = new ProductGroup("Sport product");
-        productGroupService.create(productGroup);
-        
-        Product product = new Product(productGroup, "Ball", new BigDecimal(1000));
-        productService.create(product);
-        
-        ProductImport productImport = new ProductImport(product, 1, new Date(), 14);
-        productImportService.create(productImport);
-        
-        Deal deal = new Deal(product, new Date(), 4);
-        dealService.create(deal);
-        
+        try 
+        {
+            factory = new Configuration().configure().buildSessionFactory();
+            
+            companyServise = new CompanyServise(factory);
+            committentServise = new CommittentServise(factory);
+            districtService = new DistrictService(factory);
+            socialStatusServise = new SocialStatusServise(factory);
+            
+            dealService = new DealService(factory);
+            productGroupService = new ProductGroupService(factory);
+            productImportService = new ProductImportService(factory);
+            productService = new ProductService(factory);
+            
+            District district = new District("Petrovsky");
+            SocialStatus socialStatus = new SocialStatus("Bomj");
+            
+            Company company = new Company();
+            company.setName("IBM");
+            
+            List<Company> companies = new LinkedList<Company>();
+            companies.add(company);
+            
+            List<Committent> committents = new LinkedList<Committent>();
+            
+            Committent committent = new Committent();
+            
+            committent.setName("Vasya");
+            committent.setSurname("Pupkin");
+            committent.setPatronymic("Antonovich");
+            committent.setDistrict(district);
+            committent.setSocialStatus(socialStatus);
+            committent.setDate(new Date());
+            committent.setTelephoneNumber("+380502728020");
+            committent.setCompanies(companies);
+            
+            committents.add(committent);
+            
+            districtService.create(district);
+            socialStatusServise.create(socialStatus);
+            companyServise.create(company);
+            committentServise.create(committent);
+            
+            ProductGroup productGroup = new ProductGroup("Sport product");
+            productGroupService.create(productGroup);
+            
+            Product product = new Product(productGroup, "Ball", new BigDecimal(1000));
+            productService.create(product);
+            
+            ProductImport productImport = new ProductImport(product, 1, new Date(), 14);
+            productImportService.create(productImport);
+            
+            Deal deal = new Deal(product, new Date(), 4);
+            dealService.create(deal);
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        finally 
+        {
+            print();
+            
+            factory.close();
+            
+            companyServise.disconnect();
+            districtService.disconnect();
+            socialStatusServise.disconnect();
+            committentServise.disconnect();
+            
+            dealService.disconnect();
+            productGroupService.disconnect();
+            productImportService.disconnect();
+            productGroupService.disconnect();
+        } 
+    }
+    
+    private void print()
+    {
         area.appendText("Start" + System.lineSeparator());
         
         for (Committent c : committentServise.findAll())
@@ -155,15 +241,5 @@ extends Application
             area.appendText(d.getDate().toString() + System.lineSeparator());
             area.appendText(d.getCount() + System.lineSeparator());
         }
-        
-        companyServise.disconnect();
-        districtService.disconnect();
-        socialStatusServise.disconnect();
-        committentServise.disconnect();
-        
-        dealService.disconnect();
-        productGroupService.disconnect();
-        productImportService.disconnect();
-        productGroupService.disconnect();
     }
 }
