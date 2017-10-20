@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+
+		<!-- Connection settings -->
+		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+		<property name="hibernate.connection.url">jdbc:postgresql://localhost/commissionShop</property>
+		<property name="hibernate.connection.username">postgres</property>
+		<property name="hibernate.connection.password">1111</property>
+		
+		<property name="hibernate.validator.apply_to_ddl">false</property> 
+		<property name="hibernate.validator.autoregister_listeners">false</property>
+
+		<!-- SQL dialect -->
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+		<!-- Print executed SQL to stdout -->
+		<property name="show_sql">true</property>
+
+		<property name="hibernate.hbm2ddl.auto">update</property>
+
+		<!-- Annotated entity classes -->
+		<mapping class="dao.Committent" />
+		<mapping class="dao.Company" />
+		<mapping class="dao.District" />
+		<mapping class="dao.SocialStatus" />
+		<mapping class="dao.Deal" />
+		<mapping class="dao.Product" />
+		<mapping class="dao.ProductGroup" />
+		<mapping class="dao.ProductImport" />
+	</session-factory>
+</hibernate-configuration>
