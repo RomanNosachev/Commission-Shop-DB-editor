@@ -1,6 +1,7 @@
 package servise;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -9,23 +10,17 @@ import org.hibernate.SessionFactory;
 
 import dao.SocialStatus;
 
-public class SocialStatusServise 
-extends AbstractServise<SocialStatus> 
+public class SocialStatusService 
+extends AbstractService<SocialStatus> 
 {
-    public SocialStatusServise(SessionFactory factory)
+    private static final long serialVersionUID = -7231855368627027760L;
+
+    public SocialStatusService(SessionFactory factory) throws RemoteException
     {
         super(factory);
     }
 
-    public void create(SocialStatus object)
-    {
-        connect();
-        
-        session.save(object);
-        session.getTransaction().commit();
-    }
-
-    public boolean remove(Serializable id)
+    public boolean remove(Serializable id) throws RemoteException
     {
         connect();
         
@@ -42,7 +37,7 @@ extends AbstractServise<SocialStatus>
         return false;
     }
 
-    public SocialStatus find(Serializable id)
+    public SocialStatus find(Serializable id) throws RemoteException
     {
         connect();
         
@@ -52,7 +47,7 @@ extends AbstractServise<SocialStatus>
         return socialStatus;
     }
 
-    public List<SocialStatus> findAll()
+    public List<SocialStatus> findAll() throws RemoteException
     {
         connect();
         

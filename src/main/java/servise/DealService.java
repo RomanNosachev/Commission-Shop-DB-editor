@@ -1,6 +1,7 @@
 package servise;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -10,22 +11,16 @@ import org.hibernate.SessionFactory;
 import dao.Deal;
 
 public class DealService 
-extends AbstractServise<Deal> 
+extends AbstractService<Deal> 
 {
-    public DealService(SessionFactory factory)
+    private static final long serialVersionUID = 8951949142178506414L;
+
+    public DealService(SessionFactory factory) throws RemoteException
     {
         super(factory);
     }
 
-    public void create(Deal object)
-    {
-        connect();
-        
-        session.save(object);
-        session.getTransaction().commit();
-    }
-
-    public boolean remove(Serializable id)
+    public boolean remove(Serializable id) throws RemoteException
     {
         connect();
         
@@ -42,7 +37,7 @@ extends AbstractServise<Deal>
         return false;
     }
 
-    public Deal find(Serializable id)
+    public Deal find(Serializable id) throws RemoteException
     {
         connect();
         
@@ -52,7 +47,7 @@ extends AbstractServise<Deal>
         return deal;
     }
 
-    public List<Deal> findAll()
+    public List<Deal> findAll() throws RemoteException
     {
         connect();
         

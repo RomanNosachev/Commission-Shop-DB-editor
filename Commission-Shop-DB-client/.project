@@ -3,6 +3,7 @@
 	<name>Commission-Shop-DB-client</name>
 	<comment></comment>
 	<projects>
+		<project>Commission-Shop-DB-Editor</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

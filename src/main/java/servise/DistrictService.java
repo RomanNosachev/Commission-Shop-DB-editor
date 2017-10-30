@@ -1,6 +1,7 @@
 package servise;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -10,34 +11,16 @@ import org.hibernate.SessionFactory;
 import dao.District;
 
 public class DistrictService 
-extends AbstractServise<District>
+extends AbstractService<District>
 {
-    public DistrictService(SessionFactory factory)
+    private static final long serialVersionUID = -1773231323548014970L;
+
+    public DistrictService(SessionFactory factory) throws RemoteException
     {
         super(factory);
     }
 
-    public District create(String name)
-    {
-        connect();
-        
-        District district = new District(name);   
-        
-        session.save(district);
-        session.getTransaction().commit();
-        
-        return district;
-    }
-    
-    public void create(District object)
-    {
-        connect();
-        
-        session.save(object);
-        session.getTransaction().commit();
-    }
-    
-    public boolean remove(Serializable id)
+    public boolean remove(Serializable id) throws RemoteException
     {
         connect();
         
@@ -54,7 +37,7 @@ extends AbstractServise<District>
         return false;
     }
 
-    public District find(Serializable id)
+    public District find(Serializable id) throws RemoteException
     {
         connect();
         
@@ -64,7 +47,7 @@ extends AbstractServise<District>
         return district;
     }
 
-    public List<District> findAll()
+    public List<District> findAll() throws RemoteException
     {
         connect();
         

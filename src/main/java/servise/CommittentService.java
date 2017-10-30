@@ -1,6 +1,7 @@
 package servise;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -9,23 +10,17 @@ import org.hibernate.SessionFactory;
 
 import dao.Committent;
 
-public class CommittentServise 
-extends AbstractServise<Committent>
+public class CommittentService 
+extends AbstractService<Committent>
 {
-    public CommittentServise(SessionFactory factory)
+    private static final long serialVersionUID = 9017428286154265055L;
+
+    public CommittentService(SessionFactory factory) throws RemoteException
     {
         super(factory);
     }
-    
-    public void create(Committent object)
-    {
-        connect();
-        
-        session.save(object);
-        session.getTransaction().commit();
-    }
-    
-    public boolean remove(Serializable id)
+
+    public boolean remove(Serializable id) throws RemoteException
     {
         connect();
         
@@ -42,7 +37,7 @@ extends AbstractServise<Committent>
         return false;
     }
 
-    public Committent find(Serializable id)
+    public Committent find(Serializable id) throws RemoteException
     {
         connect();
         
@@ -52,7 +47,7 @@ extends AbstractServise<Committent>
         return committent;
     }
 
-    public List<Committent> findAll()
+    public List<Committent> findAll() throws RemoteException
     {
         connect();
         

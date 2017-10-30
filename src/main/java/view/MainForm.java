@@ -1,15 +1,12 @@
 package view;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.rmi.RemoteException;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -21,6 +18,7 @@ import dao.Product;
 import dao.ProductGroup;
 import dao.ProductImport;
 import dao.SocialStatus;
+import dao.User;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,15 +26,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import servise.CommittentServise;
-import servise.CompanyServise;
-import servise.DealService;
-import servise.DistrictService;
-import servise.ProductGroupService;
-import servise.ProductImportService;
-import servise.ProductService;
 import servise.Service;
-import servise.SocialStatusServise;
+import servise.UserService;
 
 public class MainForm 
 extends Application 
@@ -48,15 +39,17 @@ extends Application
     @FXML
     private TextArea   area;
         
-    private Service<Company> companyServise;
-    private Service<Committent> committentServise;
+    private Service<Company> companyService;
+    private Service<Committent> committentService;
     private Service<District> districtService;
-    private Service<SocialStatus> socialStatusServise;
+    private Service<SocialStatus> socialStatusService;
     
     private Service<Deal> dealService;
     private Service<ProductGroup> productGroupService;
     private Service<ProductImport> productImportService;
     private Service<Product> productService;
+    
+    private Service<User> userService;
     
     @Override
     public void start(Stage primaryStage)
@@ -90,9 +83,7 @@ extends Application
         } catch (IOException e)
         {
             e.printStackTrace();
-        }
-        
-        //listen();
+        }        
     }
     
     public void main()
@@ -100,66 +91,66 @@ extends Application
         launch();
     }
     
-    public void listen()
-    {
-        ServerSocket serverSocket = null;
-        Socket localSocket = null;
-        
-        DataInputStream in = null;
-        DataOutputStream out = null;
+    public void test()
+    { 
+        /*
+        try
+        {
+            TestImpl obj = new TestImpl();
+            
+            Test stub = (Test) UnicastRemoteObject.exportObject(obj, Registry.REGISTRY_PORT);
+            Registry registry = LocateRegistry.createRegistry(6001);
+            
+            registry.bind(Test.class.getName(), stub);
+            
+            System.out.println("Server run");
+        } catch (RemoteException | AlreadyBoundException e)
+        {
+            e.printStackTrace();
+        }
+        */
+          
+        SessionFactory factory = null;
         
         try
         {
-            serverSocket = new ServerSocket(2070);
+            factory = new Configuration().configure().buildSessionFactory();
             
-            localSocket = new Socket("localhost", 2070);
+            userService = new UserService(factory);
             
-            in = new DataInputStream(localSocket.getInputStream());
-            out = new DataOutputStream(localSocket.getOutputStream());
+            //Service stub
+                    //(Service) UnicastRemoteObject.exportObject(userService, Registry.REGISTRY_PORT);
             
-            if (serverSocket.accept() != null)
-            {
-                String message = in.readUTF();
-                
-                System.out.println("Socket:" + message);
-            }
-        } catch (IOException e1)
+            //Registry registry = LocateRegistry.createRegistry(6001);
+            //registry.bind(Service.class.getName(), stub);
+            
+            Context context = new InitialContext();
+            context.rebind("rmi:Server", userService);
+            
+            System.out.println("Server run");
+        } catch (Exception e)
         {
-            e1.printStackTrace();
+            e.printStackTrace();
         }
-        finally 
-        {
-            try
-            {
-                serverSocket.close();
-                localSocket.close();
-                
-                in.close();
-                out.close();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
-    
-    public void test()
-    { 
+        
+        /*
         SessionFactory factory = null;
         
         try 
         {
             factory = new Configuration().configure().buildSessionFactory();
             
-            companyServise = new CompanyServise(factory);
-            committentServise = new CommittentServise(factory);
+            companyService = new CompanyService(factory);
+            committentService = new CommittentService(factory);
             districtService = new DistrictService(factory);
-            socialStatusServise = new SocialStatusServise(factory);
+            socialStatusService = new SocialStatusService(factory);
             
             dealService = new DealService(factory);
             productGroupService = new ProductGroupService(factory);
             productImportService = new ProductImportService(factory);
             productService = new ProductService(factory);
+            
+            userService = new UserService(factory);
             
             District district = new District("Petrovsky");
             SocialStatus socialStatus = new SocialStatus("Bomj");
@@ -185,10 +176,15 @@ extends Application
             
             committents.add(committent);
             
+            User user = new User("admin", DigestUtils.sha256Hex("1111" + "admin"));
+            user.setStatus(UserStatus.Admin);
+            
+            userService.create(user);
+            
             districtService.create(district);
-            socialStatusServise.create(socialStatus);
-            companyServise.create(company);
-            committentServise.create(committent);
+            socialStatusService.create(socialStatus);
+            companyService.create(company);
+            committentService.create(committent);
             
             ProductGroup productGroup = new ProductGroup("Sport product");
             productGroupService.create(productGroup);
@@ -208,27 +204,34 @@ extends Application
         }
         finally 
         {
-            print();
+            try
+            {
+                print();
+            } catch (RemoteException e)
+            {
+                e.printStackTrace();
+            }
             
             factory.close();
             
-            companyServise.disconnect();
+            companyService.disconnect();
             districtService.disconnect();
-            socialStatusServise.disconnect();
-            committentServise.disconnect();
+            socialStatusService.disconnect();
+            committentService.disconnect();
             
             dealService.disconnect();
             productGroupService.disconnect();
             productImportService.disconnect();
             productGroupService.disconnect();
-        } 
+        }         
+        */
     }
     
-    private void print()
+    private void print() throws RemoteException
     {
         area.appendText("Start" + System.lineSeparator());
         
-        for (Committent c : committentServise.findAll())
+        for (Committent c : committentService.findAll())
         {
             area.appendText(c.getName() + System.lineSeparator());
             area.appendText(c.getSurname() + System.lineSeparator());
@@ -241,5 +244,8 @@ extends Application
             area.appendText(d.getDate().toString() + System.lineSeparator());
             area.appendText(d.getCount() + System.lineSeparator());
         }
+        
+        if (DigestUtils.sha256Hex("1111" + "admin").equals(userService.find("admin").getPassword()))
+            area.appendText("True");
     }
 }

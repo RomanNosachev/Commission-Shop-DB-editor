@@ -32,5 +32,6 @@
 		<mapping class="dao.Product" />
 		<mapping class="dao.ProductGroup" />
 		<mapping class="dao.ProductImport" />
+		<mapping class="dao.User" />
 	</session-factory>
 </hibernate-configuration>
