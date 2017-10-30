@@ -9,32 +9,12 @@ import org.hibernate.SessionFactory;
 
 import dao.Company;
 
-public class CompanyServise 
-extends AbstractServise<Company>
+public class CompanyService 
+extends AbstractService<Company>
 {            
-    public CompanyServise(SessionFactory factory)
+    public CompanyService(SessionFactory factory)
     {
         super(factory);
-    }
-
-    public Company create(String name)
-    {
-        connect();
-        
-        Company company = new Company(name);
-        
-        session.save(company);
-        session.getTransaction().commit();
-        
-        return company;       
-    }
-
-    public void create(Company object)
-    {
-        connect();
-        
-        session.save(object);
-        session.getTransaction().commit();
     }
     
     public boolean remove(Serializable id)

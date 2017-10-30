@@ -5,7 +5,6 @@
 	<artifactId>Commission-Shop-DB-Editor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<!-- 
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -14,20 +13,21 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.7.0</version>
 					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+
 						<archive>
 							<manifest>
 								<mainClass>view.MainForm.app</mainClass>
 							</manifest>
 						</archive>
-						<descriptorRefs>
-							<descriptorRef>jar-with-dependencies</descriptorRef>
-						</descriptorRefs>
+						<!-- <descriptorRefs> <descriptorRef>jar-with-dependencies</descriptorRef> 
+							</descriptorRefs> ! -->
 					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
-	!-->
 
 	<dependencies>
 		<dependency>
@@ -44,6 +44,11 @@
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.1-901.jdbc4</version>
+		</dependency>
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>4.1.16.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>

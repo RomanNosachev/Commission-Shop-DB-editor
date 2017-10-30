@@ -2,30 +2,31 @@ package dao;
 
 import java.io.Serializable;
 
-import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "Company")
 public class Company 
 implements Serializable
-{        
-    private static final long serialVersionUID = -6081702849884309255L;
+{            
+    private static final long serialVersionUID = 3854696488171722397L;
     
     @Id
-    @Column(name = "Name", length = 40, unique = true, nullable = false)
+    @Column(name = "name", length = 40, unique = true, nullable = false)
     private String name;
+    
+    public Company()
+    {
+        
+    }
     
     public Company(String name)
     {
         super();
         this.name = name;
-    }
-
-    public Company()
-    {
     }
 
     public String getName()

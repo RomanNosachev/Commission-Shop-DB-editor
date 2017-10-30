@@ -9,22 +9,14 @@ import org.hibernate.SessionFactory;
 
 import dao.Committent;
 
-public class CommittentServise 
-extends AbstractServise<Committent>
+public class CommittentService 
+extends AbstractService<Committent>
 {
-    public CommittentServise(SessionFactory factory)
+    public CommittentService(SessionFactory factory)
     {
         super(factory);
     }
-    
-    public void create(Committent object)
-    {
-        connect();
-        
-        session.save(object);
-        session.getTransaction().commit();
-    }
-    
+
     public boolean remove(Serializable id)
     {
         connect();

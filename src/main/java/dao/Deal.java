@@ -10,28 +10,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "Deal")
 public class Deal 
 implements Serializable
 {
     private static final long serialVersionUID = 3789977798874029973L;
 
     @Id
-    @Column(name = "Id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "deal_gen")
+    @SequenceGenerator(name = "deal_gen", sequenceName = "deal_seq")
     private long id;
     
     @ManyToOne
-    @JoinColumn(name = "Product", nullable = false)
+    @JoinColumn(name = "product", nullable = false)
     private Product product;
     
-    @Column(name = "Date", nullable = false)
+    @Column(name = "date", nullable = false)
     private Date date;
     
-    @Column(name = "Count", nullable = false)
+    @Column(name = "count", nullable = false)
     private int count;
     
     public Deal()

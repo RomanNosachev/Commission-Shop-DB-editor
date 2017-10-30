@@ -9,20 +9,12 @@ import org.hibernate.SessionFactory;
 
 import dao.SocialStatus;
 
-public class SocialStatusServise 
-extends AbstractServise<SocialStatus> 
+public class SocialStatusService 
+extends AbstractService<SocialStatus> 
 {
-    public SocialStatusServise(SessionFactory factory)
+    public SocialStatusService(SessionFactory factory)
     {
         super(factory);
-    }
-
-    public void create(SocialStatus object)
-    {
-        connect();
-        
-        session.save(object);
-        session.getTransaction().commit();
     }
 
     public boolean remove(Serializable id)

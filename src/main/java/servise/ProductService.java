@@ -10,19 +10,11 @@ import org.hibernate.SessionFactory;
 import dao.Product;
 
 public class ProductService 
-extends AbstractServise<Product> 
+extends AbstractService<Product> 
 {
     public ProductService(SessionFactory factory)
     {
         super(factory);
-    }
-
-    public void create(Product object)
-    {
-        connect();
-        
-        session.save(object);
-        session.getTransaction().commit();
     }
 
     public boolean remove(Serializable id)

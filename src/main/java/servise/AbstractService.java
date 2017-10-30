@@ -3,15 +3,23 @@ package servise;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-public abstract class AbstractServise<T>
+public abstract class AbstractService<T>
 implements Service<T>
-{
+{        
     protected SessionFactory factory;
     protected Session session;
     
-    public AbstractServise(SessionFactory factory)
+    public AbstractService(SessionFactory factory)
     {
         this.factory = factory;
+    }
+    
+    public void create(T object)
+    {
+        connect();
+        
+        session.save(object);
+        session.getTransaction().commit();
     }
     
     public void connect()

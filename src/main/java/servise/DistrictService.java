@@ -10,33 +10,13 @@ import org.hibernate.SessionFactory;
 import dao.District;
 
 public class DistrictService 
-extends AbstractServise<District>
+extends AbstractService<District>
 {
     public DistrictService(SessionFactory factory)
     {
         super(factory);
     }
 
-    public District create(String name)
-    {
-        connect();
-        
-        District district = new District(name);   
-        
-        session.save(district);
-        session.getTransaction().commit();
-        
-        return district;
-    }
-    
-    public void create(District object)
-    {
-        connect();
-        
-        session.save(object);
-        session.getTransaction().commit();
-    }
-    
     public boolean remove(Serializable id)
     {
         connect();

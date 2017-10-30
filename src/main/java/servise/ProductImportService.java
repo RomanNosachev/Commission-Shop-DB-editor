@@ -9,18 +9,12 @@ import org.hibernate.SessionFactory;
 
 import dao.ProductImport;
 
-public class ProductImportService extends AbstractServise<ProductImport> {
+public class ProductImportService 
+extends AbstractService<ProductImport> 
+{
     public ProductImportService(SessionFactory factory)
     {
         super(factory);
-    }
-    
-    public void create(ProductImport object)
-    {
-        connect();
-        
-        session.save(object);
-        session.getTransaction().commit();
     }
     
     public boolean remove(Serializable id)

@@ -10,19 +10,11 @@ import org.hibernate.SessionFactory;
 import dao.Deal;
 
 public class DealService 
-extends AbstractServise<Deal> 
+extends AbstractService<Deal> 
 {
     public DealService(SessionFactory factory)
     {
         super(factory);
-    }
-
-    public void create(Deal object)
-    {
-        connect();
-        
-        session.save(object);
-        session.getTransaction().commit();
     }
 
     public boolean remove(Serializable id)

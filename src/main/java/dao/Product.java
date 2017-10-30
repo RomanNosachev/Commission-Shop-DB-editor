@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -21,18 +22,19 @@ implements Serializable
     private static final long serialVersionUID = 842537533612694916L;
 
     @Id
-    @Column(name = "Id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_gen")
+    @SequenceGenerator(name = "product_gen", sequenceName = "product_seq")
     private long id;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ProductGroup")
+    @JoinColumn(name = "productGroup")
     private ProductGroup productGroup;
     
-    @Column(name = "Name", length = 40, nullable = false)
+    @Column(name = "name", length = 40, nullable = false)
     private String name;
     
-    @Column(name = "Price", nullable = false)
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
     
     public Product()
