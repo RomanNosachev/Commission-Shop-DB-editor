@@ -1,7 +1,6 @@
 package servise;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -13,14 +12,12 @@ import dao.Company;
 public class CompanyService 
 extends AbstractService<Company>
 {            
-    private static final long serialVersionUID = -6968265710949607572L;
-
-    public CompanyService(SessionFactory factory) throws RemoteException
+    public CompanyService(SessionFactory factory)
     {
         super(factory);
     }
     
-    public boolean remove(Serializable id) throws RemoteException
+    public boolean remove(Serializable id)
     {
         connect();
         
@@ -37,7 +34,7 @@ extends AbstractService<Company>
         return false;
     }
 
-    public Company find(Serializable id) throws RemoteException
+    public Company find(Serializable id)
     {
         connect();
         
@@ -47,7 +44,7 @@ extends AbstractService<Company>
         return company;
     }
 
-    public List<Company> findAll() throws RemoteException
+    public List<Company> findAll()
     {
         connect();
         

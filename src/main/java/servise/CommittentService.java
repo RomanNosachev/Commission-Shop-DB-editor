@@ -1,7 +1,6 @@
 package servise;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -13,14 +12,12 @@ import dao.Committent;
 public class CommittentService 
 extends AbstractService<Committent>
 {
-    private static final long serialVersionUID = 9017428286154265055L;
-
-    public CommittentService(SessionFactory factory) throws RemoteException
+    public CommittentService(SessionFactory factory)
     {
         super(factory);
     }
 
-    public boolean remove(Serializable id) throws RemoteException
+    public boolean remove(Serializable id)
     {
         connect();
         
@@ -37,7 +34,7 @@ extends AbstractService<Committent>
         return false;
     }
 
-    public Committent find(Serializable id) throws RemoteException
+    public Committent find(Serializable id)
     {
         connect();
         
@@ -47,7 +44,7 @@ extends AbstractService<Committent>
         return committent;
     }
 
-    public List<Committent> findAll() throws RemoteException
+    public List<Committent> findAll()
     {
         connect();
         

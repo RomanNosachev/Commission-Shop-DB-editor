@@ -1,7 +1,6 @@
 package servise;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -13,14 +12,12 @@ import dao.Product;
 public class ProductService 
 extends AbstractService<Product> 
 {
-    private static final long serialVersionUID = -5639337080561109032L;
-
-    public ProductService(SessionFactory factory) throws RemoteException
+    public ProductService(SessionFactory factory)
     {
         super(factory);
     }
 
-    public boolean remove(Serializable id) throws RemoteException
+    public boolean remove(Serializable id)
     {
         connect();
         
@@ -37,7 +34,7 @@ extends AbstractService<Product>
         return false; 
     }
 
-    public Product find(Serializable id) throws RemoteException
+    public Product find(Serializable id)
     {
         connect();
         
@@ -47,7 +44,7 @@ extends AbstractService<Product>
         return product;
     }
 
-    public List<Product> findAll() throws RemoteException
+    public List<Product> findAll()
     {
         connect();
         

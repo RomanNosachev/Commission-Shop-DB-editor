@@ -1,7 +1,6 @@
 package servise;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -13,14 +12,12 @@ import dao.District;
 public class DistrictService 
 extends AbstractService<District>
 {
-    private static final long serialVersionUID = -1773231323548014970L;
-
-    public DistrictService(SessionFactory factory) throws RemoteException
+    public DistrictService(SessionFactory factory)
     {
         super(factory);
     }
 
-    public boolean remove(Serializable id) throws RemoteException
+    public boolean remove(Serializable id)
     {
         connect();
         
@@ -37,7 +34,7 @@ extends AbstractService<District>
         return false;
     }
 
-    public District find(Serializable id) throws RemoteException
+    public District find(Serializable id)
     {
         connect();
         
@@ -47,7 +44,7 @@ extends AbstractService<District>
         return district;
     }
 
-    public List<District> findAll() throws RemoteException
+    public List<District> findAll()
     {
         connect();
         
