@@ -34,6 +34,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Grandfather/.m2/repository/grandfather/Commission-Shop-DB-Editor/0.0.1-SNAPSHOT/Commission-Shop-DB-Editor-0.0.1-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

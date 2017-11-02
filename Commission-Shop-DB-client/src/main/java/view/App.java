@@ -33,7 +33,7 @@ extends Application
         primaryStage.setWidth(800);
         primaryStage.setHeight(600);
         
-        primaryStage.show();
+        primaryStage.show();        
     }
 
 	public static void main(String[] args) 

@@ -8,7 +8,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>grandfather</groupId>
-			<artifactId>Commission-Shop-DB-Editor</artifactId>
+			<artifactId>Commission-Shop-DB-library</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>

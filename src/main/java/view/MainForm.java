@@ -1,10 +1,11 @@
 package view;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.SessionFactory;
@@ -19,6 +20,7 @@ import dao.ProductGroup;
 import dao.ProductImport;
 import dao.SocialStatus;
 import dao.User;
+import dao.UserStatus;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +28,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import servise.CommittentService;
+import servise.CompanyService;
+import servise.DealService;
+import servise.DistrictService;
+import servise.ProductGroupService;
+import servise.ProductImportService;
+import servise.ProductService;
 import servise.Service;
+import servise.SocialStatusService;
 import servise.UserService;
 
 public class MainForm 
@@ -50,7 +60,7 @@ extends Application
     private Service<Product> productService;
     
     private Service<User> userService;
-    
+
     @Override
     public void start(Stage primaryStage)
     {
@@ -92,54 +102,15 @@ extends Application
     }
     
     public void test()
-    { 
-        /*
-        try
-        {
-            TestImpl obj = new TestImpl();
-            
-            Test stub = (Test) UnicastRemoteObject.exportObject(obj, Registry.REGISTRY_PORT);
-            Registry registry = LocateRegistry.createRegistry(6001);
-            
-            registry.bind(Test.class.getName(), stub);
-            
-            System.out.println("Server run");
-        } catch (RemoteException | AlreadyBoundException e)
-        {
-            e.printStackTrace();
-        }
-        */
-          
-        SessionFactory factory = null;
-        
-        try
-        {
-            factory = new Configuration().configure().buildSessionFactory();
-            
-            userService = new UserService(factory);
-            
-            //Service stub
-                    //(Service) UnicastRemoteObject.exportObject(userService, Registry.REGISTRY_PORT);
-            
-            //Registry registry = LocateRegistry.createRegistry(6001);
-            //registry.bind(Service.class.getName(), stub);
-            
-            Context context = new InitialContext();
-            context.rebind("rmi:Server", userService);
-            
-            System.out.println("Server run");
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        
-        /*
+    {         
         SessionFactory factory = null;
         
         try 
         {
             factory = new Configuration().configure().buildSessionFactory();
             
+            Service service = null;
+
             companyService = new CompanyService(factory);
             committentService = new CommittentService(factory);
             districtService = new DistrictService(factory);
@@ -224,7 +195,6 @@ extends Application
             productImportService.disconnect();
             productGroupService.disconnect();
         }         
-        */
     }
     
     private void print() throws RemoteException

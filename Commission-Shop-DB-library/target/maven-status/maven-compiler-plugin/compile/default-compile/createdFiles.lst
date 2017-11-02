@@ -1,0 +1,10 @@
+dao\ProductGroup.class
+dao\UserStatus.class
+dao\Deal.class
+dao\District.class
+dao\ProductImport.class
+dao\Committent.class
+dao\Company.class
+dao\SocialStatus.class
+dao\Product.class
+dao\User.class
