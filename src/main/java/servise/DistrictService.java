@@ -5,16 +5,14 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
-import org.hibernate.SessionFactory;
-
 import dao.District;
 
 public class DistrictService 
 extends AbstractService<District>
 {
-    public DistrictService(SessionFactory factory)
+    public DistrictService()
     {
-        super(factory);
+        super();
     }
 
     public boolean remove(Serializable id)

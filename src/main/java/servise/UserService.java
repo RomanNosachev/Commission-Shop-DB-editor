@@ -5,16 +5,14 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
-import org.hibernate.SessionFactory;
-
 import dao.User;
 
 public class UserService 
 extends AbstractService<User>
 {
-    public UserService(SessionFactory factory)
+    public UserService()
     {
-        super(factory);
+        super();
     }
 
     public boolean remove(Serializable id)

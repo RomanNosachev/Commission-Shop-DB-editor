@@ -16,5 +16,10 @@
 			<artifactId>netty-all</artifactId>
 			<version>4.1.16.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
+		</dependency>
 	</dependencies>
 </project>

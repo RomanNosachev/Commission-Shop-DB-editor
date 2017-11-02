@@ -2,7 +2,9 @@ servise\ProductService.class
 servise\Service.class
 servise\ProductGroupService.class
 view\MainForm.class
+core\CreateCommandHandler.class
 servise\ProductImportService.class
+servise\SessionFactoryUtils.class
 servise\SocialStatusService.class
 servise\CommittentService.class
 core\Server$1.class

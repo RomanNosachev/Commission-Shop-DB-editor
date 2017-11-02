@@ -1,6 +1,6 @@
 package core;
 
-import dao.User;
+import command.Command;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -16,15 +16,8 @@ extends ChannelInboundHandlerAdapter
         
         System.out.println(msg);
         
-        if (msg instanceof User)
-        {
-            System.out.println(((User) msg).getLogin());
-            System.out.println(((User) msg).getPassword());
-        }        
-        else
-        {
-            System.out.println("NO instance");
-        }
+        if (!(msg instanceof Command))
+            System.out.println("No instance message");
     }
     
     @Override

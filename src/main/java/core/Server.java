@@ -24,7 +24,7 @@ public final class Server
     static final int     PORT = Integer.parseInt(System.getProperty("port", "8007"));
     
     public static void main(String[] args) throws Exception
-    {
+    {                
         // Configure SSL.
         final SslContext sslCtx;
         if (SSL)
@@ -54,6 +54,7 @@ public final class Server
                             }
                             p.addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
                             p.addLast(new ObjectEncoder());
+                            p.addLast(new CreateCommandHandler());
                             p.addLast(new ServerHandler());
                         }
                     });

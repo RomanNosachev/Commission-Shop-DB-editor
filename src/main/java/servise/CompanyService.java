@@ -5,16 +5,14 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
-import org.hibernate.SessionFactory;
-
 import dao.Company;
 
 public class CompanyService 
 extends AbstractService<Company>
 {            
-    public CompanyService(SessionFactory factory)
+    public CompanyService()
     {
-        super(factory);
+        super();
     }
     
     public boolean remove(Serializable id)

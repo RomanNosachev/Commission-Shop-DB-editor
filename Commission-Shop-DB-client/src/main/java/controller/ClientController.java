@@ -1,5 +1,8 @@
 package controller;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
+import command.CreateCommand;
 import core.ClientHandler;
 import dao.User;
 import io.netty.bootstrap.Bootstrap;
@@ -149,14 +152,15 @@ public class ClientController
         if (!connected.get())
             return;
         
-        final User user = new User("roma", "1111" + "roma");
+        final User user = new User("roma", DigestUtils.sha256Hex("1111" + "roma"));
+        final CreateCommand<User> command = new CreateCommand<User>(user);
         
         Task<Void> task = new Task<Void>() 
         {
             @Override
             protected Void call() throws Exception
             {
-                ChannelFuture f = channel.writeAndFlush(user);
+                ChannelFuture f = channel.writeAndFlush(command);
                 f.sync();
                 
                 return null;

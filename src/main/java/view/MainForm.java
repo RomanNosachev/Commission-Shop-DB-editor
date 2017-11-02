@@ -8,8 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import dao.Committent;
 import dao.Company;
@@ -102,26 +100,20 @@ extends Application
     }
     
     public void test()
-    {         
-        SessionFactory factory = null;
-        
+    {                 
         try 
         {
-            factory = new Configuration().configure().buildSessionFactory();
+            companyService = new CompanyService();
+            committentService = new CommittentService();
+            districtService = new DistrictService();
+            socialStatusService = new SocialStatusService();
             
-            Service service = null;
-
-            companyService = new CompanyService(factory);
-            committentService = new CommittentService(factory);
-            districtService = new DistrictService(factory);
-            socialStatusService = new SocialStatusService(factory);
+            dealService = new DealService();
+            productGroupService = new ProductGroupService();
+            productImportService = new ProductImportService();
+            productService = new ProductService();
             
-            dealService = new DealService(factory);
-            productGroupService = new ProductGroupService(factory);
-            productImportService = new ProductImportService(factory);
-            productService = new ProductService(factory);
-            
-            userService = new UserService(factory);
+            userService = new UserService();
             
             District district = new District("Petrovsky");
             SocialStatus socialStatus = new SocialStatus("Bomj");
@@ -182,9 +174,7 @@ extends Application
             {
                 e.printStackTrace();
             }
-            
-            factory.close();
-            
+                        
             companyService.disconnect();
             districtService.disconnect();
             socialStatusService.disconnect();

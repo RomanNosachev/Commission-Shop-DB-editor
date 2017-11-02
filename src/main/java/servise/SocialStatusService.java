@@ -5,16 +5,14 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
-import org.hibernate.SessionFactory;
-
 import dao.SocialStatus;
 
 public class SocialStatusService 
 extends AbstractService<SocialStatus> 
 {
-    public SocialStatusService(SessionFactory factory)
+    public SocialStatusService()
     {
-        super(factory);
+        super();
     }
 
     public boolean remove(Serializable id)

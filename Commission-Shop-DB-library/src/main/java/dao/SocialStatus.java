@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SocialStatus")
 public class SocialStatus 
-implements Serializable
+implements Serializable, DB_Entity
 {                    
     private static final long serialVersionUID = -8371093617546670432L;
     

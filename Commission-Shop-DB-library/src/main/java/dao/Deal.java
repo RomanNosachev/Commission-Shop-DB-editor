@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Deal")
 public class Deal 
-implements Serializable
+implements Serializable, DB_Entity
 {
     private static final long serialVersionUID = 3789977798874029973L;
 

@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "Committent")
 public class Committent 
-implements Serializable
+implements Serializable, DB_Entity
 {
     private static final long serialVersionUID = 6358304485892511952L;
 

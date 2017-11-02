@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ProductImport")
 public class ProductImport 
-implements Serializable
+implements Serializable, DB_Entity
 {
     private static final long serialVersionUID = 2440765104325301986L;
 

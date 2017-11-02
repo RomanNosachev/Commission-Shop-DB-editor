@@ -3,15 +3,17 @@ package servise;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-public abstract class AbstractService<T>
+import dao.DB_Entity;
+
+public abstract class AbstractService<T extends DB_Entity>
 implements Service<T>
 {        
     protected SessionFactory factory;
     protected Session session;
     
-    public AbstractService(SessionFactory factory)
+    public AbstractService()
     {
-        this.factory = factory;
+        this.factory = SessionFactoryUtils.factory;
     }
     
     public void create(T object)

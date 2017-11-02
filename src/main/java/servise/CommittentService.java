@@ -5,16 +5,14 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
-import org.hibernate.SessionFactory;
-
 import dao.Committent;
 
 public class CommittentService 
 extends AbstractService<Committent>
 {
-    public CommittentService(SessionFactory factory)
+    public CommittentService()
     {
-        super(factory);
+        super();
     }
 
     public boolean remove(Serializable id)
