@@ -51,4 +51,10 @@ extends AbstractService<Committent>
         
         return query.getResultList();
     }
+
+    @Override
+    public Class<Committent> getEntityClass()
+    {
+        return Committent.class;
+    }
 }

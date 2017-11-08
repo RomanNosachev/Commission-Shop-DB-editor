@@ -54,7 +54,11 @@ public final class Server
                             }
                             p.addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
                             p.addLast(new ObjectEncoder());
+                            p.addLast(new LoginCommandHandler());
                             p.addLast(new CreateCommandHandler());
+                            p.addLast(new RemoveCommandHandler());
+                            p.addLast(new FindCommandHandler());
+                            p.addLast(new FindAllCommandHandler());
                             p.addLast(new ServerHandler());
                         }
                     });

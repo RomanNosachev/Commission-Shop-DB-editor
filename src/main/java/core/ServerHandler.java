@@ -17,7 +17,7 @@ extends ChannelInboundHandlerAdapter
         System.out.println(msg);
         
         if (!(msg instanceof Command))
-            System.out.println("No instance message");
+            System.out.println("Unhandled command");
     }
     
     @Override
@@ -29,7 +29,6 @@ extends ChannelInboundHandlerAdapter
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
     {
-        // Close the connection when an exception is raised.
         cause.printStackTrace();
         ctx.close();
     }

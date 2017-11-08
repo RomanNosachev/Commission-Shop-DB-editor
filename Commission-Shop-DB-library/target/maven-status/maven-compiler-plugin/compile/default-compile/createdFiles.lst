@@ -6,6 +6,7 @@ dao\ProductImport.class
 command\RemoveCommand.class
 command\Command.class
 dao\Company.class
+command\LoginCommand.class
 dao\Deal.class
 dao\District.class
 dao\Committent.class

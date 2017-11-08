@@ -14,7 +14,7 @@ implements Command<T>
         
     }
     
-    public AbstractCommand(Class<T> entityClass)
+    protected AbstractCommand(Class<T> entityClass)
     {
         this.entityClass = entityClass;
     }

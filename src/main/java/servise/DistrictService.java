@@ -51,4 +51,10 @@ extends AbstractService<District>
         
         return query.getResultList();
     }
+
+    @Override
+    public Class<District> getEntityClass()
+    {
+        return District.class;
+    }
 }

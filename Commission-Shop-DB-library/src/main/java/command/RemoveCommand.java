@@ -9,15 +9,16 @@ extends AbstractCommand<T>
 {
     private static final long serialVersionUID = -3144729920858000465L;
     
-    public Serializable id;
+    private Serializable id;
     
-    public RemoveCommand(Class<T> entityClass)
+    public RemoveCommand(Class<T> entityClass, Serializable id)
     {
         super(entityClass);
+        this.id = id;
     }
     
-    public RemoveCommand(Serializable id)
+    public Serializable getId()
     {
-        this.id = id;
+        return id;
     }
 }

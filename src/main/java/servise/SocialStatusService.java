@@ -50,5 +50,11 @@ extends AbstractService<SocialStatus>
         session.getTransaction().commit();
         
         return query.getResultList();
+    }
+
+    @Override
+    public Class<SocialStatus> getEntityClass()
+    {
+        return SocialStatus.class;
     }    
 }

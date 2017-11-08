@@ -50,5 +50,11 @@ extends AbstractService<Deal>
         session.getTransaction().commit();
         
         return query.getResultList();
-    }    
+    }
+
+    @Override
+    public Class<Deal> getEntityClass()
+    {
+        return Deal.class;
+    }   
 }

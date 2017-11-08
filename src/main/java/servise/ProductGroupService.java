@@ -51,4 +51,10 @@ extends AbstractService<ProductGroup>
         
         return query.getResultList();
     }
+
+    @Override
+    public Class<ProductGroup> getEntityClass()
+    {
+        return ProductGroup.class;
+    }
 }

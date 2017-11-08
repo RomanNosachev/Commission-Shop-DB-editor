@@ -7,7 +7,7 @@ extends AbstractCommand<T>
 {
     private static final long serialVersionUID = -5879578281193027917L;
     
-    public T entry;
+    private T entry;
     
     public CreateCommand(Class<T> entityClass)
     {
@@ -17,5 +17,11 @@ extends AbstractCommand<T>
     public CreateCommand(T entry)
     {
         this.entry = entry;
+        entityClass = (Class<T>) entry.getClass();
+    }
+    
+    public T getEntry()
+    {
+        return entry;
     }
 }

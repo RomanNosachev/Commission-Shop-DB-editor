@@ -51,4 +51,10 @@ extends AbstractService<Company>
         
         return query.getResultList();
     }
+
+    @Override
+    public Class<Company> getEntityClass()
+    {
+        return Company.class;
+    }
 }

@@ -1,10 +1,9 @@
 package controller;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
+import command.Command;
 import command.CreateCommand;
 import core.ClientHandler;
-import dao.User;
+import dao.Company;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -24,7 +23,9 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
 public class ClientController 
@@ -33,24 +34,36 @@ public class ClientController
     private int     port = Integer.parseInt(System.getProperty("port", "8007"));
     
     private BooleanProperty connected = new SimpleBooleanProperty();
+    private BooleanProperty logged = new SimpleBooleanProperty();
     
     private Channel         channel;
     private EventLoopGroup  group;
     
     @FXML
-    private TextArea    area;
+    private TextArea        area;
     @FXML
-    private Pane        connectPane;
+    private Pane            connectPane;
     @FXML 
-    private Pane        disconnectPane;
+    private Pane            disconnectPane;
+    @FXML
+    private TextField       loginField;
+    @FXML
+    private PasswordField   passField;
         
     @FXML
     public void initialize()
     {
+        connectPane.disableProperty().bind(logged);
+        connectPane.visibleProperty().bind(logged.not());
+        disconnectPane.disableProperty().bind(logged.not());
+        disconnectPane.visibleProperty().bind(logged);
+        
+        /*
         connectPane.disableProperty().bind(connected);
         connectPane.visibleProperty().bind(connected.not());
         disconnectPane.disableProperty().bind(connected.not());
         disconnectPane.visibleProperty().bind(connected);
+        */
     }
     
     @FXML
@@ -83,6 +96,7 @@ public class ClientController
                 
                 ChannelFuture f = b.connect();
                 Channel chn = f.channel();
+                
                 f.sync();
                 
                 return chn;
@@ -113,12 +127,53 @@ public class ClientController
     }
     
     @FXML
+    public void login()
+    {
+        if (!connected.get())
+            return;
+        
+        Task<Boolean> task = new Task<Boolean>() 
+        {
+            @Override
+            protected Boolean call() throws Exception
+            {
+                ChannelFuture f = channel.writeAndFlush(null);
+                f.sync();
+                
+                return false;
+            }
+            
+            @Override
+            protected void succeeded() 
+            {
+                logged.set(true);
+            }
+
+            @Override
+            protected void failed() 
+            {
+                Throwable exc = getException();
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Client");
+                alert.setHeaderText(exc.getClass().getName());
+                alert.setContentText(exc.getMessage());
+                alert.showAndWait();
+                
+                logged.set(false);
+            }
+        };
+        
+        new Thread(task).start();
+    }
+    
+    @FXML
     public void disconnect()
     {
         if (!connected.get())
             return;
         
         connected.set(false);
+        logged.set(false);
         
         Task<Void> task = new Task<Void>() 
         {
@@ -149,11 +204,11 @@ public class ClientController
     @FXML
     public void test()
     {
-        if (!connected.get())
+        if (!connected.get() || !logged.get())
             return;
         
-        final User user = new User("roma", DigestUtils.sha256Hex("1111" + "roma"));
-        final CreateCommand<User> command = new CreateCommand<User>(user);
+        Company company = new Company("Blizzard");
+        final Command<Company> command = new CreateCommand<Company>(company);
         
         Task<Void> task = new Task<Void>() 
         {

@@ -9,7 +9,7 @@ extends AbstractCommand<T>
 {
     private static final long serialVersionUID = 3242647986042328383L;
     
-    public Serializable id;
+    private Serializable id;
     
     public FindCommand(Class<T> entityClass)
     {
@@ -19,5 +19,10 @@ extends AbstractCommand<T>
     public FindCommand(Serializable id)
     {
         this.id = id;
+    }
+    
+    public Serializable getId()
+    {
+        return id;
     }
 }

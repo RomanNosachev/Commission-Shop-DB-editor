@@ -51,5 +51,10 @@ extends AbstractService<ProductImport>
         
         return query.getResultList();
     }
-    
+
+    @Override
+    public Class<ProductImport> getEntityClass()
+    {
+        return ProductImport.class;
+    }
 }
