@@ -13,6 +13,10 @@ extends AbstractEntityCommand<User>
     public LoginCommand(User user)
     {
         super(User.class);
+        
+        if (user == null || user.getLogin() == null || user.getPassword() == null)
+            throw new NullPointerException();
+        
         this.user = user;
         user.setPassword(DigestService.getPasswordHash(user));
     }

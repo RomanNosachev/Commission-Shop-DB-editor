@@ -1,9 +1,10 @@
 package controller;
 
-import command.CreateCommand;
 import command.EntityCommand;
+import command.FindCommand;
 import command.LoginCommand;
 import core.ClientHandler;
+import core.CompanyFindResponceHandler;
 import core.LoginResponceHandler;
 import dao.Company;
 import dao.User;
@@ -36,6 +37,13 @@ public class ClientController
     private String  host = System.getProperty("host", "127.0.0.1");
     private int     port = Integer.parseInt(System.getProperty("port", "8007"));
     
+    private String  login;
+    private String  password;
+    
+    private Channel         channel;
+    private Bootstrap       bootstrap;
+    private EventLoopGroup  group;
+    
     public static class Condition
     {
         private static volatile BooleanProperty connected = new SimpleBooleanProperty(false);
@@ -67,9 +75,6 @@ public class ClientController
         }
     }
     
-    private Channel         channel;
-    private EventLoopGroup  group;
-    
     @FXML
     private TextArea        area;
     @FXML
@@ -100,8 +105,8 @@ public class ClientController
             @Override
             protected Channel call() throws Exception
             {
-                Bootstrap b = new Bootstrap();
-                b.group(group)
+                bootstrap = new Bootstrap();
+                bootstrap.group(group)
                     .channel(NioSocketChannel.class)
                     .option(ChannelOption.TCP_NODELAY, true)
                     .remoteAddress(host, port)
@@ -110,21 +115,22 @@ public class ClientController
                             @Override
                             public void initChannel(SocketChannel ch) throws Exception
                             {
-                                ChannelPipeline p = ch.pipeline();
+                                ChannelPipeline pipeline = ch.pipeline();
                                 
-                                p.addLast(new ObjectEncoder());
-                                p.addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
-                                p.addLast(new LoginResponceHandler());
-                                p.addLast(new ClientHandler());
+                                pipeline.addLast(new ObjectEncoder());
+                                pipeline.addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
+                                pipeline.addLast(new LoginResponceHandler());
+                                pipeline.addLast(new CompanyFindResponceHandler());
+                                pipeline.addLast(new ClientHandler());
                             }
                         });
                 
-                ChannelFuture f = b.connect();
-                Channel chn = f.channel();
+                ChannelFuture future = bootstrap.connect();
+                Channel channel = future.channel();
                 
-                f.sync();
+                future.sync();
                 
-                return chn;
+                return channel;
             }
             
             @Override
@@ -139,11 +145,52 @@ public class ClientController
             @Override
             protected void failed() 
             {
-                Throwable exc = getException();
+                Throwable exception = getException();
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Client");
-                alert.setHeaderText(exc.getClass().getName());
-                alert.setContentText(exc.getMessage());
+                alert.setHeaderText(exception.getClass().getName());
+                alert.setContentText(exception.getMessage());
+                alert.showAndWait();
+                
+                Condition.setConnected(false);
+            }
+        };
+        
+        new Thread(task).start();
+    }
+    
+    public void reconnect()
+    {
+        Task<Channel> task = new Task<Channel>() 
+        {
+            @Override
+            protected Channel call() throws Exception
+            {
+                ChannelFuture future = bootstrap.connect();
+                Channel channel = future.channel();
+                
+                future.sync();
+                
+                return channel;
+            }
+            
+            @Override
+            protected void succeeded() 
+            {
+                channel = getValue();
+                Condition.setConnected(true);
+                
+                login();
+            }
+
+            @Override
+            protected void failed() 
+            {
+                Throwable exception = getException();
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Client");
+                alert.setHeaderText(exception.getClass().getName());
+                alert.setContentText(exception.getMessage());
                 alert.showAndWait();
                 
                 Condition.setConnected(false);
@@ -164,11 +211,14 @@ public class ClientController
             @Override
             protected Void call() throws Exception
             {
-                User user = new User(loginField.getText(), passField.getText());
+                login = loginField.getText();
+                password = passField.getText();
+                
+                User user = new User(login, password);
                 EntityCommand<User> loginCommand = new LoginCommand(user);
                 
-                ChannelFuture f = channel.writeAndFlush(loginCommand);
-                f.sync();
+                ChannelFuture future = channel.writeAndFlush(loginCommand);
+                future.sync();
                                 
                 return null;
             }
@@ -176,11 +226,11 @@ public class ClientController
             @Override
             protected void failed() 
             {
-                Throwable exc = getException();
+                Throwable exception = getException();
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Client");
-                alert.setHeaderText(exc.getClass().getName());
-                alert.setContentText(exc.getMessage());
+                alert.setHeaderText(exception.getClass().getName());
+                alert.setContentText(exception.getMessage());
                 alert.showAndWait();
                 
                 Condition.setLogged(false);
@@ -215,11 +265,11 @@ public class ClientController
             @Override
             protected void failed() 
             {
-                Throwable t = getException();
+                Throwable exception = getException();
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Client");
-                alert.setHeaderText(t.getClass().getName());
-                alert.setContentText(t.getMessage());
+                alert.setHeaderText(exception.getClass().getName());
+                alert.setContentText(exception.getMessage());
                 alert.showAndWait();
             }
         };
@@ -233,34 +283,40 @@ public class ClientController
         if (!Condition.isReady())
             return;
         
-        Company company = new Company("Lenovo");
-        final EntityCommand<Company> command = new CreateCommand<Company>(company);
-        
         Task<Void> task = new Task<Void>() 
         {
             @Override
             protected Void call() throws Exception
             {
-                ChannelFuture f = channel.writeAndFlush(command);
-                f.sync();
+                ChannelFuture future = channel.writeAndFlush(new FindCommand<Company>(Company.class, area.getText()));
+                future.sync();
                 
                 return null;
             }
             
             @Override
             protected void failed() 
-            {
-                Throwable exc = getException();
+            {                
+                Throwable exception = getException();
+                
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Client");
-                alert.setHeaderText(exc.getClass().getName());
-                alert.setContentText(exc.getMessage());
+                alert.setHeaderText(exception.getClass().getName());
+                alert.setContentText(exception.getMessage());
                 alert.showAndWait();
                 
                 Condition.setConnected(false);
+                Condition.setLogged(false);
+                
+                reconnect();
             }
         };
         
         new Thread(task).start();
+    }
+    
+    public void shutdown()
+    {
+        disconnect();
     }
 }

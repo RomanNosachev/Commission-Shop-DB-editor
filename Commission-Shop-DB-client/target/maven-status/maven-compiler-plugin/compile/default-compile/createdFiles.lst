@@ -1,10 +1,13 @@
 core\ClientHandler.class
-view\App.class
 controller\ClientController$1$1.class
 controller\ClientController$1.class
 controller\ClientController$3.class
 controller\ClientController$Condition.class
 controller\ClientController$4.class
 core\LoginResponceHandler.class
+view\App.class
+controller\ClientController$5.class
+core\CompanyFindResponceHandler.class
 controller\ClientController$2.class
 controller\ClientController.class
+view\App$1.class

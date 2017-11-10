@@ -10,6 +10,8 @@ extends AbstractCommandHandler<FindCommand<? extends DB_Entity>>
     @Override
     protected void commandReceived(ChannelHandlerContext ctx, FindCommand<? extends DB_Entity> msg) throws Exception
     {
-        service.find(msg.getId());
+        System.out.println(msg.getId());
+        
+        ctx.writeAndFlush(service.find(msg.getId()));
     } 
 }

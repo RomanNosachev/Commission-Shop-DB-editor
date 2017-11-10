@@ -11,16 +11,12 @@ extends AbstractEntityCommand<T>
     
     private Serializable id;
     
-    public FindCommand(Class<T> entityClass)
+    public FindCommand(Class<T> entityClass, Serializable id)
     {
         super(entityClass);
-    }
-    
-    public FindCommand(Serializable id)
-    {
         this.id = id;
     }
-    
+
     public Serializable getId()
     {
         return id;

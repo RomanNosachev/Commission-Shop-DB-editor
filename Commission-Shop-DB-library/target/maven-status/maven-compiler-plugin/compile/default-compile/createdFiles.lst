@@ -1,3 +1,4 @@
+command\CreateResponceCommand.class
 dao\ProductGroup.class
 command\LoginResponceCommand.class
 command\FindCommand.class
