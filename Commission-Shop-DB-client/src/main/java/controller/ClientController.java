@@ -1,9 +1,12 @@
 package controller;
 
-import command.Command;
 import command.CreateCommand;
+import command.EntityCommand;
+import command.LoginCommand;
 import core.ClientHandler;
+import core.LoginResponceHandler;
 import dao.Company;
+import dao.User;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -33,8 +36,36 @@ public class ClientController
     private String  host = System.getProperty("host", "127.0.0.1");
     private int     port = Integer.parseInt(System.getProperty("port", "8007"));
     
-    private BooleanProperty connected = new SimpleBooleanProperty();
-    private BooleanProperty logged = new SimpleBooleanProperty();
+    public static class Condition
+    {
+        private static volatile BooleanProperty connected = new SimpleBooleanProperty(false);
+        private static volatile BooleanProperty logged = new SimpleBooleanProperty(false);
+        
+        public static synchronized void setConnected(boolean state)
+        {
+            connected.set(state);
+        }
+        
+        public static synchronized void setLogged(boolean state)
+        {
+            logged.set(state);
+        }
+        
+        public static synchronized boolean isConnected()
+        {
+            return connected.get();
+        }
+        
+        public static synchronized boolean isLogged()
+        {
+            return logged.get();
+        }
+        
+        public static synchronized boolean isReady()
+        {
+            return connected.get() && logged.get();
+        }
+    }
     
     private Channel         channel;
     private EventLoopGroup  group;
@@ -52,18 +83,11 @@ public class ClientController
         
     @FXML
     public void initialize()
-    {
-        connectPane.disableProperty().bind(logged);
-        connectPane.visibleProperty().bind(logged.not());
-        disconnectPane.disableProperty().bind(logged.not());
-        disconnectPane.visibleProperty().bind(logged);
-        
-        /*
-        connectPane.disableProperty().bind(connected);
-        connectPane.visibleProperty().bind(connected.not());
-        disconnectPane.disableProperty().bind(connected.not());
-        disconnectPane.visibleProperty().bind(connected);
-        */
+    {        
+        connectPane.disableProperty().bind(Condition.logged);
+        connectPane.visibleProperty().bind(Condition.logged.not());
+        disconnectPane.disableProperty().bind(Condition.logged.not());
+        disconnectPane.visibleProperty().bind(Condition.logged);
     }
     
     @FXML
@@ -90,6 +114,7 @@ public class ClientController
                                 
                                 p.addLast(new ObjectEncoder());
                                 p.addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
+                                p.addLast(new LoginResponceHandler());
                                 p.addLast(new ClientHandler());
                             }
                         });
@@ -106,7 +131,9 @@ public class ClientController
             protected void succeeded() 
             {
                 channel = getValue();
-                connected.set(true);
+                Condition.setConnected(true);
+                
+                login();
             }
 
             @Override
@@ -119,7 +146,7 @@ public class ClientController
                 alert.setContentText(exc.getMessage());
                 alert.showAndWait();
                 
-                connected.set(false);
+                Condition.setConnected(false);
             }
         };
         
@@ -129,24 +156,21 @@ public class ClientController
     @FXML
     public void login()
     {
-        if (!connected.get())
+        if (!Condition.isConnected())
             return;
         
-        Task<Boolean> task = new Task<Boolean>() 
+        Task<Void> task = new Task<Void>() 
         {
             @Override
-            protected Boolean call() throws Exception
+            protected Void call() throws Exception
             {
-                ChannelFuture f = channel.writeAndFlush(null);
-                f.sync();
+                User user = new User(loginField.getText(), passField.getText());
+                EntityCommand<User> loginCommand = new LoginCommand(user);
                 
-                return false;
-            }
-            
-            @Override
-            protected void succeeded() 
-            {
-                logged.set(true);
+                ChannelFuture f = channel.writeAndFlush(loginCommand);
+                f.sync();
+                                
+                return null;
             }
 
             @Override
@@ -159,7 +183,8 @@ public class ClientController
                 alert.setContentText(exc.getMessage());
                 alert.showAndWait();
                 
-                logged.set(false);
+                Condition.setLogged(false);
+                Condition.setConnected(false);
             }
         };
         
@@ -169,12 +194,13 @@ public class ClientController
     @FXML
     public void disconnect()
     {
-        if (!connected.get())
+        Condition.setLogged(false);
+        
+        if (!Condition.isConnected())
             return;
         
-        connected.set(false);
-        logged.set(false);
-        
+        Condition.setConnected(false);
+
         Task<Void> task = new Task<Void>() 
         {
             @Override
@@ -204,11 +230,11 @@ public class ClientController
     @FXML
     public void test()
     {
-        if (!connected.get() || !logged.get())
+        if (!Condition.isReady())
             return;
         
-        Company company = new Company("Blizzard");
-        final Command<Company> command = new CreateCommand<Company>(company);
+        Company company = new Company("Lenovo");
+        final EntityCommand<Company> command = new CreateCommand<Company>(company);
         
         Task<Void> task = new Task<Void>() 
         {
@@ -231,7 +257,7 @@ public class ClientController
                 alert.setContentText(exc.getMessage());
                 alert.showAndWait();
                 
-                connected.set(false);
+                Condition.setConnected(false);
             }
         };
         

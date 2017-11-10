@@ -5,7 +5,7 @@ import java.io.Serializable;
 import dao.DB_Entity;
 
 public class FindCommand<T extends DB_Entity>
-extends AbstractCommand<T>
+extends AbstractEntityCommand<T>
 {
     private static final long serialVersionUID = 3242647986042328383L;
     

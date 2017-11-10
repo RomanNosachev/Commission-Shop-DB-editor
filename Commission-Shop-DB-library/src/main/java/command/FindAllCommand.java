@@ -3,7 +3,7 @@ package command;
 import dao.DB_Entity;
 
 public class FindAllCommand<T extends DB_Entity>
-extends AbstractCommand<T>
+extends AbstractEntityCommand<T>
 {
     private static final long serialVersionUID = 153724217374908805L;
 

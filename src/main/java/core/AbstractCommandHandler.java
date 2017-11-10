@@ -1,12 +1,12 @@
 package core;
 
-import command.Command;
+import command.EntityCommand;
 import dao.DB_Entity;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import servise.GenericService;
 
-public abstract class AbstractCommandHandler<T extends Command<? extends DB_Entity>> 
+public abstract class AbstractCommandHandler<T extends EntityCommand<? extends DB_Entity>> 
 extends SimpleChannelInboundHandler<T>
 {
     GenericService service;
@@ -18,7 +18,7 @@ extends SimpleChannelInboundHandler<T>
         commandReceived(ctx, msg);
     }
     
-    private GenericService serviceInstance(Command<? extends DB_Entity> msg)
+    private GenericService serviceInstance(EntityCommand<? extends DB_Entity> msg)
     {
         if (service == null || service.getEntityClass() != msg.getEntityClass())
             service = new GenericService<>(msg.getEntityClass());

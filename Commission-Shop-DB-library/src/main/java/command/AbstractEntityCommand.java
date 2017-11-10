@@ -2,19 +2,19 @@ package command;
 
 import dao.DB_Entity;
 
-public abstract class AbstractCommand<T extends DB_Entity>
-implements Command<T>
+public abstract class AbstractEntityCommand<T extends DB_Entity>
+implements EntityCommand<T>
 {    
     private static final long serialVersionUID = 3349589021588325370L;
     
     Class<T> entityClass;
     
-    public AbstractCommand()
+    public AbstractEntityCommand()
     {
         
     }
     
-    protected AbstractCommand(Class<T> entityClass)
+    protected AbstractEntityCommand(Class<T> entityClass)
     {
         this.entityClass = entityClass;
     }

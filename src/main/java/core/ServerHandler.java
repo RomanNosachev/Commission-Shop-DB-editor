@@ -1,6 +1,6 @@
 package core;
 
-import command.Command;
+import command.EntityCommand;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -16,7 +16,7 @@ extends ChannelInboundHandlerAdapter
         
         System.out.println(msg);
         
-        if (!(msg instanceof Command))
+        if (!(msg instanceof EntityCommand))
             System.out.println("Unhandled command");
     }
     

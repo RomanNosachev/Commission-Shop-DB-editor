@@ -5,6 +5,7 @@ servise\ProductImportService.class
 core\LoginCommandHandler.class
 core\FindCommandHandler.class
 servise\SocialStatusService.class
+core\LoginCommandHandler$1.class
 servise\CommittentService.class
 core\RemoveCommandHandler.class
 servise\UserService.class

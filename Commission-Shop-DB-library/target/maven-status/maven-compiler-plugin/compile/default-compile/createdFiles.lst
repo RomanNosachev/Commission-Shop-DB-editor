@@ -1,7 +1,8 @@
 dao\ProductGroup.class
-command\AbstractCommand.class
+command\LoginResponceCommand.class
 command\FindCommand.class
 dao\UserStatus.class
+util\DigestService.class
 dao\ProductImport.class
 command\RemoveCommand.class
 command\Command.class
@@ -9,6 +10,8 @@ dao\Company.class
 command\LoginCommand.class
 dao\Deal.class
 dao\District.class
+command\AbstractEntityCommand.class
+command\EntityCommand.class
 dao\Committent.class
 command\FindAllCommand.class
 dao\SocialStatus.class
