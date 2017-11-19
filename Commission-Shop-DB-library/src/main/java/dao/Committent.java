@@ -3,6 +3,7 @@ package dao;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -141,6 +142,20 @@ implements Serializable, DB_Entity
     public List<Company> getCompanies()
     {
         return companies;
+    }
+    
+    public String getCompaniesString()
+    {
+        final StringBuilder sBuilder = new StringBuilder();
+        
+        companies.forEach(new Consumer<Company>() {
+            public void accept(Company company)
+            {
+                sBuilder.append(company.getName()).append(", ");
+            }
+        });
+        
+        return sBuilder.toString();
     }
 
     public void setCompanies(List<Company> companies)
