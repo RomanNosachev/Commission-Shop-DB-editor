@@ -1,26 +1,18 @@
 package controller;
 
 import command.EntityCommand;
-import command.FindCommand;
+import command.FindAllCommand;
 import command.LoginCommand;
-import core.ClientHandler;
-import core.CompanyFindResponceHandler;
-import core.LoginResponceHandler;
 import dao.Company;
+import dao.DB_Entity;
 import dao.User;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.serialization.ClassResolvers;
-import io.netty.handler.codec.serialization.ObjectDecoder;
-import io.netty.handler.codec.serialization.ObjectEncoder;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
@@ -28,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -43,7 +36,7 @@ public class ClientController
     private Channel         channel;
     private Bootstrap       bootstrap;
     private EventLoopGroup  group;
-    
+            
     public static class Condition
     {
         private static volatile BooleanProperty connected = new SimpleBooleanProperty(false);
@@ -85,6 +78,8 @@ public class ClientController
     private TextField       loginField;
     @FXML
     private PasswordField   passField;
+    @FXML
+    private TableView<? extends DB_Entity>    tableView;
         
     @FXML
     public void initialize()
@@ -99,6 +94,7 @@ public class ClientController
     public void connect()
     {        
         group = new NioEventLoopGroup();
+        final ClientController controller = this;
         
         Task<Channel> task = new Task<Channel>() 
         {
@@ -110,21 +106,8 @@ public class ClientController
                     .channel(NioSocketChannel.class)
                     .option(ChannelOption.TCP_NODELAY, true)
                     .remoteAddress(host, port)
-                    .handler(new ChannelInitializer<SocketChannel>() 
-                        {
-                            @Override
-                            public void initChannel(SocketChannel ch) throws Exception
-                            {
-                                ChannelPipeline pipeline = ch.pipeline();
-                                
-                                pipeline.addLast(new ObjectEncoder());
-                                pipeline.addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
-                                pipeline.addLast(new LoginResponceHandler());
-                                pipeline.addLast(new CompanyFindResponceHandler());
-                                pipeline.addLast(new ClientHandler());
-                            }
-                        });
-                
+                    .handler(new ClientChannelInitializer(controller)); 
+                        
                 ChannelFuture future = bootstrap.connect();
                 Channel channel = future.channel();
                 
@@ -282,13 +265,13 @@ public class ClientController
     {
         if (!Condition.isReady())
             return;
-        
+     
         Task<Void> task = new Task<Void>() 
         {
             @Override
             protected Void call() throws Exception
-            {
-                ChannelFuture future = channel.writeAndFlush(new FindCommand<Company>(Company.class, area.getText()));
+            {                
+                ChannelFuture future = channel.writeAndFlush(new FindAllCommand<Company>(Company.class));
                 future.sync();
                 
                 return null;
@@ -314,7 +297,7 @@ public class ClientController
         
         new Thread(task).start();
     }
-    
+
     public void shutdown()
     {
         disconnect();

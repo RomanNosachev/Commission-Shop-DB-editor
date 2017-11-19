@@ -1,10 +1,9 @@
-command\CreateResponceCommand.class
 dao\ProductGroup.class
-command\LoginResponceCommand.class
 command\FindCommand.class
 dao\UserStatus.class
 util\DigestService.class
 dao\ProductImport.class
+response\FindAllResponse.class
 command\RemoveCommand.class
 command\Command.class
 dao\Company.class
@@ -18,5 +17,6 @@ command\FindAllCommand.class
 dao\SocialStatus.class
 dao\Product.class
 dao\User.class
+response\LoginResponse.class
 command\CreateCommand.class
 dao\DB_Entity.class

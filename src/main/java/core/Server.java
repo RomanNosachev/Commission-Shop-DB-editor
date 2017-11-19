@@ -1,5 +1,11 @@
 package core;
 
+import inboundHandler.CreateCommandHandler;
+import inboundHandler.FindAllCommandHandler;
+import inboundHandler.FindCommandHandler;
+import inboundHandler.LoginCommandHandler;
+import inboundHandler.RemoveCommandHandler;
+import inboundHandler.ServerDefaultHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -14,29 +20,13 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import io.netty.handler.ssl.SslContext;
-import io.netty.handler.ssl.SslContextBuilder;
-import io.netty.handler.ssl.util.SelfSignedCertificate;
 
 public final class Server 
 {    
-    static final boolean SSL  = System.getProperty("ssl") != null;
     static final int     PORT = Integer.parseInt(System.getProperty("port", "8007"));
     
     public static void main(String[] args) throws Exception
     {                
-        // Configure SSL.
-        final SslContext sslCtx;
-        if (SSL)
-        {
-            SelfSignedCertificate ssc = new SelfSignedCertificate();
-            sslCtx = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey()).build();
-        } else
-        {
-            sslCtx = null;
-        }
-        
-        // Configure the server.
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try
@@ -48,29 +38,24 @@ public final class Server
                         public void initChannel(SocketChannel ch) throws Exception
                         {
                             ChannelPipeline p = ch.pipeline();
-                            if (sslCtx != null)
-                            {
-                                p.addLast(sslCtx.newHandler(ch.alloc()));
-                            }
+
                             p.addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
                             p.addLast(new ObjectEncoder());
+                            
                             p.addLast(new LoginCommandHandler());
                             p.addLast(new CreateCommandHandler());
                             p.addLast(new RemoveCommandHandler());
                             p.addLast(new FindCommandHandler());
                             p.addLast(new FindAllCommandHandler());
-                            p.addLast(new ServerHandler());
+                            p.addLast(new ServerDefaultHandler());
                         }
                     });
             
-            // Start the server.
-            ChannelFuture f = b.bind(PORT).sync();
-            
-            // Wait until the server socket is closed.
+            ChannelFuture f = b.bind(PORT).sync();            
             f.channel().closeFuture().sync();
-        } finally
+        } 
+        finally
         {
-            // Shut down all event loops to terminate all threads.
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }

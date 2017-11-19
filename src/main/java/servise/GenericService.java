@@ -3,12 +3,13 @@ package servise;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.TypedQuery;
-
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import dao.DB_Entity;
+import response.FindAllResponse;
 
 public class GenericService<T extends DB_Entity, PK extends Serializable>
 {
@@ -45,7 +46,7 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
         }
     }
     
-    public void create(T object)
+    public void create(T object) throws HibernateException
     {
         connect();
         
@@ -84,9 +85,19 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
     {
         connect();
         
-        TypedQuery<T> query = session.createQuery("SELECT a FROM " + type.getSimpleName() + " a", type);
+        Query<T> query = session.createQuery("SELECT a FROM " + type.getSimpleName() + " a", type);
+        session.getTransaction().commit();
+                        
+        return query.getResultList();
+    }
+    
+    public FindAllResponse<T> getFindAllResponse()
+    {
+        connect();
+        
+        Query<T> query = session.createQuery("SELECT a FROM " + type.getSimpleName() + " a", type);
         session.getTransaction().commit();
         
-        return query.getResultList();
+        return new FindAllResponse<T>(type, query.getResultList());
     }
 }

@@ -10,7 +10,7 @@
    <center>
       <AnchorPane prefHeight="600.0" prefWidth="749.0" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="area" layoutX="35.0" layoutY="88.0" prefHeight="200.0" prefWidth="200.0" />
+            <TextArea fx:id="area" layoutX="35.0" layoutY="88.0" prefHeight="40.0" prefWidth="200.0" />
             <MenuBar prefHeight="43.0" prefWidth="323.0" styleClass="background-header">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
@@ -44,11 +44,8 @@
                   <Button layoutX="374.0" layoutY="1.0" mnemonicParsing="false" onAction="#disconnect" prefHeight="40.0" prefWidth="78.0" text="Disconnect" />
                </children>
             </Pane>
-            <HBox layoutX="300.0" layoutY="159.0" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#test" prefHeight="25.0" prefWidth="193.0" text="Send" />
-               </children>
-            </HBox>
+            <Button layoutX="248.0" layoutY="96.0" mnemonicParsing="false" onAction="#test" prefHeight="25.0" prefWidth="142.0" text="Send" />
+            <TableView fx:id="tableView" layoutX="35.0" layoutY="143.0" prefHeight="425.0" prefWidth="698.0" />
          </children>
       </AnchorPane>
    </center>

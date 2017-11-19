@@ -14,6 +14,10 @@ extends AbstractEntityCommand<T>
     public FindCommand(Class<T> entityClass, Serializable id)
     {
         super(entityClass);
+        
+        if (id == null)
+            throw new NullPointerException();
+            
         this.id = id;
     }
 

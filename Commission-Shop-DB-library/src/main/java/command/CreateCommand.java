@@ -9,13 +9,11 @@ extends AbstractEntityCommand<T>
     
     private T entry;
     
-    public CreateCommand(Class<T> entityClass)
-    {
-        super(entityClass);
-    }
-    
     public CreateCommand(T entry)
     {
+        if (entry == null)
+            throw new NullPointerException();
+        
         this.entry = entry;
         entityClass = (Class<T>) entry.getClass();
     }
