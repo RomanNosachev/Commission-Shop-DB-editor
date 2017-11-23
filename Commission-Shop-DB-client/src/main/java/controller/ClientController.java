@@ -101,7 +101,6 @@ public class ClientController
         networkController.disconnect();
     }
 
-    //TODO
     @FXML
     public void refresh()
     {

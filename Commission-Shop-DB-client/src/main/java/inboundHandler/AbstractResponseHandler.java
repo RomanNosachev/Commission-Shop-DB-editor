@@ -1,5 +1,6 @@
 package inboundHandler;
 
+<<<<<<< HEAD
 import dao.DB_Entity;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -13,6 +14,25 @@ extends SimpleChannelInboundHandler<FindAllResponse<T>>
     public AbstractResponseHandler(Class<T> entityClass)
     {
         this.entityClass = entityClass;
+=======
+import controller.ClientController;
+import dao.DB_Entity;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+import response.FindAllResponse;
+
+public abstract class AbstractResponseHandler<T extends DB_Entity>
+extends SimpleChannelInboundHandler<FindAllResponse<T>>
+{
+    private Class<T> entityClass;
+    
+    protected ClientController controller;
+    
+    public AbstractResponseHandler(Class<T> entityClass, ClientController controller)
+    {
+        this.entityClass = entityClass;
+        this.controller = controller;
+>>>>>>> refs/remotes/origin/dev
     }
 
     @Override
