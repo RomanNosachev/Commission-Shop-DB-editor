@@ -1,18 +1,19 @@
 package dao;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.Table;
+
+@NamedEntityGraph(name = "User", includeAllAttributes = true)
 
 @Entity
 @Table(name = "_User")
 public class User 
-implements Serializable, DB_Entity
+implements DB_Entity
 {
     private static final long serialVersionUID = -235737822197145908L;
 

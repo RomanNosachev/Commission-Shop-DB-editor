@@ -1,6 +1,8 @@
 package dao;
 
-public interface DB_Entity 
+import java.io.Serializable;
+
+public interface DB_Entity
+extends Serializable
 {
-    
 }

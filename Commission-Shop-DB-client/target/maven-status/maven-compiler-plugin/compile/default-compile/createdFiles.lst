@@ -1,44 +1,22 @@
-<<<<<<< HEAD
+inboundHandler\AbstractResponseHandler.class
+outboundHandler\ClientHandler.class
 controller\ClientNetworkController$4.class
-=======
-inboundHandler\AbstractResponseHandler.class
-outboundHandler\ClientHandler.class
->>>>>>> refs/remotes/origin/dev
-controller\ClientController$1.class
-<<<<<<< HEAD
-inboundHandler\LoginResponseHandler.class
-=======
-controller\ClientController$3.class
-controller\ClientController$Condition.class
-inboundHandler\LoginResponseHandler.class
-inboundHandler\FindAllResponseHandler.class
-controller\ClientController$4.class
->>>>>>> refs/remotes/origin/dev
-view\App.class
-<<<<<<< HEAD
-controller\AbstractNetworkController.class
-inboundHandler\ClientDefaultHandler.class
-controller\ClientNetworkController$2.class
-inboundHandler\FindAllCommittentResponceHandler.class
-=======
-controller\ClientController$5.class
-inboundHandler\FindAllCompanyResponseHandler.class
-inboundHandler\ClientDefaultHandler.class
-controller\ClientChannelInitializer.class
-controller\ClientController$2.class
->>>>>>> refs/remotes/origin/dev
-controller\ClientController.class
-inboundHandler\FindAllDistrictResponseHandler.class
-view\App$1.class
-inboundHandler\AbstractResponseHandler.class
-outboundHandler\ClientHandler.class
 utils\TableColumnBuilder.class
+controller\ClientController$1.class
 controller\ClientNetworkController$5.class
 utils\CommittentTableColumnBuilder.class
 inboundHandler\AbstractFindAllResponceHandler.class
+inboundHandler\LoginResponseHandler.class
 controller\ClientNetworkController$3.class
 controller\ClientNetworkController$1.class
+view\App.class
 inboundHandler\FindAllCompanyResponseHandler.class
+controller\AbstractNetworkController.class
+inboundHandler\ClientDefaultHandler.class
 controller\ClientNetworkController.class
+controller\ClientNetworkController$2.class
 controller\ClientNetworkController$Condition.class
-controller\ClientChannelInitializer.class
+inboundHandler\FindAllCommittentResponceHandler.class
+controller\ClientController.class
+inboundHandler\FindAllDistrictResponseHandler.class
+view\App$1.class

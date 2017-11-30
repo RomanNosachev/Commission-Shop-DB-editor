@@ -1,6 +1,5 @@
 package dao;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,13 +9,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+@NamedEntityGraph(name = "Deal", includeAllAttributes = true)
 
 @Entity
 @Table(name = "Deal")
 public class Deal 
-implements Serializable, DB_Entity
+implements DB_Entity
 {
     private static final long serialVersionUID = 3789977798874029973L;
 

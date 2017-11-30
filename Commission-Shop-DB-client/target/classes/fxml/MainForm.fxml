@@ -11,7 +11,6 @@
    <center>
       <AnchorPane prefHeight="390.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-<<<<<<< HEAD
             <TabPane prefHeight="556.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <tabs>
                 <Tab text="Committent">
@@ -299,10 +298,6 @@
       <BorderPane prefHeight="43.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <left>
             <MenuBar prefHeight="43.0" prefWidth="189.0" styleClass="background-header" BorderPane.alignment="CENTER">
-=======
-            <TextArea fx:id="area" layoutX="35.0" layoutY="88.0" prefHeight="40.0" prefWidth="200.0" />
-            <MenuBar prefHeight="43.0" prefWidth="323.0" styleClass="background-header">
->>>>>>> refs/remotes/origin/dev
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
@@ -341,7 +336,6 @@
                      </children>
                   </Pane>
                </children>
-<<<<<<< HEAD
             </StackPane>
          </right>
          <center>
@@ -349,17 +343,4 @@
          </center>
       </BorderPane>
    </top>
-=======
-            </Pane>
-            <Pane fx:id="disconnectPane" layoutX="323.0" prefHeight="43.0" prefWidth="475.0" styleClass="background-header" visible="false">
-               <children>
-                  <Button layoutX="374.0" layoutY="1.0" mnemonicParsing="false" onAction="#disconnect" prefHeight="40.0" prefWidth="78.0" text="Disconnect" />
-               </children>
-            </Pane>
-            <Button layoutX="248.0" layoutY="96.0" mnemonicParsing="false" onAction="#test" prefHeight="25.0" prefWidth="142.0" text="Send" />
-            <TableView fx:id="tableView" layoutX="35.0" layoutY="143.0" prefHeight="425.0" prefWidth="698.0" />
-         </children>
-      </AnchorPane>
-   </center>
->>>>>>> refs/remotes/origin/dev
 </BorderPane>

@@ -108,7 +108,7 @@ public class ClientController
     }
     
     public void shutdown()
-    {
+    {        
         networkController.disconnect();
     }
 }
