@@ -10,6 +10,7 @@ extends AbstractEntityCommand<T>
     private static final long serialVersionUID = 3242647986042328383L;
     
     private Serializable id;
+    private FetchMode fetchMode = FetchMode.EAGER;
     
     public FindCommand(Class<T> entityClass, Serializable id)
     {
@@ -21,8 +22,20 @@ extends AbstractEntityCommand<T>
         this.id = id;
     }
 
+    public FindCommand(Class<T> entityClass, Serializable id, FetchMode fetchMode)
+    {
+        this(entityClass, id);
+        
+        this.fetchMode = fetchMode;
+    }
+    
     public Serializable getId()
     {
         return id;
+    }
+    
+    public FetchMode getFetchMode()
+    {
+        return fetchMode;
     }
 }

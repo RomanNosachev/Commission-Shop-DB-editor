@@ -1,17 +1,303 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane stylesheets="@../css/MainForm.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/MainForm.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientController">
    <center>
-      <AnchorPane prefHeight="600.0" prefWidth="749.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="390.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="area" layoutX="35.0" layoutY="88.0" prefHeight="40.0" prefWidth="200.0" />
-            <MenuBar prefHeight="43.0" prefWidth="323.0" styleClass="background-header">
+            <TabPane prefHeight="556.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <tabs>
+                <Tab text="Committent">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" layoutX="25.0" layoutY="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="129.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
+                                      <panes>
+                                        <TitledPane animated="false" text="Add">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Button mnemonicParsing="false" text="Refresh" onAction="#refresh" />
+                                                   </children></HBox>
+                                             </content>
+                                        </TitledPane>
+                                        <TitledPane animated="false" text="Update">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                        </TitledPane>
+                                        <TitledPane animated="false" text="Delete">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                        </TitledPane>
+                                      </panes>
+                                    </Accordion>
+                                    <TableView fx:id="committentTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Product">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="129.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
+                                       <panes>
+                                          <TitledPane animated="false" text="Add">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Update">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Delete">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                       </panes>
+                                    </Accordion>
+                                    <TableView fx:id="productTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />
+                                 </padding>
+                              </VBox>
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="Import">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="129.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
+                                       <panes>
+                                          <TitledPane animated="false" text="Add">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Update">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Delete">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                       </panes>
+                                    </Accordion>
+                                    <TableView fx:id="productImportTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />
+                                 </padding>
+                              </VBox>
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Deal">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="129.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
+                                       <panes>
+                                          <TitledPane animated="false" text="Add">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Update">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Delete">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                       </panes>
+                                    </Accordion>
+                                    <TableView fx:id="dealTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />
+                                 </padding>
+                              </VBox>
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Company">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="129.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
+                                       <panes>
+                                          <TitledPane animated="false" text="Add">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Update">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Delete">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                       </panes>
+                                    </Accordion>
+                                    <TableView fx:id="companyTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />
+                                 </padding>
+                              </VBox>
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="District">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="129.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
+                                       <panes>
+                                          <TitledPane animated="false" text="Add">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Update">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Delete">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                       </panes>
+                                    </Accordion>
+                                    <TableView fx:id="districtTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />
+                                 </padding>
+                              </VBox>
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Social status">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="129.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
+                                       <panes>
+                                          <TitledPane animated="false" text="Add">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Update">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Delete">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                       </panes>
+                                    </Accordion>
+                                    <TableView fx:id="socialStatusTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />
+                                 </padding>
+                              </VBox>
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Product group">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="129.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
+                                       <panes>
+                                          <TitledPane animated="false" text="Add">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Update">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Delete">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                             </content>
+                                          </TitledPane>
+                                       </panes>
+                                    </Accordion>
+                                    <TableView fx:id="productGroupTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />
+                                 </padding>
+                              </VBox>
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </center>
+   <top>
+      <BorderPane prefHeight="43.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <left>
+            <MenuBar prefHeight="43.0" prefWidth="189.0" styleClass="background-header" BorderPane.alignment="CENTER">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
@@ -30,23 +316,31 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <Pane fx:id="connectPane" layoutX="323.0" prefHeight="43.0" prefWidth="475.0" styleClass="background-header">
+         </left>
+         <right>
+            <StackPane prefHeight="43.0" prefWidth="460.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="374.0" layoutY="1.0" mnemonicParsing="false" onAction="#connect" prefHeight="40.0" prefWidth="78.0" text="Login" />
-                  <TextField fx:id="loginField" layoutX="9.0" layoutY="15.0" prefHeight="25.0" prefWidth="177.0" />
-                  <Label layoutX="35.0" prefHeight="17.0" prefWidth="107.0" text="Логин" />
-                  <Label layoutX="220.0" prefHeight="17.0" prefWidth="127.0" text="Пароль" />
-                  <PasswordField fx:id="passField" layoutX="194.0" layoutY="15.0" prefHeight="25.0" prefWidth="173.0" />
+                  <Pane fx:id="disconnectPane" styleClass="background-header" visible="false">
+                     <children>
+                        <Button layoutX="374.0" layoutY="1.0" mnemonicParsing="false" onAction="#disconnect" prefHeight="40.0" prefWidth="78.0" text="Disconnect" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="connectPane" styleClass="background-header">
+                     <children>
+                        <Button layoutX="374.0" layoutY="1.0" mnemonicParsing="false" onAction="#connect" prefHeight="40.0" prefWidth="78.0" text="Login" />
+                        <TextField fx:id="loginField" layoutX="62.0" layoutY="15.0" prefHeight="25.0" prefWidth="150.0" />
+                        <Label layoutX="77.0" prefHeight="17.0" prefWidth="107.0" text="Username" />
+                        <Label layoutX="230.0" text="Password" />
+                        <PasswordField fx:id="passField" layoutX="218.0" layoutY="15.0" prefHeight="25.0" prefWidth="149.0" />
+                        <ProgressIndicator layoutX="23.0" layoutY="2.0" progress="0.0" visible="false" />
+                     </children>
+                  </Pane>
                </children>
-            </Pane>
-            <Pane fx:id="disconnectPane" layoutX="323.0" prefHeight="43.0" prefWidth="475.0" styleClass="background-header" visible="false">
-               <children>
-                  <Button layoutX="374.0" layoutY="1.0" mnemonicParsing="false" onAction="#disconnect" prefHeight="40.0" prefWidth="78.0" text="Disconnect" />
-               </children>
-            </Pane>
-            <Button layoutX="248.0" layoutY="96.0" mnemonicParsing="false" onAction="#test" prefHeight="25.0" prefWidth="142.0" text="Send" />
-            <TableView fx:id="tableView" layoutX="35.0" layoutY="143.0" prefHeight="425.0" prefWidth="698.0" />
-         </children>
-      </AnchorPane>
-   </center>
+            </StackPane>
+         </right>
+         <center>
+            <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="43.0" prefWidth="147.0" styleClass="background-header" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </top>
 </BorderPane>

@@ -1,16 +1,16 @@
 package inboundHandler;
 
-import controller.ClientController;
 import dao.Company;
 import io.netty.channel.ChannelHandlerContext;
+import javafx.scene.control.TableView;
 import response.FindAllResponse;
 
 public class FindAllCompanyResponseHandler 
-extends AbstractResponseHandler<Company>
+extends AbstractFindAllResponceHandler<Company>
 {
-    public FindAllCompanyResponseHandler(ClientController controller)
-    {        
-        super(Company.class, controller);
+    public FindAllCompanyResponseHandler(TableView<Company> tableView)
+    {
+        super(Company.class, tableView);
     }
 
     @Override

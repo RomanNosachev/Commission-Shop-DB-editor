@@ -1,8 +1,8 @@
 package dao;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,15 +14,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@NamedEntityGraph(name = "Committent", includeAllAttributes = true)
+
 @Entity
 @Table(name = "Committent")
 public class Committent 
-implements Serializable, DB_Entity
+implements DB_Entity
 {
     private static final long serialVersionUID = 6358304485892511952L;
 
@@ -141,6 +144,20 @@ implements Serializable, DB_Entity
     public List<Company> getCompanies()
     {
         return companies;
+    }
+    
+    public String getCompaniesString()
+    {
+        final StringBuilder sBuilder = new StringBuilder();
+        
+        companies.forEach(new Consumer<Company>() {
+            public void accept(Company company)
+            {
+                sBuilder.append(company.getName()).append(", ");
+            }
+        });
+        
+        return sBuilder.toString();
     }
 
     public void setCompanies(List<Company> companies)

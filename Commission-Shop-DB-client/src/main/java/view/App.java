@@ -31,13 +31,13 @@ extends Application
         }
         
         final ClientController controller = fxmlLoader.getController();
-        
+                
         Scene scene = new Scene(p);
         
+        primaryStage.setMinWidth(810);
+        primaryStage.setMinHeight(610);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Comission Shop DB-client");
-        primaryStage.setWidth(800);
-        primaryStage.setHeight(600);
         
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() 
         {

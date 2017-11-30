@@ -12,12 +12,9 @@ extends AbstractCommandHandler<FindCommand<? extends DB_Entity>>
     {
         System.out.println(msg.getId());
         
-        DB_Entity entity = service.find(msg.getId());
+        DB_Entity entity = service.find(msg.getId(), msg.getFetchMode());
         
         if (entity != null)
             ctx.writeAndFlush(entity);
-        else
-            // send failed find command
-            return;
     } 
 }

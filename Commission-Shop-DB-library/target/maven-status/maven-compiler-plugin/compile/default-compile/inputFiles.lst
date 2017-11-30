@@ -16,6 +16,7 @@ D:\Grandfather\Documents\Eclipse\Commission-Shop-DB-Editor\Commission-Shop-DB-ed
 D:\Grandfather\Documents\Eclipse\Commission-Shop-DB-Editor\Commission-Shop-DB-editor\Commission-Shop-DB-library\src\main\java\response\FindAllResponse.java
 D:\Grandfather\Documents\Eclipse\Commission-Shop-DB-Editor\Commission-Shop-DB-editor\Commission-Shop-DB-library\src\main\java\dao\UserStatus.java
 D:\Grandfather\Documents\Eclipse\Commission-Shop-DB-Editor\Commission-Shop-DB-editor\Commission-Shop-DB-library\src\main\java\command\CreateCommand.java
+D:\Grandfather\Documents\Eclipse\Commission-Shop-DB-Editor\Commission-Shop-DB-editor\Commission-Shop-DB-library\src\main\java\command\FetchMode.java
 D:\Grandfather\Documents\Eclipse\Commission-Shop-DB-Editor\Commission-Shop-DB-editor\Commission-Shop-DB-library\src\main\java\command\FindAllCommand.java
 D:\Grandfather\Documents\Eclipse\Commission-Shop-DB-Editor\Commission-Shop-DB-editor\Commission-Shop-DB-library\src\main\java\dao\Deal.java
 D:\Grandfather\Documents\Eclipse\Commission-Shop-DB-Editor\Commission-Shop-DB-editor\Commission-Shop-DB-library\src\main\java\command\Command.java

@@ -7,7 +7,9 @@ response\FindAllResponse.class
 command\RemoveCommand.class
 command\Command.class
 dao\Company.class
+command\FetchMode.class
 command\LoginCommand.class
+dao\Committent$1.class
 dao\Deal.class
 dao\District.class
 command\AbstractEntityCommand.class

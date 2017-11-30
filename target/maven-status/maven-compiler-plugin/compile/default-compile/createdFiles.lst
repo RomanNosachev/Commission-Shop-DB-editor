@@ -1,5 +1,6 @@
 servise\GenericService.class
 servise\SessionFactoryUtils.class
+servise\GenericService$1.class
 inboundHandler\AbstractCommandHandler.class
 inboundHandler\FindAllCommandHandler.class
 inboundHandler\ServerDefaultHandler.class
