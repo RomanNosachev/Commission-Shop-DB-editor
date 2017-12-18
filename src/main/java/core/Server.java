@@ -53,7 +53,8 @@ public final class Server
                     });
             
             ChannelFuture f = b.bind(PORT).sync();            
-            f.channel().closeFuture().sync();
+            
+            f.channel().closeFuture().sync();  
         } 
         finally
         {

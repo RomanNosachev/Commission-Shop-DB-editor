@@ -1,8 +1,13 @@
-servise\GenericService.class
-servise\SessionFactoryUtils.class
-servise\GenericService$1.class
+service\ProductImportGenerator.class
+service\GenericService$1.class
+service\DealGenerator.class
+service\SessionFactoryUtils.class
+service\GenericService.class
 inboundHandler\AbstractCommandHandler.class
 inboundHandler\FindAllCommandHandler.class
+service\CommittentGenerator.class
+service\EntityGenerator.class
+service\ProductGenerator.class
 inboundHandler\ServerDefaultHandler.class
 core\Server$1.class
 inboundHandler\FindCommandHandler.class

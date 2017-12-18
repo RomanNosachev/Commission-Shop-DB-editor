@@ -1,4 +1,4 @@
-package servise;
+package service;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -17,6 +17,8 @@ import response.FindAllResponse;
 
 public class GenericService<T extends DB_Entity, PK extends Serializable>
 {
+    private final int   sheetSize = 100;
+    
     private SessionFactory  factory;
     private Session         session;
     
@@ -27,7 +29,7 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
         this.type = type;
         factory = SessionFactoryUtils.factory;
     }
-        
+
     public Class<T> getEntityClass()
     {
         return type;
@@ -109,14 +111,18 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
 
     public List<T> findAll()
     {
-        return findAll(FetchMode.EAGER);
+        return findAll(FetchMode.EAGER, 1);
     }
     
-    public List<T> findAll(FetchMode fetchMode)
+    public List<T> findAll(FetchMode fetchMode, int sheet)
     {
         connect();      
-  
-        TypedQuery<T> query = session.createQuery("FROM " + getEntityName() + " a", type);
+        
+        int firstResult = sheet * sheetSize - sheetSize;
+        
+        TypedQuery<T> query = session.createQuery("FROM " + getEntityName() + " a", type)   
+                .setFirstResult(firstResult)
+                .setMaxResults(sheetSize);
 
         switch (fetchMode) 
         {
@@ -134,11 +140,11 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
     
     public FindAllResponse<T> getFindAllResponse()
     {
-        return getFindAllResponce(FetchMode.EAGER);
+        return getFindAllResponce(FetchMode.EAGER, 1);
     }
     
-    public FindAllResponse<T> getFindAllResponce(FetchMode fetchMode)
+    public FindAllResponse<T> getFindAllResponce(FetchMode fetchMode, int startPosition)
     {
-        return new FindAllResponse<T>(type, findAll(fetchMode));
+        return new FindAllResponse<T>(type, findAll(fetchMode, startPosition));
     }
 }

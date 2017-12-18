@@ -11,7 +11,7 @@
    <center>
       <AnchorPane prefHeight="390.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <TabPane prefHeight="556.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane fx:id="tabPane" layoutY="-1.0" prefHeight="523.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
               <tabs>
                 <Tab text="Committent">
                   <content>
@@ -19,14 +19,28 @@
                            <children>
                               <VBox alignment="TOP_CENTER" layoutX="25.0" layoutY="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="129.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
+                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="161.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
                                       <panes>
                                         <TitledPane animated="false" text="Add">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
-                                                      <Button mnemonicParsing="false" text="Refresh" onAction="#refresh" />
+                                                      <TextField disable="true" prefHeight="25.0" prefWidth="134.0" />
+                                                      <TextField fx:id="committentNameField" prefHeight="25.0" prefWidth="136.0" />
+                                                      <TextField fx:id="committentSurnameField" prefHeight="25.0" prefWidth="166.0" />
+                                                      <TextField fx:id="committentPatronymicField" prefHeight="25.0" prefWidth="145.0" />
+                                                      <TextField fx:id="committentDistrictIdField" prefHeight="25.0" prefWidth="157.0" />
+                                                      <TextField fx:id="committentSocialStatusIdField" prefHeight="25.0" prefWidth="142.0" />
+                                                      <TextField fx:id="committentCompaniesIdField" prefHeight="25.0" prefWidth="182.0" />
+                                                      <DatePicker fx:id="committentDatePicker" prefHeight="25.0" prefWidth="155.0" />
+                                                      <TextField fx:id="committentTelephoneNumberField" prefHeight="25.0" prefWidth="142.0" />
+                                                      <Button mnemonicParsing="false" onAction="#add" prefHeight="25.0" prefWidth="138.0" text="Add" />
                                                    </children></HBox>
+                                             </content>
+                                        </TitledPane>
+                                        <TitledPane animated="false" text="Find">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" />
                                              </content>
                                         </TitledPane>
                                         <TitledPane animated="false" text="Update">
@@ -34,11 +48,11 @@
                                                 <HBox prefHeight="100.0" prefWidth="200.0" />
                                              </content>
                                         </TitledPane>
-                                        <TitledPane animated="false" text="Delete">
+                                          <TitledPane animated="false" prefHeight="103.0" prefWidth="750.0" text="Delete">
                                              <content>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" />
                                              </content>
-                                        </TitledPane>
+                                          </TitledPane>
                                       </panes>
                                     </Accordion>
                                     <TableView fx:id="committentTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
@@ -61,7 +75,14 @@
                                        <panes>
                                           <TitledPane animated="false" text="Add">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <TextField disable="true" prefHeight="25.0" prefWidth="296.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="466.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="533.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="363.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="294.0" text="Add" />
+                                                   </children></HBox>
                                              </content>
                                           </TitledPane>
                                           <TitledPane animated="false" text="Update">
@@ -297,7 +318,7 @@
    <top>
       <BorderPane prefHeight="43.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <left>
-            <MenuBar prefHeight="43.0" prefWidth="189.0" styleClass="background-header" BorderPane.alignment="CENTER">
+            <MenuBar prefHeight="55.0" prefWidth="189.0" styleClass="background-header" BorderPane.alignment="CENTER">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
@@ -341,6 +362,24 @@
          <center>
             <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="43.0" prefWidth="147.0" styleClass="background-header" BorderPane.alignment="CENTER" />
          </center>
+         <bottom>
+            <ToolBar prefHeight="16.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+               <items>
+                  <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refresh" prefHeight="25.0" prefWidth="25.0" />
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
+                  <HBox prefHeight="25.0" prefWidth="185.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#firstSheet" prefHeight="25.0" prefWidth="30.0" text="|&lt;" />
+                        <Button mnemonicParsing="false" onAction="#prevSheet" prefHeight="25.0" prefWidth="30.0" text="&lt;" />
+                        <TextField fx:id="sheetField" prefHeight="25.0" prefWidth="65.0" text="1" />
+                        <Button mnemonicParsing="false" onAction="#nextSheet" prefHeight="25.0" prefWidth="30.0" text="&gt;" />
+                        <Button mnemonicParsing="false" onAction="#lastSheet" prefHeight="25.0" prefWidth="30.0" text="&gt;|" />
+                     </children>
+                  </HBox>
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+               </items>
+            </ToolBar>
+         </bottom>
       </BorderPane>
    </top>
 </BorderPane>
