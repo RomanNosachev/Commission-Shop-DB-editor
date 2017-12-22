@@ -32,6 +32,10 @@ implements DB_Entity
     @JoinColumn(name = "product", nullable = false)
     private Product product;
     
+    @ManyToOne
+    @JoinColumn(name = "committent", nullable = false)
+    private Committent comittent;
+    
     @Column(name = "date", nullable = false)
     private Date date;
     
@@ -42,10 +46,11 @@ implements DB_Entity
     {
     }
 
-    public Deal(Product product, Date date, int count)
+    public Deal(Product product, Committent committent, Date date, int count)
     {
         super();
         this.product = product;
+        this.comittent = committent;
         this.date = date;
         this.count = count;
     }
@@ -70,6 +75,16 @@ implements DB_Entity
         this.product = product;
     }
 
+    public void setCommittent(Committent committent)
+    {
+        this.comittent = committent;
+    }
+    
+    public Committent getCommittent()
+    {
+        return comittent;
+    }
+    
     public Date getDate()
     {
         return date;

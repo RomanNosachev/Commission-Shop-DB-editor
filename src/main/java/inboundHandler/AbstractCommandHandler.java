@@ -6,7 +6,7 @@ import command.EntityCommand;
 import dao.DB_Entity;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import servise.GenericService;
+import service.GenericService;
 
 public abstract class AbstractCommandHandler<T extends EntityCommand<? extends DB_Entity>> 
 extends SimpleChannelInboundHandler<T>

@@ -37,7 +37,7 @@ extends Application
         primaryStage.setMinWidth(810);
         primaryStage.setMinHeight(610);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Comission Shop DB-client");
+        primaryStage.setTitle("Commission Shop DB-client");
         
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() 
         {
