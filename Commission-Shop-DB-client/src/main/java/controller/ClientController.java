@@ -29,13 +29,16 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -44,7 +47,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.util.converter.NumberStringConverter;
 import outboundHandler.ClientHandler;
 import utils.CommittentTableColumnBuilder;
 import utils.CompanyTableColumnBuilder;
@@ -59,9 +61,8 @@ public class ClientController
 {                
     private AbstractNetworkController networkController;
     
-    private Map<String, Class<? extends DB_Entity>> tabMap;
-    
-    private IntegerProperty sheetProperty = new SimpleIntegerProperty(1);
+    private Map<String, EntityController<? extends DB_Entity>> tabMap;
+    private EntityController<? extends DB_Entity> currentEntityController;
     
     @FXML
     private Button      refreshButton;
@@ -97,25 +98,44 @@ public class ClientController
     private PasswordField   passField;
         
     @FXML
-    private TextField       committentNameField;
+    private TextField           committentNameField;
     @FXML
-    private TextField       committentSurnameField;
+    private TextField           committentSurnameField;
     @FXML
-    private TextField       committentPatronymicField;
+    private TextField           committentPatronymicField;
     @FXML
-    private TextField       committentDistrictIdField;
+    private ComboBox<String>    committentDistrictIdComboBox;
     @FXML
-    private TextField       committentSocialStatusIdField;
+    private ComboBox<String>    committentSocialStatusIdComboBox;
     @FXML
-    private TextField       committentCompaniesIdField;
+    private ChoiceBox<String>   committentCompaniesIdChoiceBox;
     @FXML
-    private DatePicker      committentDatePicker;
+    private DatePicker          committentDatePicker;
     @FXML
-    private TextField       committentTelephoneNumberField;
+    private TextField           committentTelephoneNumberField;
     
     @FXML
     public void initialize()
     {                
+        EntityController<Committent> committentController = new EntityController<>(Committent.class, committentTableView, sheetField)
+                .columnBuilder(new CommittentTableColumnBuilder());
+        EntityController<Deal> dealController = new EntityController<>(Deal.class, dealTableView, sheetField)
+                .columnBuilder(new DealTableColumnBuilder());
+        EntityController<Company> companyController = new EntityController<>(Company.class, companyTableView, sheetField)
+                .columnBuilder(new CompanyTableColumnBuilder());
+        EntityController<District> districtController = new EntityController<>(District.class, districtTableView, sheetField)
+                .columnBuilder(new DistrictTableColumnBuilder());
+        EntityController<ProductImport> productImportController = new EntityController<>(ProductImport.class, productImportTableView, sheetField)
+                .columnBuilder(new ProductImportTableColumnBuilder());
+        EntityController<ProductGroup> productGroupController = new EntityController<>(ProductGroup.class, productGroupTableView, sheetField)
+                .columnBuilder(new ProductGroupTableColumnBuilder());
+        EntityController<SocialStatus> socialStatusController =  new EntityController<>(SocialStatus.class, socialStatusTableView, sheetField)
+                .columnBuilder(new SocialStatusTableColumnBuilder());
+        EntityController<Product> productController = new EntityController<>(Product.class, productTableView, sheetField)
+                .columnBuilder(new ProductTableColumnBuilder());
+        
+        currentEntityController = committentController;
+        
         networkController = new ClientNetworkController(new ChannelInitializer<SocketChannel>() 
         {
             @Override
@@ -130,14 +150,14 @@ public class ClientController
                 
                 pipeline.addLast(new LoginResponseHandler(networkController));
                 
-                pipeline.addLast(new FindAllResponceHandler<>(Committent.class, committentTableView));
-                pipeline.addLast(new FindAllResponceHandler<>(Company.class, companyTableView));
-                pipeline.addLast(new FindAllResponceHandler<>(Deal.class, dealTableView));
-                pipeline.addLast(new FindAllResponceHandler<>(District.class, districtTableView));
-                pipeline.addLast(new FindAllResponceHandler<>(Product.class, productTableView));
-                pipeline.addLast(new FindAllResponceHandler<>(ProductGroup.class, productGroupTableView));
-                pipeline.addLast(new FindAllResponceHandler<>(ProductImport.class, productImportTableView));
-                pipeline.addLast(new FindAllResponceHandler<>(SocialStatus.class, socialStatusTableView));
+                pipeline.addLast(new FindAllResponceHandler<>(committentController));
+                pipeline.addLast(new FindAllResponceHandler<>(companyController));
+                pipeline.addLast(new FindAllResponceHandler<>(dealController));
+                pipeline.addLast(new FindAllResponceHandler<>(districtController));
+                pipeline.addLast(new FindAllResponceHandler<>(productController));
+                pipeline.addLast(new FindAllResponceHandler<>(productGroupController));
+                pipeline.addLast(new FindAllResponceHandler<>(productImportController));
+                pipeline.addLast(new FindAllResponceHandler<>(socialStatusController));
                 
                 pipeline.addLast(new ClientDefaultHandler());
             }
@@ -151,7 +171,6 @@ public class ClientController
         disconnectPane.disableProperty().bind(networkController.getAcess().not());
         disconnectPane.visibleProperty().bind(networkController.getAcess());
                 
-        sheetField.textProperty().bindBidirectional(sheetProperty, new NumberStringConverter());
         sheetField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event)
@@ -160,25 +179,26 @@ public class ClientController
                     onSheetNumberChanged();
             }
         });
-        
-        committentTableView.getColumns().addAll(new CommittentTableColumnBuilder().buildTableColumns());
-        companyTableView.getColumns().addAll(new CompanyTableColumnBuilder().buildTableColumns());
-        dealTableView.getColumns().addAll(new DealTableColumnBuilder().buildTableColumns());
-        districtTableView.getColumns().addAll(new DistrictTableColumnBuilder().buildTableColumns());
-        productGroupTableView.getColumns().addAll(new ProductGroupTableColumnBuilder().buildTableColumns());
-        productImportTableView.getColumns().addAll(new ProductImportTableColumnBuilder().buildTableColumns());
-        productTableView.getColumns().addAll(new ProductTableColumnBuilder().buildTableColumns());
-        socialStatusTableView.getColumns().addAll(new SocialStatusTableColumnBuilder().buildTableColumns());
+            
+        tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+            @Override
+            public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue)
+            {
+                currentEntityController = tabMap.get(newValue.getText());
+                      
+                sheetField.setText(String.valueOf(currentEntityController.getSheet()));
+            }
+        });
         
         tabMap = new HashMap<>();
-        tabMap.put("Committent", Committent.class);
-        tabMap.put("Product", Product.class);
-        tabMap.put("Import", ProductImport.class);
-        tabMap.put("Deal", Deal.class);
-        tabMap.put("Company", Company.class);
-        tabMap.put("District", District.class);
-        tabMap.put("Social status", SocialStatus.class);
-        tabMap.put("Product group", ProductGroup.class);
+        tabMap.put("Committent", committentController);
+        tabMap.put("Product", productController);
+        tabMap.put("Import", productImportController);
+        tabMap.put("Deal", dealController);
+        tabMap.put("Company", companyController);
+        tabMap.put("District", districtController);
+        tabMap.put("Social status", socialStatusController);
+        tabMap.put("Product group", productGroupController);
     }
     
     @FXML
@@ -194,16 +214,16 @@ public class ClientController
     }
 
     @FXML
-    public void add()
+    public void addCommittent()
     {        
         String name = committentNameField.getText();
         String surname = committentSurnameField.getText();
         String patronymic = committentPatronymicField.getText();
-        District district = new District(committentDistrictIdField.getText());
-        SocialStatus status = new SocialStatus(committentSocialStatusIdField.getText());
+        District district = new District(committentDistrictIdComboBox.getSelectionModel().getSelectedItem().toString());
+        SocialStatus status = new SocialStatus(committentSocialStatusIdComboBox.getSelectionModel().getSelectedItem().toString());
         
         List<Company> companies = new ArrayList<>();
-        String[] companiesId = committentCompaniesIdField.getText().split(",");
+        String[] companiesId = committentCompaniesIdChoiceBox.getSelectionModel().getSelectedItem().toString().split(",");
         
         for (String companyId : companiesId)
             companies.add(new Company(companyId));
@@ -220,40 +240,85 @@ public class ClientController
     }
     
     @FXML
+    public void addProduct()
+    {
+        
+    }
+    
+    @FXML
+    public void addDeal()
+    {
+        
+    }
+    
+    @FXML
+    public void addProductImport()
+    {
+        
+    }
+    
+    @FXML
+    public void addCompany()
+    {
+        
+    }
+    
+    @FXML
+    public void addDistrict()
+    {
+        
+    }
+    
+    @FXML
+    public void addSocialStatus()
+    {
+        
+    }
+    
+    @FXML
+    public void addProductGroup()
+    {
+        
+    }
+    
+    @FXML
     public void refresh()
-    {        
-        Class<? extends DB_Entity> type = tabMap.get(tabPane.getSelectionModel().getSelectedItem().getText());
-                
-        networkController.sendCommand(new FindAllCommand<>(type, FetchMode.EAGER, sheetProperty.get()));
+    {                
+        Class<? extends DB_Entity> type = tabMap.get(getCurrentTabName()).getEntityClass();                
+        networkController.sendCommand(new FindAllCommand<>(type, FetchMode.EAGER, currentEntityController.getSheet()));
     }
     
     @FXML
     public void nextSheet()
     {
-        int sheet = sheetProperty.greaterThanOrEqualTo(Integer.MAX_VALUE).get() ? Integer.MAX_VALUE : sheetProperty.get() + 1;
-        sheetProperty.set(sheet);
+        int currentSheet = currentEntityController.getSheet();
+        int newSheet = currentSheet >= Integer.MAX_VALUE ? Integer.MAX_VALUE : currentSheet + 1;
+        
+        currentEntityController.setSheet(newSheet);
         refresh();
     }
     
     @FXML
     public void firstSheet()
-    {
-        sheetProperty.set(1);
+    {        
+        currentEntityController.setSheet(1);
         refresh();
     }
     
     @FXML
     public void lastSheet()
-    {
-        sheetProperty.set(Integer.MAX_VALUE);
+    {        
+        currentEntityController.setSheet(Integer.MAX_VALUE);
         refresh();
     }
     
     @FXML
     public void prevSheet()
     {
-        int sheet = sheetProperty.lessThanOrEqualTo(1).get() ? 1 : sheetProperty.get() - 1;
-        sheetProperty.set(sheet);
+        int currentSheet = currentEntityController.getSheet();
+        int newSheet = currentSheet <= 1 ? 1 : currentSheet - 1;
+        
+        currentEntityController.setSheet(newSheet);
         refresh();
     }
     
@@ -261,8 +326,9 @@ public class ClientController
     public void onSheetNumberChanged()
     {
         try
-        {
-            sheetProperty.set(Integer.valueOf(sheetField.getText()));
+        {            
+            currentEntityController.setSheet(Integer.valueOf(sheetField.getText()));
+            refresh();
         }
         catch (NumberFormatException e)
         {
@@ -273,5 +339,10 @@ public class ClientController
     public void shutdown()
     {        
         networkController.disconnect();
+    }
+    
+    private String getCurrentTabName()
+    {
+        return tabPane.getSelectionModel().getSelectedItem().getText();
     }
 }

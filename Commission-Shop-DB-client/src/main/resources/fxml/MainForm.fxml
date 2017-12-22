@@ -29,12 +29,12 @@
                                                       <TextField fx:id="committentNameField" prefHeight="25.0" prefWidth="136.0" />
                                                       <TextField fx:id="committentSurnameField" prefHeight="25.0" prefWidth="166.0" />
                                                       <TextField fx:id="committentPatronymicField" prefHeight="25.0" prefWidth="145.0" />
-                                                      <TextField fx:id="committentDistrictIdField" prefHeight="25.0" prefWidth="157.0" />
-                                                      <TextField fx:id="committentSocialStatusIdField" prefHeight="25.0" prefWidth="142.0" />
-                                                      <TextField fx:id="committentCompaniesIdField" prefHeight="25.0" prefWidth="182.0" />
+                                                      <ComboBox fx:id="committentDistrictIdComboBox" prefHeight="25.0" prefWidth="150.0" />
+                                                      <ComboBox fx:id="committentSocialStatusIdComboBox" prefHeight="25.0" prefWidth="144.0" />
+                                                      <ChoiceBox fx:id="committentCompaniesIdChoiceBox" prefWidth="150.0" />
                                                       <DatePicker fx:id="committentDatePicker" prefHeight="25.0" prefWidth="155.0" />
                                                       <TextField fx:id="committentTelephoneNumberField" prefHeight="25.0" prefWidth="142.0" />
-                                                      <Button mnemonicParsing="false" onAction="#add" prefHeight="25.0" prefWidth="138.0" text="Add" />
+                                                      <Button mnemonicParsing="false" onAction="#addCommittent" prefHeight="25.0" prefWidth="138.0" text="Add" />
                                                    </children></HBox>
                                              </content>
                                         </TitledPane>
@@ -81,7 +81,7 @@
                                                       <TextField prefHeight="25.0" prefWidth="466.0" />
                                                       <TextField prefHeight="25.0" prefWidth="533.0" />
                                                       <TextField prefHeight="25.0" prefWidth="363.0" />
-                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="294.0" text="Add" />
+                                                      <Button mnemonicParsing="false" onAction="#addProduct" prefHeight="25.0" prefWidth="294.0" text="Add" />
                                                    </children></HBox>
                                              </content>
                                           </TitledPane>
@@ -365,7 +365,7 @@
          <bottom>
             <ToolBar prefHeight="16.0" prefWidth="800.0" BorderPane.alignment="CENTER">
                <items>
-                  <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refresh" prefHeight="25.0" prefWidth="25.0" />
+                  <Button fx:id="refreshButton" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#refresh" prefHeight="25.0" prefWidth="25.0" />
                   <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
                   <HBox prefHeight="25.0" prefWidth="185.0">
                      <children>

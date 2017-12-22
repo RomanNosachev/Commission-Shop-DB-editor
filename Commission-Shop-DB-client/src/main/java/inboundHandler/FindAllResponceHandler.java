@@ -1,26 +1,27 @@
 package inboundHandler;
 
+import controller.EntityController;
 import dao.DB_Entity;
 import io.netty.channel.ChannelHandlerContext;
 import javafx.collections.FXCollections;
-import javafx.scene.control.TableView;
 import response.FindAllResponse;
 
 public class FindAllResponceHandler<T extends DB_Entity> 
 extends AbstractResponseHandler<T>
 {
-    protected TableView<T> tableView;
+    private EntityController<T> entityController;
     
-    public FindAllResponceHandler(Class<T> entityClass, TableView<T> tableView)
+    public FindAllResponceHandler(EntityController<T> entityController)
     {
-        super(entityClass);
+        super(entityController.getEntityClass());       
         
-        this.tableView = tableView;
+        this.entityController = entityController;
     }
 
     @Override
     public void responceReceived(ChannelHandlerContext ctx, FindAllResponse<T> msg)
     {
-        tableView.setItems(FXCollections.observableArrayList(msg.getEntries()));
+        entityController.getTableView().setItems(FXCollections.observableArrayList(msg.getEntries()));
+        entityController.setSheet(msg.getSheet());
     }
 }

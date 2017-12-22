@@ -1,9 +1,11 @@
 inboundHandler\FindAllResponceHandler.class
 controller\ClientNetworkController$4.class
 controller\ClientController$1.class
+controller\ClientController$3.class
 inboundHandler\LoginResponseHandler.class
 utils\CompanyTableColumnBuilder.class
 utils\DistrictTableColumnBuilder.class
+controller\EntityController.class
 view\App.class
 utils\ProductTableColumnBuilder.class
 controller\AbstractNetworkController.class

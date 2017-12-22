@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.hibernate.HibernateException;
@@ -17,7 +18,7 @@ import response.FindAllResponse;
 
 public class GenericService<T extends DB_Entity, PK extends Serializable>
 {
-    private final int   sheetSize = 100;
+    public final int   SHEET_SIZE = 100;
     
     private SessionFactory  factory;
     private Session         session;
@@ -63,6 +64,19 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
         
         session.save(object);
         session.getTransaction().commit();
+        
+        disconnect();
+    }
+    
+    //TODO
+    public void update(T object)
+    {
+        connect();
+        
+        session.update(object);
+        session.getTransaction().commit();
+        
+        disconnect();
     }
     
     public boolean remove(PK id)
@@ -71,15 +85,19 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
         
         T entity = session.get(type, id);
         
+        boolean removed = false;
+        
         if (entity != null)
         {
             session.remove(entity);
             session.getTransaction().commit();
             
-            return true;
+            removed = true;
         }
         
-        return false;
+        disconnect();
+        
+        return removed;
     }
 
     public T find(PK id)
@@ -106,6 +124,8 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
                 break;
         }
         
+        disconnect();
+        
         return entity;
     }
 
@@ -114,16 +134,14 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
         return findAll(FetchMode.EAGER, 1);
     }
     
-    public List<T> findAll(FetchMode fetchMode, int sheet)
+    public List<T> findAll(FetchMode fetchMode, int startPosition)
     {
         connect();      
-        
-        int firstResult = sheet * sheetSize - sheetSize;
-        
-        TypedQuery<T> query = session.createQuery("FROM " + getEntityName() + " a", type)   
-                .setFirstResult(firstResult)
-                .setMaxResults(sheetSize);
 
+        TypedQuery<T> query = session.createQuery("FROM " + getEntityName() + " a", type)   
+                .setFirstResult(startPosition)
+                .setMaxResults(SHEET_SIZE);
+        
         switch (fetchMode) 
         {
             case EAGER:
@@ -134,7 +152,10 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
                 break;
         }
                 
-        List<T> resultList = query.getResultList();      
+        List<T> resultList = query.getResultList();     
+        
+        disconnect();
+        
         return resultList;
     }
     
@@ -143,8 +164,24 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
         return getFindAllResponce(FetchMode.EAGER, 1);
     }
     
-    public FindAllResponse<T> getFindAllResponce(FetchMode fetchMode, int startPosition)
+    public FindAllResponse<T> getFindAllResponce(FetchMode fetchMode, int sheet)
     {
-        return new FindAllResponse<T>(type, findAll(fetchMode, startPosition));
+        long count = count();
+        int currentSheet = (int) Math.min(sheet, (count - 1) / SHEET_SIZE + 1);
+        int startPosition = (int) Math.min((currentSheet - 1) * SHEET_SIZE + 1, count);
+        
+        return new FindAllResponse<T>(type, findAll(fetchMode, startPosition), currentSheet);
     }
+    
+    public long count()
+    {
+        connect();      
+        
+        Query countQuery = session.createQuery("SELECT COUNT(*) FROM " + getEntityName() + " a");
+        long count = (long) countQuery.getSingleResult();
+        
+        disconnect();
+        
+        return count;
+    } 
 }

@@ -9,7 +9,7 @@ extends AbstractCommandHandler<FindAllCommand<? extends DB_Entity>>
 {    
     @Override
     protected void commandReceived(ChannelHandlerContext ctx, FindAllCommand<? extends DB_Entity> msg) throws Exception
-    {
+    {        
         ctx.writeAndFlush(service.getFindAllResponce(msg.getFetchMode(), msg.getSheet()));
     }
 }
