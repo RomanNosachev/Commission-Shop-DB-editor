@@ -30,9 +30,6 @@ implements TableColumnBuilder<Product>
         productColumnList.get(2).setCellValueFactory(
                 cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         
-        productColumnList.get(3).setCellValueFactory(
-                cellData -> new SimpleStringProperty(cellData.getValue().getPrice().toString()));
-        
         return productColumnList;
     }    
 }

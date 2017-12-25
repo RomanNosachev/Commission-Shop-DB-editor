@@ -1,7 +1,6 @@
 package service;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +19,7 @@ implements EntityGenerator<Product>
     public ProductGenerator()
     {
         GenericService<ProductGroup, Serializable> pService = new GenericService<>(ProductGroup.class);
+                
         productGroups = pService.findAll();
         pService.disconnect();
         
@@ -200,18 +200,7 @@ implements EntityGenerator<Product>
         
         List<String> names = productMap.get(productGroup.getName());
         String name = names.get(Math.abs(random.nextInt(names.size() - 1)));
-        
-        BigDecimal price;
-        
-        if (productGroup.getName().equals("Авто-мото") ||
-                productGroup.getName().equals("Недвижимость"))
-            price = new BigDecimal(100000 + Math.abs(random.nextInt(1000000)) * 100);
-        else if (productGroup.getName().equals("Ювелирные изделия"))
-            price = new BigDecimal(1000 + Math.abs(random.nextInt(5000)) * 100);
                 
-        else
-            price = new BigDecimal(Math.abs(random.nextInt(10000)) * 100);
-                
-        return new Product(productGroup, name, price);
+        return new Product(productGroup, name);
     }   
 }

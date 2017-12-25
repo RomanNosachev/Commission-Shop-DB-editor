@@ -1,5 +1,6 @@
 package dao;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -42,17 +43,22 @@ implements DB_Entity
     @Column(name = "count")
     private int count;
  
+    @Column(name = "price", nullable = false)
+    private BigDecimal price;
+    
     public ProductImport()
     {
     }
     
-    public ProductImport(Product product, long receiptNumber, Date date, int count)
+    public ProductImport(Product product, long receiptNumber, Date date, int count, BigDecimal price)
     {
         super();
+        
         this.product = product;
         this.receiptNumber = receiptNumber;
         this.date = date;
         this.count = count;
+        this.price = price;
     } 
     
     public long getId()
@@ -103,5 +109,15 @@ implements DB_Entity
     public void setReceiptNumber(long receiptNumber)
     {
         this.receiptNumber = receiptNumber;
+    }
+    
+    public BigDecimal getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price)
+    {
+        this.price = price;
     }
 }

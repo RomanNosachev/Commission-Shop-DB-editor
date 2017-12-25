@@ -1,7 +1,5 @@
 package dao;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,19 +34,15 @@ implements DB_Entity
     @Column(name = "name", length = 40, nullable = false)
     private String name;
     
-    @Column(name = "price", nullable = false)
-    private BigDecimal price;
-    
     public Product()
     {
     }
 
-    public Product(ProductGroup productGroup, String name, BigDecimal price)
+    public Product(ProductGroup productGroup, String name)
     {
         super();
         this.productGroup = productGroup;
         this.name = name;
-        this.price = price;
     }
     
     public long getId()
@@ -79,15 +73,5 @@ implements DB_Entity
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    public BigDecimal getPrice()
-    {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price)
-    {
-        this.price = price;
-    }
+    } 
 }

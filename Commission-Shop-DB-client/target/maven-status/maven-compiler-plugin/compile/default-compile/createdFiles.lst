@@ -1,5 +1,6 @@
 inboundHandler\FindAllResponceHandler.class
 controller\ClientNetworkController$4.class
+inboundHandler\FindResponceHandler.class
 controller\ClientController$1.class
 controller\ClientController$3.class
 inboundHandler\LoginResponseHandler.class
@@ -21,6 +22,7 @@ utils\TableColumnBuilder.class
 controller\ClientNetworkController$5.class
 utils\CommittentTableColumnBuilder.class
 controller\ClientNetworkController$3.class
+controller\ClientController$4.class
 utils\ProductGroupTableColumnBuilder.class
 controller\ClientNetworkController$1.class
 utils\DealTableColumnBuilder.class

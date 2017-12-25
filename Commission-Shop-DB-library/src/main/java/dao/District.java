@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "District")
 public class District 
-implements DB_Entity
+implements DB_Directory
 {                    
     private static final long serialVersionUID = -5349742291113244498L;
     
@@ -27,6 +27,7 @@ implements DB_Entity
     public District(String name)
     {
         super();
+        
         this.name = name;
     }
 

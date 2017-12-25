@@ -36,6 +36,9 @@ implements TableColumnBuilder<ProductImport>
         productImportColumnList.get(4).setCellValueFactory(
                 cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCount())));
         
+        productImportColumnList.get(5).setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getPrice().toString()));
+        
         return productImportColumnList;
     }   
 }

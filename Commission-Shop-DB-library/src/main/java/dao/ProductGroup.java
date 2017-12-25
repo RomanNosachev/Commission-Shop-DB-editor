@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ProductGroup")
 public class ProductGroup 
-implements DB_Entity
+implements DB_Directory
 {        
     private static final long serialVersionUID = -2552842837729247867L;
     
@@ -25,6 +25,8 @@ implements DB_Entity
     
     public ProductGroup(String name)
     {
+        super();
+        
         this.name = name;
     }
 

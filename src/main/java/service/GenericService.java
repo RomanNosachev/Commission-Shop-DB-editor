@@ -13,8 +13,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import command.FetchMode;
+import dao.DB_Directory;
 import dao.DB_Entity;
-import response.FindAllResponse;
+import dao.User;
+import dao.UserStatus;
+import responce.FindAllResponce;
+import util.DigestService;
 
 public class GenericService<T extends DB_Entity, PK extends Serializable>
 {
@@ -22,6 +26,9 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
     
     private SessionFactory  factory;
     private Session         session;
+    
+    private User    user;
+    private boolean logged = false;
     
     private Class<T>    type;
     
@@ -42,12 +49,12 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
     }
     
     public void connect()
-    {
+    {        
         if (session == null || !session.isOpen())
             session = factory.openSession();
         
         if (!session.getTransaction().isActive())
-            session.beginTransaction();
+            session.beginTransaction();        
     }
     
     public void disconnect()
@@ -55,11 +62,53 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
         if (session != null && session.isOpen())
         {
             session.close();
-        }
+        }        
     }
     
-    public void create(T object) throws HibernateException
+    public boolean isLogged()
     {
+        return logged;
+    }
+    
+    public User getUser()
+    {
+        return user;
+    }
+    
+    public UserStatus login(PK login, String hash) throws NullPointerException, IllegalAccessException
+    {
+        connect();
+                
+        User user = session.find(User.class, login);
+        
+        disconnect();
+        
+        if (user == null || !DigestService.isEqualsHash(hash, user.getPassword()))
+            throw new IllegalAccessException("Invalid login or password");
+        
+        this.user = user;
+        logged = true;
+        
+        return user.getStatus();
+    }
+    
+    public void create(T object) throws HibernateException, IllegalAccessException
+    {
+        if (!isLogged())
+            throw new IllegalAccessException("Not logged");
+
+        switch (user.getStatus())
+        {
+            case Admin:
+                break;
+            case Editor:
+                if (getEntityClass().isInstance(DB_Directory.class))
+                    throw new IllegalAccessException("This action is not allowed to" + user.getStatus().name());
+                break;
+            default:
+                throw new IllegalAccessException("This action is not allowed to" + user.getStatus().name());
+        }
+        
         connect();
         
         session.save(object);
@@ -69,8 +118,23 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
     }
     
     //TODO
-    public void update(T object)
+    public void update(T object) throws IllegalAccessException
     {
+        if (!isLogged())
+            throw new IllegalAccessException("Not logged");
+
+        switch (user.getStatus())
+        {
+            case Admin:
+                break;
+            case Editor:
+                if (getEntityClass().isInstance(DB_Directory.class))
+                    throw new IllegalAccessException("This action is not allowed to" + user.getStatus().name());
+                break;
+            default:
+                throw new IllegalAccessException("This action is not allowed to" + user.getStatus().name());
+        }
+        
         connect();
         
         session.update(object);
@@ -79,8 +143,23 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
         disconnect();
     }
     
-    public boolean remove(PK id)
+    public boolean remove(PK id) throws IllegalAccessException
     {
+        if (!isLogged())
+            throw new IllegalAccessException("Not logged");
+
+        switch (user.getStatus())
+        {
+            case Admin:
+                break;
+            case Editor:
+                if (getEntityClass().isInstance(DB_Directory.class))
+                    throw new IllegalAccessException("This action is not allowed to" + user.getStatus().name());
+                break;
+            default:
+                throw new IllegalAccessException("This action is not allowed to" + user.getStatus().name());
+        }
+        
         connect();
         
         T entity = session.get(type, id);
@@ -131,7 +210,7 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
 
     public List<T> findAll()
     {
-        return findAll(FetchMode.EAGER, 1);
+        return findAll(FetchMode.EAGER, 0);
     }
     
     public List<T> findAll(FetchMode fetchMode, int startPosition)
@@ -159,18 +238,18 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
         return resultList;
     }
     
-    public FindAllResponse<T> getFindAllResponse()
+    public FindAllResponce<T> getFindAllResponse()
     {
-        return getFindAllResponce(FetchMode.EAGER, 1);
+        return getFindAllResponce(FetchMode.EAGER, 0);
     }
     
-    public FindAllResponse<T> getFindAllResponce(FetchMode fetchMode, int sheet)
+    public FindAllResponce<T> getFindAllResponce(FetchMode fetchMode, int sheet)
     {
         long count = count();
         int currentSheet = (int) Math.min(sheet, (count - 1) / SHEET_SIZE + 1);
         int startPosition = (int) Math.min((currentSheet - 1) * SHEET_SIZE + 1, count);
         
-        return new FindAllResponse<T>(type, findAll(fetchMode, startPosition), currentSheet);
+        return new FindAllResponce<T>(type, findAll(fetchMode, startPosition), currentSheet);
     }
     
     public long count()

@@ -11,6 +11,8 @@ import java.util.Map;
 import command.CreateCommand;
 import command.FetchMode;
 import command.FindAllCommand;
+import command.FindCommand;
+import command.RemoveCommand;
 import dao.Committent;
 import dao.Company;
 import dao.DB_Entity;
@@ -22,6 +24,7 @@ import dao.ProductImport;
 import dao.SocialStatus;
 import inboundHandler.ClientDefaultHandler;
 import inboundHandler.FindAllResponceHandler;
+import inboundHandler.FindResponceHandler;
 import inboundHandler.LoginResponseHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -113,6 +116,12 @@ public class ClientController
     private DatePicker          committentDatePicker;
     @FXML
     private TextField           committentTelephoneNumberField;
+    @FXML
+    private TextField           committentFindByIdField;
+    @FXML
+    private TextField           committentFindBySurnameField;
+    @FXML
+    private TextField           committentDeleteField;
     
     @FXML
     public void initialize()
@@ -159,6 +168,15 @@ public class ClientController
                 pipeline.addLast(new FindAllResponceHandler<>(productImportController));
                 pipeline.addLast(new FindAllResponceHandler<>(socialStatusController));
                 
+                pipeline.addLast(new FindResponceHandler<>(committentController));
+                pipeline.addLast(new FindResponceHandler<>(companyController));
+                pipeline.addLast(new FindResponceHandler<>(dealController));
+                pipeline.addLast(new FindResponceHandler<>(districtController));
+                pipeline.addLast(new FindResponceHandler<>(productController));
+                pipeline.addLast(new FindResponceHandler<>(productImportController));
+                pipeline.addLast(new FindResponceHandler<>(socialStatusController));
+                pipeline.addLast(new FindResponceHandler<>(productGroupController));
+             
                 pipeline.addLast(new ClientDefaultHandler());
             }
         });
@@ -177,6 +195,15 @@ public class ClientController
             {
                 if (event.getCode().equals(KeyCode.ENTER))
                     onSheetNumberChanged();
+            }
+        });
+        
+        committentFindByIdField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event)
+            {
+                if (event.getCode().equals(KeyCode.ENTER))
+                    findCommittentById();
             }
         });
             
@@ -211,74 +238,6 @@ public class ClientController
     public void disconnect()
     {
         networkController.disconnect();
-    }
-
-    @FXML
-    public void addCommittent()
-    {        
-        String name = committentNameField.getText();
-        String surname = committentSurnameField.getText();
-        String patronymic = committentPatronymicField.getText();
-        District district = new District(committentDistrictIdComboBox.getSelectionModel().getSelectedItem().toString());
-        SocialStatus status = new SocialStatus(committentSocialStatusIdComboBox.getSelectionModel().getSelectedItem().toString());
-        
-        List<Company> companies = new ArrayList<>();
-        String[] companiesId = committentCompaniesIdChoiceBox.getSelectionModel().getSelectedItem().toString().split(",");
-        
-        for (String companyId : companiesId)
-            companies.add(new Company(companyId));
-        
-        LocalDate localDate = committentDatePicker.getValue();
-        Calendar c =  Calendar.getInstance();
-        c.set(localDate.getYear(), localDate.getMonthValue() - 1, localDate.getDayOfMonth());
-        Date date = c.getTime();
-        String telephoneNumber = committentTelephoneNumberField.getText();
-                
-        Committent committent = new Committent(name, surname, patronymic, district, status, companies, date, telephoneNumber);
-        
-        networkController.sendCommand(new CreateCommand<Committent>(committent));
-    }
-    
-    @FXML
-    public void addProduct()
-    {
-        
-    }
-    
-    @FXML
-    public void addDeal()
-    {
-        
-    }
-    
-    @FXML
-    public void addProductImport()
-    {
-        
-    }
-    
-    @FXML
-    public void addCompany()
-    {
-        
-    }
-    
-    @FXML
-    public void addDistrict()
-    {
-        
-    }
-    
-    @FXML
-    public void addSocialStatus()
-    {
-        
-    }
-    
-    @FXML
-    public void addProductGroup()
-    {
-        
     }
     
     @FXML
@@ -344,5 +303,103 @@ public class ClientController
     private String getCurrentTabName()
     {
         return tabPane.getSelectionModel().getSelectedItem().getText();
+    }
+    
+    @FXML
+    public void addCommittent()
+    {        
+        String name = committentNameField.getText();
+        String surname = committentSurnameField.getText();
+        String patronymic = committentPatronymicField.getText();
+        District district = new District(committentDistrictIdComboBox.getSelectionModel().getSelectedItem().toString());
+        SocialStatus status = new SocialStatus(committentSocialStatusIdComboBox.getSelectionModel().getSelectedItem().toString());
+        
+        List<Company> companies = new ArrayList<>();
+        String[] companiesId = committentCompaniesIdChoiceBox.getSelectionModel().getSelectedItem().toString().split(",");
+        
+        for (String companyId : companiesId)
+            companies.add(new Company(companyId));
+        
+        LocalDate localDate = committentDatePicker.getValue();
+        Calendar c =  Calendar.getInstance();
+        c.set(localDate.getYear(), localDate.getMonthValue() - 1, localDate.getDayOfMonth());
+        Date date = c.getTime();
+        String telephoneNumber = committentTelephoneNumberField.getText();
+                
+        Committent committent = new Committent(name, surname, patronymic, district, status, companies, date, telephoneNumber);
+        
+        networkController.sendCommand(new CreateCommand<Committent>(committent));
+    }
+    
+    @FXML
+    public void findCommittentById()
+    {
+        String text = committentFindByIdField.getText();
+        
+        try
+        {
+            networkController.sendCommand(new FindCommand<>(Committent.class, Long.parseLong(text)));
+        }
+        catch (NumberFormatException e)
+        {
+            e.printStackTrace();
+        }       
+    }
+    
+    @FXML
+    public void deleteCommittent()
+    {
+        String text = committentDeleteField.getText();
+        
+        try
+        {
+            networkController.sendCommand(new RemoveCommand<>(Committent.class, Long.parseLong(text)));
+        }
+        catch (NumberFormatException e)
+        {
+            e.printStackTrace();
+        }       
+    }
+    
+    @FXML
+    public void addProduct()
+    {
+        
+    }
+    
+    @FXML
+    public void addDeal()
+    {
+        
+    }
+    
+    @FXML
+    public void addProductImport()
+    {
+        
+    }
+    
+    @FXML
+    public void addCompany()
+    {
+        
+    }
+    
+    @FXML
+    public void addDistrict()
+    {
+        
+    }
+    
+    @FXML
+    public void addSocialStatus()
+    {
+        
+    }
+    
+    @FXML
+    public void addProductGroup()
+    {
+        
     }
 }

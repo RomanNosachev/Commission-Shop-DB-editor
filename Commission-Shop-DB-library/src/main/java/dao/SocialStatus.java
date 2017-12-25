@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SocialStatus")
 public class SocialStatus 
-implements DB_Entity
+implements DB_Directory
 {                    
     private static final long serialVersionUID = -8371093617546670432L;
     
@@ -27,6 +27,7 @@ implements DB_Entity
     public SocialStatus(String name)
     {
         super();
+        
         this.name = name;
     }
 

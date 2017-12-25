@@ -23,7 +23,7 @@ import io.netty.handler.logging.LoggingHandler;
 
 public final class Server 
 {    
-    static final int     PORT = Integer.parseInt(System.getProperty("port", "8007"));
+    static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
     
     public static void main(String[] args) throws Exception
     {                

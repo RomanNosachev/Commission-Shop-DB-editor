@@ -1,5 +1,6 @@
 package dao;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -34,7 +35,7 @@ implements DB_Entity
     
     @ManyToOne
     @JoinColumn(name = "committent", nullable = false)
-    private Committent comittent;
+    private Committent committent;
     
     @Column(name = "date", nullable = false)
     private Date date;
@@ -42,17 +43,22 @@ implements DB_Entity
     @Column(name = "count", nullable = false)
     private int count;
     
+    @Column(name = "price", nullable = false)
+    private BigDecimal price;
+    
     public Deal()
     {
     }
 
-    public Deal(Product product, Committent committent, Date date, int count)
+    public Deal(Product product, Committent committent, Date date, int count, BigDecimal price)
     {
         super();
+        
         this.product = product;
-        this.comittent = committent;
+        this.committent = committent;
         this.date = date;
         this.count = count;
+        this.price = price;
     }
 
     public long getId()
@@ -77,12 +83,12 @@ implements DB_Entity
 
     public void setCommittent(Committent committent)
     {
-        this.comittent = committent;
+        this.committent = committent;
     }
     
     public Committent getCommittent()
     {
-        return comittent;
+        return committent;
     }
     
     public Date getDate()
@@ -103,5 +109,15 @@ implements DB_Entity
     public void setCount(int count)
     {
         this.count = count;
+    }
+    
+    public BigDecimal getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price)
+    {
+        this.price = price;
     }
 }

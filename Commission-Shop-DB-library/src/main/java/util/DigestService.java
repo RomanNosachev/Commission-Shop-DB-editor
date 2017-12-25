@@ -32,4 +32,12 @@ public class DigestService
        
        return firstUser.getPassword().equals(secondUser.getPassword());
    }
+
+   public static boolean isEqualsHash(String firstHash, String secondHash)
+   {
+       if (firstHash == null || secondHash == null)
+           throw new NullPointerException();
+       
+       return firstHash.equals(secondHash);
+   }
 }

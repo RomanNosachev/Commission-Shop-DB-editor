@@ -3,10 +3,10 @@ package inboundHandler;
 import controller.AbstractNetworkController;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import response.LoginResponse;
+import responce.LoginResponce;
 
 public class LoginResponseHandler 
-extends SimpleChannelInboundHandler<LoginResponse>
+extends SimpleChannelInboundHandler<LoginResponce>
 {    
     private AbstractNetworkController controller;
     
@@ -16,8 +16,11 @@ extends SimpleChannelInboundHandler<LoginResponse>
     }
     
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, LoginResponse msg) throws Exception
+    protected void channelRead0(ChannelHandlerContext ctx, LoginResponce msg) throws Exception
     {
         controller.acess(msg.isLogged());
+        
+        //TODO
+        System.out.println(msg.getStatus());
     }
 }

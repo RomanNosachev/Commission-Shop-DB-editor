@@ -3,10 +3,10 @@ package inboundHandler;
 import dao.DB_Entity;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import response.FindAllResponse;
+import responce.FindAllResponce;
 
 public abstract class AbstractResponseHandler<T extends DB_Entity>
-extends SimpleChannelInboundHandler<FindAllResponse<T>>
+extends SimpleChannelInboundHandler<FindAllResponce<T>>
 {
     private Class<T> entityClass;
         
@@ -16,7 +16,7 @@ extends SimpleChannelInboundHandler<FindAllResponse<T>>
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, FindAllResponse<T> msg) throws Exception
+    protected void channelRead0(ChannelHandlerContext ctx, FindAllResponce<T> msg) throws Exception
     {
         if (msg.getEntityClass() != entityClass)
         {
@@ -28,5 +28,5 @@ extends SimpleChannelInboundHandler<FindAllResponse<T>>
         responceReceived(ctx, msg);
     }
     
-    public abstract void responceReceived(ChannelHandlerContext ctx, FindAllResponse<T> msg);
+    public abstract void responceReceived(ChannelHandlerContext ctx, FindAllResponce<T> msg);
 }

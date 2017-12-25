@@ -66,7 +66,8 @@ implements DB_Entity
     public Committent(String name, String surname, String patronymic, District district, SocialStatus socialStatus,
             List<Company> companies, Date date, String telephoneNumber)
     {
-        super();
+        super(); 
+        
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;

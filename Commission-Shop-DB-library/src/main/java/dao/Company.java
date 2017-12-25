@@ -27,6 +27,7 @@ implements DB_Entity
     public Company(String name)
     {
         super();
+        
         this.name = name;
     }
 

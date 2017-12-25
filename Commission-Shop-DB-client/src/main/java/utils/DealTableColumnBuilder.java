@@ -28,7 +28,7 @@ implements TableColumnBuilder<Deal>
                 cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
         
         dealColumnList.get(2).setCellValueFactory(
-                cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCommittent().getId()) + 
+                cellData -> new SimpleStringProperty("[" + String.valueOf(cellData.getValue().getCommittent().getId()) + "] " + 
                         cellData.getValue().getCommittent().getSurname()));
         
         dealColumnList.get(3).setCellValueFactory(
@@ -36,6 +36,9 @@ implements TableColumnBuilder<Deal>
         
         dealColumnList.get(4).setCellValueFactory(
                 cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCount())));
+        
+        dealColumnList.get(5).setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getPrice().toString()));
         
         return dealColumnList;
     }  
