@@ -374,12 +374,13 @@
          <right>
             <StackPane prefHeight="43.0" prefWidth="460.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane fx:id="disconnectPane" styleClass="background-header" visible="false">
+                  <Pane fx:id="disconnectPane" styleClass="background-header">
                      <children>
                         <Button layoutX="374.0" layoutY="1.0" mnemonicParsing="false" onAction="#disconnect" prefHeight="40.0" prefWidth="78.0" text="Disconnect" />
+                        <Label fx:id="userStatusLabel" layoutX="261.0" layoutY="13.0" />
                      </children>
                   </Pane>
-                  <Pane fx:id="connectPane" styleClass="background-header">
+                  <Pane fx:id="connectPane" styleClass="background-header" visible="false">
                      <children>
                         <Button layoutX="374.0" layoutY="1.0" mnemonicParsing="false" onAction="#connect" prefHeight="40.0" prefWidth="78.0" text="Login" />
                         <TextField fx:id="loginField" layoutX="62.0" layoutY="15.0" prefHeight="25.0" prefWidth="150.0" />

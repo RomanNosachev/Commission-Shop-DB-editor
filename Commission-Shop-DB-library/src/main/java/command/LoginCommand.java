@@ -1,7 +1,6 @@
 package command;
 
 import dao.User;
-import util.DigestService;
 
 public class LoginCommand
 extends AbstractEntityCommand<User>
@@ -18,7 +17,7 @@ extends AbstractEntityCommand<User>
             throw new NullPointerException();
         
         this.user = user;
-        user.setPassword(DigestService.getPasswordHash(user));
+        //user.setPassword(DigestService.getPasswordHash(user));
     }
     
     public User getUser()

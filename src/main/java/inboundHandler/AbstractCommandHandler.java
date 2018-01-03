@@ -2,9 +2,13 @@ package inboundHandler;
 
 import java.io.Serializable;
 
+import org.hibernate.SessionFactory;
+
 import command.EntityCommand;
+import core.Server;
 import dao.DB_Entity;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelId;
 import io.netty.channel.SimpleChannelInboundHandler;
 import service.GenericService;
 
@@ -16,35 +20,22 @@ extends SimpleChannelInboundHandler<T>
     
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, T msg) throws Exception
-    {
-        serviceInstance(msg);
+    {        
+        serviceInstance(ctx.channel().id(), msg.getEntityClass());
         commandReceived(ctx, msg);
     }
     
-    private GenericService<?, Serializable> serviceInstance(EntityCommand<? extends DB_Entity> msg)
+    private GenericService<?, Serializable> serviceInstance(ChannelId id, Class<? extends DB_Entity> entityClass)
     {
-        /*
-        if (service == null)
-            service = new GenericService<>(msg.getEntityClass());
-        else
-            if (service.getEntityClass() != msg.getEntityClass())
-            {
-                try
-                {
-                    User user = service.getUser();
-                    service = new GenericService<>(msg.getEntityClass());
-                    service.login(user.getLogin(), user.getPassword());
-                }
-                catch(IllegalAccessException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-                      
-        return service;
-        */
+        SessionFactory factory = Server.getSessionFactory(id);
         
-        return new GenericService<>(msg.getEntityClass());
+        if (factory == null)
+            throw new NullPointerException();
+        
+        if (service == null || service.getEntityClass() != entityClass)
+            service = new GenericService<>(entityClass, factory);
+       
+        return service;        
     }
     
     protected abstract void commandReceived(ChannelHandlerContext ctx, T msg) throws Exception;

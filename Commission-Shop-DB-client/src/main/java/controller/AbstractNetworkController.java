@@ -9,6 +9,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 
 public abstract class AbstractNetworkController 
 {    
@@ -37,10 +38,12 @@ public abstract class AbstractNetworkController
         return bootstrap;
     }
     
-    public abstract void acess(boolean value);
+    public abstract void setAccess(boolean value);
+    public abstract void setUserStatus(int value);
     public abstract void connect(String login, String password);
     public abstract void disconnect();
     public abstract void sendCommand(Command command);
     
-    public abstract BooleanProperty getAcess();
+    public abstract BooleanProperty getAccess();
+    public abstract IntegerProperty getUserStatus();
 }

@@ -40,6 +40,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -99,6 +100,8 @@ public class ClientController
     private TextField       loginField;
     @FXML
     private PasswordField   passField;
+    @FXML
+    private Label           userStatusLabel;
         
     @FXML
     private TextField           committentNameField;
@@ -184,10 +187,11 @@ public class ClientController
         Image image = new Image(getClass().getResourceAsStream("/icons/refresh.png"));
         refreshButton.setGraphic(new ImageView(image));
         
-        connectPane.disableProperty().bind(networkController.getAcess());
-        connectPane.visibleProperty().bind(networkController.getAcess().not());
-        disconnectPane.disableProperty().bind(networkController.getAcess().not());
-        disconnectPane.visibleProperty().bind(networkController.getAcess());
+        connectPane.disableProperty().bind(networkController.getAccess());
+        connectPane.visibleProperty().bind(networkController.getAccess().not());
+        disconnectPane.disableProperty().bind(networkController.getAccess().not());
+        disconnectPane.visibleProperty().bind(networkController.getAccess());
+        userStatusLabel.textProperty().bind(networkController.getUserStatus().asString());
                 
         sheetField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override

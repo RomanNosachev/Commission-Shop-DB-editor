@@ -4,12 +4,15 @@ import command.Command;
 import command.EntityCommand;
 import command.LoginCommand;
 import dao.User;
+import dao.UserStatus;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.concurrent.Task;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -19,11 +22,12 @@ extends AbstractNetworkController
 {
     private String  login = "";
     private String  password = "";
-    
+        
     private static class Condition
     {
         private volatile static BooleanProperty connected = new SimpleBooleanProperty(false);
         private volatile static BooleanProperty logged = new SimpleBooleanProperty(false);
+        private volatile static IntegerProperty status = new SimpleIntegerProperty(UserStatus.User.ordinal());
 
         private static synchronized void setConnected(boolean value)
         {
@@ -33,6 +37,11 @@ extends AbstractNetworkController
         private static synchronized void setLogged(boolean value)
         {
             logged.set(value);
+        }
+        
+        private static synchronized void setUserStatus(int value)
+        {
+            status.set(value);
         }
         
         public static synchronized boolean isConnected()
@@ -48,6 +57,11 @@ extends AbstractNetworkController
         public static BooleanProperty getLogged()
         {
             return logged;
+        }
+        
+        public static IntegerProperty getUserStatus()
+        {
+            return status;
         }
     }
 
@@ -255,15 +269,25 @@ extends AbstractNetworkController
     }
 
     @Override
-    public void acess(boolean value)
+    public void setAccess(boolean value)
     {
         Condition.setLogged(value);        
     }
-
+    
     @Override
-    public BooleanProperty getAcess()
+    public BooleanProperty getAccess()
     {
         return Condition.getLogged();
+    }
+    
+    public void setUserStatus(int status)
+    {
+        Condition.setUserStatus(status);
+    }  
+    
+    public IntegerProperty getUserStatus()
+    {
+        return Condition.getUserStatus();
     }
 }
 

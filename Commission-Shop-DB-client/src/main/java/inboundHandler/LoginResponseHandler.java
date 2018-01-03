@@ -18,9 +18,7 @@ extends SimpleChannelInboundHandler<LoginResponce>
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LoginResponce msg) throws Exception
     {
-        controller.acess(msg.isLogged());
-        
-        //TODO
-        System.out.println(msg.getStatus());
+        controller.setAccess(msg.isLogged());
+        controller.setUserStatus(msg.getStatus().ordinal());
     }
 }

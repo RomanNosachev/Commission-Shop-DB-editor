@@ -1,5 +1,10 @@
 package core;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.hibernate.SessionFactory;
+
 import inboundHandler.CreateCommandHandler;
 import inboundHandler.FindAllCommandHandler;
 import inboundHandler.FindCommandHandler;
@@ -8,6 +13,7 @@ import inboundHandler.RemoveCommandHandler;
 import inboundHandler.ServerDefaultHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelId;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
@@ -25,8 +31,22 @@ public final class Server
 {    
     static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
     
+    private static Map<ChannelId, SessionFactory> factories;
+    
+    public static void registerSessionFactory(ChannelId id, SessionFactory factory) 
+    {
+        factories.put(id, factory);       
+    }
+    
+    public static SessionFactory getSessionFactory(ChannelId id)
+    {
+        return factories.get(id);
+    }
+    
     public static void main(String[] args) throws Exception
     {                
+        factories = new ConcurrentHashMap<>();
+        
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         
