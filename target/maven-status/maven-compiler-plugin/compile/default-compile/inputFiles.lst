@@ -1,6 +1,7 @@
 D:\Grandfather\Documents\Eclipse\Commission-Shop-DB-Editor\Commission-Shop-DB-editor\src\main\java\service\GenericService.java
 D:\Grandfather\Documents\Eclipse\Commission-Shop-DB-Editor\Commission-Shop-DB-editor\src\main\java\inboundHandler\ServerDefaultHandler.java
 D:\Grandfather\Documents\Eclipse\Commission-Shop-DB-Editor\Commission-Shop-DB-editor\src\main\java\inboundHandler\FindCommandHandler.java
+D:\Grandfather\Documents\Eclipse\Commission-Shop-DB-Editor\Commission-Shop-DB-editor\src\main\java\inboundHandler\DisconnectCommandHandler.java
 D:\Grandfather\Documents\Eclipse\Commission-Shop-DB-Editor\Commission-Shop-DB-editor\src\main\java\inboundHandler\CreateCommandHandler.java
 D:\Grandfather\Documents\Eclipse\Commission-Shop-DB-Editor\Commission-Shop-DB-editor\src\main\java\core\Server.java
 D:\Grandfather\Documents\Eclipse\Commission-Shop-DB-Editor\Commission-Shop-DB-editor\src\main\java\inboundHandler\AbstractCommandHandler.java

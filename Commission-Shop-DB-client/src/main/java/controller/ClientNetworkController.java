@@ -1,6 +1,7 @@
 package controller;
 
 import command.Command;
+import command.DisconnectCommand;
 import command.EntityCommand;
 import command.LoginCommand;
 import dao.User;
@@ -197,6 +198,8 @@ extends AbstractNetworkController
     @Override
     public void disconnect()
     {
+        sendCommand(new DisconnectCommand());
+        
         Condition.setLogged(false);
         
         if (!Condition.isConnected())

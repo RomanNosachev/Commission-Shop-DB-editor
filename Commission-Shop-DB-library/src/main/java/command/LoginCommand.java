@@ -17,11 +17,20 @@ extends AbstractEntityCommand<User>
             throw new NullPointerException();
         
         this.user = user;
-        //user.setPassword(DigestService.getPasswordHash(user));
+        
+        System.out.println(user.getPassword());
+        
+        //user.setPassword(DigestService.getMD5(user.getPassword()));
+        
+        System.out.println(user.getPassword());
     }
     
     public User getUser()
     {
+        //user.setPassword(DigestUtils.getMd5Digest().toString());
+        
+        System.out.println(user.getPassword());
+        
         return user;
     }
 }

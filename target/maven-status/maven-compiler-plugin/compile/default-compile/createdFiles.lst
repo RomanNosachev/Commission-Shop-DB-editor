@@ -1,3 +1,4 @@
+inboundHandler\DisconnectCommandHandler.class
 service\GenericService$1.class
 service\SessionFactoryUtils.class
 service\GenericService.class
