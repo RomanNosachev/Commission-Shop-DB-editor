@@ -37,7 +37,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -51,7 +50,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import outboundHandler.ClientHandler;
+import javafx.util.StringConverter;
+import outboundHandler.ClientOutboundHandler;
 import utils.CommittentTableColumnBuilder;
 import utils.CompanyTableColumnBuilder;
 import utils.DealTableColumnBuilder;
@@ -67,6 +67,8 @@ public class ClientController
     
     private Map<String, EntityController<? extends DB_Entity>> tabMap;
     private EntityController<? extends DB_Entity> currentEntityController;
+    
+    private DB_Entity   buffer;
     
     @FXML
     private Button      refreshButton;
@@ -104,61 +106,64 @@ public class ClientController
     private Label           userStatusLabel;
         
     @FXML
-    private TextField           committentNameField;
+    private TextField               committentNameField;
     @FXML
-    private TextField           committentSurnameField;
+    private TextField               committentSurnameField;
     @FXML
-    private TextField           committentPatronymicField;
+    private TextField               committentPatronymicField;
     @FXML
-    private ComboBox<String>    committentDistrictIdComboBox;
+    private ComboBox<District>      committentDistrictIdComboBox;
     @FXML
-    private ComboBox<String>    committentSocialStatusIdComboBox;
+    private ComboBox<SocialStatus>  committentSocialStatusIdComboBox;
     @FXML
-    private ChoiceBox<String>   committentCompaniesIdChoiceBox;
+    private ComboBox<Company>       committentCompaniesIdComboBox;
     @FXML
-    private DatePicker          committentDatePicker;
+    private DatePicker              committentDatePicker;
     @FXML
-    private TextField           committentTelephoneNumberField;
+    private TextField               committentTelephoneNumberField;
     @FXML
-    private TextField           committentFindByIdField;
+    private TextField               committentFindByIdField;
     @FXML
-    private TextField           committentFindBySurnameField;
+    private TextField               committentFindBySurnameField;
     @FXML
-    private TextField           committentDeleteField;
+    private TextField               committentDeleteField;
     
     @FXML
     public void initialize()
-    {                
+    {                                
         EntityController<Committent> committentController = new EntityController<>(Committent.class, committentTableView, sheetField)
                 .columnBuilder(new CommittentTableColumnBuilder());
-        EntityController<Deal> dealController = new EntityController<>(Deal.class, dealTableView, sheetField)
-                .columnBuilder(new DealTableColumnBuilder());
-        EntityController<Company> companyController = new EntityController<>(Company.class, companyTableView, sheetField)
-                .columnBuilder(new CompanyTableColumnBuilder());
-        EntityController<District> districtController = new EntityController<>(District.class, districtTableView, sheetField)
-                .columnBuilder(new DistrictTableColumnBuilder());
-        EntityController<ProductImport> productImportController = new EntityController<>(ProductImport.class, productImportTableView, sheetField)
-                .columnBuilder(new ProductImportTableColumnBuilder());
-        EntityController<ProductGroup> productGroupController = new EntityController<>(ProductGroup.class, productGroupTableView, sheetField)
-                .columnBuilder(new ProductGroupTableColumnBuilder());
-        EntityController<SocialStatus> socialStatusController =  new EntityController<>(SocialStatus.class, socialStatusTableView, sheetField)
-                .columnBuilder(new SocialStatusTableColumnBuilder());
         EntityController<Product> productController = new EntityController<>(Product.class, productTableView, sheetField)
                 .columnBuilder(new ProductTableColumnBuilder());
-        
+        EntityController<ProductImport> productImportController = new EntityController<>(ProductImport.class, productImportTableView, sheetField)
+                .columnBuilder(new ProductImportTableColumnBuilder());
+        EntityController<Deal> dealController = new EntityController<>(Deal.class, dealTableView, sheetField)
+                .columnBuilder(new DealTableColumnBuilder());
+        EntityController<Company> companyController = new DirectoryController<>(Company.class, companyTableView, sheetField, 
+                committentCompaniesIdComboBox)
+                .columnBuilder(new CompanyTableColumnBuilder());
+        EntityController<District> districtController = new DirectoryController<>(District.class, districtTableView, sheetField, 
+                committentDistrictIdComboBox)
+                .columnBuilder(new DistrictTableColumnBuilder());
+        EntityController<ProductGroup> productGroupController = new DirectoryController<>(ProductGroup.class, productGroupTableView, sheetField)
+                .columnBuilder(new ProductGroupTableColumnBuilder());
+        EntityController<SocialStatus> socialStatusController =  new DirectoryController<>(SocialStatus.class, socialStatusTableView, sheetField,
+                committentSocialStatusIdComboBox)
+                .columnBuilder(new SocialStatusTableColumnBuilder());
+       
         currentEntityController = committentController;
         
         networkController = new ClientNetworkController(new ChannelInitializer<SocketChannel>() 
         {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception
-            {
+            {                
                 ChannelPipeline pipeline = ch.pipeline();
                 
-                pipeline.addLast(new ObjectEncoder());
-                pipeline.addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
+                pipeline.addFirst(new ObjectEncoder());
+                pipeline.addFirst(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
                 
-                pipeline.addLast(new ClientHandler());
+                pipeline.addLast(new ClientOutboundHandler());
                 
                 pipeline.addLast(new LoginResponseHandler(networkController));
                 
@@ -191,8 +196,8 @@ public class ClientController
         connectPane.visibleProperty().bind(networkController.getAccess().not());
         disconnectPane.disableProperty().bind(networkController.getAccess().not());
         disconnectPane.visibleProperty().bind(networkController.getAccess());
-        userStatusLabel.textProperty().bind(networkController.getUserStatus().asString());
-                
+        userStatusLabel.textProperty().bind(networkController.getUserStatus().asString());   
+        
         sheetField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event)
@@ -221,6 +226,48 @@ public class ClientController
             }
         });
         
+        committentCompaniesIdComboBox.setConverter(new StringConverter<Company>() {         
+            @Override
+            public String toString(Company object)
+            {
+                return object.getName();
+            }
+            
+            @Override
+            public Company fromString(String name)
+            {
+                return new Company(name);
+            }
+        });
+        
+        committentSocialStatusIdComboBox.setConverter(new StringConverter<SocialStatus>() {          
+            @Override
+            public String toString(SocialStatus object)
+            {
+                return object.getName();
+            }
+            
+            @Override
+            public SocialStatus fromString(String name)
+            {
+                return new SocialStatus(name);
+            }
+        });
+        
+        committentDistrictIdComboBox.setConverter(new StringConverter<District>() {           
+            @Override
+            public String toString(District object)
+            {
+                return object.getName();
+            }
+            
+            @Override
+            public District fromString(String name)
+            {
+                return new District(name);
+            }
+        });
+                
         tabMap = new HashMap<>();
         tabMap.put("Committent", committentController);
         tabMap.put("Product", productController);
@@ -235,7 +282,7 @@ public class ClientController
     @FXML
     public void connect()
     {        
-        networkController.connect(loginField.getText(), passField.getText());
+        networkController.connect(loginField.getText(), passField.getText());        
     }
     
     @FXML
@@ -245,10 +292,56 @@ public class ClientController
     }
     
     @FXML
+    public void onCompanyComboBoxAction()
+    {        
+        if (companyTableView.getItems().size() < 1)
+            refreshDirectories();
+        else
+            committentCompaniesIdComboBox.getItems().addAll(companyTableView.getItems());
+    }
+    
+    @FXML
+    public void onDistrictComboBoxAction()
+    {
+        if (districtTableView.getItems().size() < 1)
+            refreshDirectories();
+        else
+            committentDistrictIdComboBox.getItems().addAll(districtTableView.getItems());
+    }
+    
+    @FXML
+    public void onProductGroupComboBoxAction()
+    {
+        if (productGroupTableView.getItems().size() < 1)
+            refreshDirectories();
+        //else
+            //TODO
+    }
+    
+    @FXML
+    public void onSocialStatusComboBoxAction()
+    {
+        if (socialStatusTableView.getItems().size() < 1)
+            refreshDirectories();
+        else
+            committentSocialStatusIdComboBox.getItems().addAll(socialStatusTableView.getItems());
+    }
+    
+    @FXML
+    public void refreshDirectories()
+    {
+        networkController.sendCommands(
+                new FindAllCommand<>(District.class),
+                new FindAllCommand<>(SocialStatus.class),
+                new FindAllCommand<>(Company.class),
+                new FindAllCommand<>(ProductGroup.class));
+    }
+    
+    @FXML
     public void refresh()
     {                
         Class<? extends DB_Entity> type = tabMap.get(getCurrentTabName()).getEntityClass();                
-        networkController.sendCommand(new FindAllCommand<>(type, FetchMode.EAGER, currentEntityController.getSheet()));
+        networkController.sendCommand(new FindAllCommand<>(type, FetchMode.EAGER, currentEntityController.getSheet()));        
     }
     
     @FXML
@@ -315,11 +408,11 @@ public class ClientController
         String name = committentNameField.getText();
         String surname = committentSurnameField.getText();
         String patronymic = committentPatronymicField.getText();
-        District district = new District(committentDistrictIdComboBox.getSelectionModel().getSelectedItem().toString());
-        SocialStatus status = new SocialStatus(committentSocialStatusIdComboBox.getSelectionModel().getSelectedItem().toString());
+        District district = new District(committentDistrictIdComboBox.getSelectionModel().getSelectedItem().getName());
+        SocialStatus status = new SocialStatus(committentSocialStatusIdComboBox.getSelectionModel().getSelectedItem().getName());
         
         List<Company> companies = new ArrayList<>();
-        String[] companiesId = committentCompaniesIdChoiceBox.getSelectionModel().getSelectedItem().toString().split(",");
+        String[] companiesId = committentCompaniesIdComboBox.getSelectionModel().getSelectedItem().getName().split(",");
         
         for (String companyId : companiesId)
             companies.add(new Company(companyId));

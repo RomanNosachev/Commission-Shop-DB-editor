@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Company")
 public class Company 
-implements DB_Entity
+implements DB_Directory
 {            
     private static final long serialVersionUID = 3854696488171722397L;
     

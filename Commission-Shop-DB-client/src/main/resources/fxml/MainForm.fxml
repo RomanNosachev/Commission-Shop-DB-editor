@@ -29,9 +29,9 @@
                                                       <TextField fx:id="committentNameField" prefHeight="25.0" prefWidth="136.0" />
                                                       <TextField fx:id="committentSurnameField" prefHeight="25.0" prefWidth="166.0" />
                                                       <TextField fx:id="committentPatronymicField" prefHeight="25.0" prefWidth="145.0" />
-                                                      <ComboBox fx:id="committentDistrictIdComboBox" prefHeight="25.0" prefWidth="150.0" />
-                                                      <ComboBox fx:id="committentSocialStatusIdComboBox" prefHeight="25.0" prefWidth="144.0" />
-                                                      <ChoiceBox fx:id="committentCompaniesIdChoiceBox" prefWidth="150.0" />
+                                                      <ComboBox fx:id="committentDistrictIdComboBox" onAction="#onDistrictComboBoxAction" prefHeight="25.0" prefWidth="150.0" />
+                                                      <ComboBox fx:id="committentSocialStatusIdComboBox" onAction="#onSocialStatusComboBoxAction" prefHeight="25.0" prefWidth="144.0" />
+                                                      <ComboBox fx:id="committentCompaniesIdComboBox" onAction="#onCompanyComboBoxAction" prefWidth="150.0" />
                                                       <DatePicker fx:id="committentDatePicker" prefHeight="25.0" prefWidth="155.0" />
                                                       <TextField fx:id="committentTelephoneNumberField" prefHeight="25.0" prefWidth="142.0" />
                                                       <Button mnemonicParsing="false" onAction="#addCommittent" prefHeight="25.0" prefWidth="138.0" text="Add" />
@@ -65,7 +65,20 @@
                                         </TitledPane>
                                         <TitledPane animated="false" text="Update">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <TextField disable="true" prefHeight="25.0" prefWidth="134.0" />
+                                                      <TextField fx:id="committentNameField1" prefHeight="25.0" prefWidth="136.0" />
+                                                      <TextField fx:id="committentSurnameField1" prefHeight="25.0" prefWidth="166.0" />
+                                                      <TextField fx:id="committentPatronymicField1" prefHeight="25.0" prefWidth="145.0" />
+                                                      <ComboBox fx:id="committentDistrictIdComboBox1" onAction="#onDistrictComboBoxAction" prefHeight="25.0" prefWidth="150.0" />
+                                                      <ComboBox fx:id="committentSocialStatusIdComboBox1" onAction="#onSocialStatusComboBoxAction" prefHeight="25.0" prefWidth="144.0" />
+                                                      <ComboBox fx:id="committentCompaniesIdComboBox1" onAction="#onCompanyComboBoxAction" prefWidth="150.0" />
+                                                      <DatePicker fx:id="committentDatePicker1" prefHeight="25.0" prefWidth="155.0" />
+                                                      <TextField fx:id="committentTelephoneNumberField1" prefHeight="25.0" prefWidth="142.0" />
+                                                      <Button mnemonicParsing="false" onAction="#addCommittent" prefHeight="25.0" prefWidth="138.0" text="Add" />
+                                                   </children>
+                                                </HBox>
                                              </content>
                                         </TitledPane>
                                           <TitledPane animated="false" prefHeight="103.0" prefWidth="750.0" text="Delete">
@@ -88,7 +101,14 @@
                                           </TitledPane>
                                       </panes>
                                     </Accordion>
-                                    <TableView fx:id="committentTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                    <TableView fx:id="committentTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS">
+                                       <contextMenu>
+                                          <ContextMenu>
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" text="Copy" />
+                                            </items>
+                                          </ContextMenu>
+                                       </contextMenu></TableView>
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />
@@ -130,7 +150,14 @@
                                           </TitledPane>
                                        </panes>
                                     </Accordion>
-                                    <TableView fx:id="productTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                    <TableView fx:id="productTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS">
+                                       <contextMenu>
+                                          <ContextMenu>
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" text="Copy" />
+                                            </items>
+                                          </ContextMenu>
+                                       </contextMenu></TableView>
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />
@@ -164,7 +191,14 @@
                                           </TitledPane>
                                        </panes>
                                     </Accordion>
-                                    <TableView fx:id="productImportTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                    <TableView fx:id="productImportTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS">
+                                       <contextMenu>
+                                          <ContextMenu>
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" text="Copy" />
+                                            </items>
+                                          </ContextMenu>
+                                       </contextMenu></TableView>
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />
@@ -198,7 +232,14 @@
                                           </TitledPane>
                                        </panes>
                                     </Accordion>
-                                    <TableView fx:id="dealTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                    <TableView fx:id="dealTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS">
+                                       <contextMenu>
+                                          <ContextMenu>
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" text="Copy" />
+                                            </items>
+                                          </ContextMenu>
+                                       </contextMenu></TableView>
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />
@@ -232,7 +273,14 @@
                                           </TitledPane>
                                        </panes>
                                     </Accordion>
-                                    <TableView fx:id="companyTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                    <TableView fx:id="companyTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS">
+                                       <contextMenu>
+                                          <ContextMenu>
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" text="Copy" />
+                                            </items>
+                                          </ContextMenu>
+                                       </contextMenu></TableView>
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />
@@ -266,7 +314,14 @@
                                           </TitledPane>
                                        </panes>
                                     </Accordion>
-                                    <TableView fx:id="districtTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                    <TableView fx:id="districtTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS">
+                                       <contextMenu>
+                                          <ContextMenu>
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" text="Copy" />
+                                            </items>
+                                          </ContextMenu>
+                                       </contextMenu></TableView>
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />
@@ -300,7 +355,14 @@
                                           </TitledPane>
                                        </panes>
                                     </Accordion>
-                                    <TableView fx:id="socialStatusTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                    <TableView fx:id="socialStatusTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS">
+                                       <contextMenu>
+                                          <ContextMenu>
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" text="Copy" />
+                                            </items>
+                                          </ContextMenu>
+                                       </contextMenu></TableView>
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />
@@ -334,7 +396,14 @@
                                           </TitledPane>
                                        </panes>
                                     </Accordion>
-                                    <TableView fx:id="productGroupTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS" />
+                                    <TableView fx:id="productGroupTableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="750.0" VBox.vgrow="ALWAYS">
+                                       <contextMenu>
+                                          <ContextMenu>
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" text="Copy" />
+                                            </items>
+                                          </ContextMenu>
+                                       </contextMenu></TableView>
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="15.0" />

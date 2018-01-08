@@ -72,7 +72,7 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
         return user;
     }
     
-    public void create(T object) throws HibernateException, IllegalAccessException
+    public void create(T object) throws HibernateException
     {        
         connect();
         
@@ -93,7 +93,7 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
         disconnect();
     }
     
-    public boolean remove(PK id) throws IllegalAccessException
+    public boolean remove(PK id) throws HibernateException
     {
         connect();
         

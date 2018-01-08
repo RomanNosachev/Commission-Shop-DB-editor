@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -52,10 +51,10 @@ implements DB_Entity
     @JoinColumn(name = "socialStatus")
     private SocialStatus socialStatus;
     
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "company")
     private List<Company> companies;
-    
+        
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date", columnDefinition = "DATE")
     private Date date;

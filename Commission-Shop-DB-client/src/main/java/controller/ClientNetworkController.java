@@ -101,12 +101,7 @@ extends AbstractNetworkController
             @Override
             protected void failed() 
             {
-                Throwable exception = getException();
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Client");
-                alert.setHeaderText(exception.getClass().getName());
-                alert.setContentText(exception.getMessage());
-                alert.showAndWait();
+                showErrorMessage(getException());
                 
                 Condition.setConnected(false);
             }
@@ -144,12 +139,7 @@ extends AbstractNetworkController
             @Override
             protected void failed() 
             {
-                Throwable exception = getException();
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Client");
-                alert.setHeaderText(exception.getClass().getName());
-                alert.setContentText(exception.getMessage());
-                alert.showAndWait();
+                showErrorMessage(getException());
                 
                 Condition.setConnected(false);
             }
@@ -176,16 +166,11 @@ extends AbstractNetworkController
                                 
                 return null;
             }
-
+            
             @Override
             protected void failed() 
             {
-                Throwable exception = getException();
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Client");
-                alert.setHeaderText(exception.getClass().getName());
-                alert.setContentText(exception.getMessage());
-                alert.showAndWait();
+                showErrorMessage(getException());
                 
                 Condition.setLogged(false);
                 Condition.setConnected(false);
@@ -221,12 +206,7 @@ extends AbstractNetworkController
             @Override
             protected void failed() 
             {
-                Throwable exception = getException();
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Client");
-                alert.setHeaderText(exception.getClass().getName());
-                alert.setContentText(exception.getMessage());
-                alert.showAndWait();
+                showErrorMessage(getException());
             }
         };
         
@@ -253,13 +233,41 @@ extends AbstractNetworkController
             @Override
             protected void failed() 
             {                
-                Throwable exception = getException();
+                showErrorMessage(getException());
                 
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Client");
-                alert.setHeaderText(exception.getClass().getName());
-                alert.setContentText(exception.getMessage());
-                alert.showAndWait();
+                Condition.setConnected(false);
+                Condition.setLogged(false);
+                
+                reconnect();
+            }
+        };
+        
+        new Thread(task).start();
+    }
+    
+    @Override
+    public void sendCommands(Command... commands)
+    {
+        if (!Condition.isReady())
+            return;
+     
+        Task<Void> task = new Task<Void>() 
+        {
+            @Override
+            protected Void call() throws Exception
+            {         
+                for (Command command : commands)
+                    channel.write(command);
+                
+                channel.flush();
+
+                return null;
+            }
+            
+            @Override
+            protected void failed() 
+            {                
+                showErrorMessage(getException());
                 
                 Condition.setConnected(false);
                 Condition.setLogged(false);
@@ -291,6 +299,15 @@ extends AbstractNetworkController
     public IntegerProperty getUserStatus()
     {
         return Condition.getUserStatus();
+    }  
+    
+    public void showErrorMessage(Throwable exception)
+    {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Client");
+        alert.setHeaderText(exception.getClass().getName());
+        alert.setContentText(exception.getMessage());
+        alert.showAndWait();
     }
 }
 

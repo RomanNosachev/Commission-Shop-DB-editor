@@ -9,6 +9,7 @@ extends AbstractEntityCommand<T>
     
     private T entry;
     
+    @SuppressWarnings("unchecked")
     public CreateCommand(T entry)
     {
         if (entry == null)

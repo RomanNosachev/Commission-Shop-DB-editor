@@ -1,6 +1,9 @@
 package controller;
 
+import java.util.List;
+
 import dao.DB_Entity;
+import javafx.collections.FXCollections;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import utils.TableColumnBuilder;
@@ -9,7 +12,7 @@ public class EntityController<T extends DB_Entity>
 {
     private Class<T> type;
     
-    private TableView<T>    tableView;
+    protected TableView<T>    tableView;
     private TextField       sheetField;
     
     private int sheet = 1;
@@ -53,5 +56,11 @@ public class EntityController<T extends DB_Entity>
     public int getSheet()
     {
         return sheet;
+    }
+    
+    public void setItems(List<T> items, int sheet)
+    {
+        tableView.setItems(FXCollections.observableArrayList(items));
+        setSheet(sheet);
     }
 }

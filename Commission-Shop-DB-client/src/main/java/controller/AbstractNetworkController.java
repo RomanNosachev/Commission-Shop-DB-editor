@@ -42,7 +42,8 @@ public abstract class AbstractNetworkController
     public abstract void setUserStatus(int value);
     public abstract void connect(String login, String password);
     public abstract void disconnect();
-    public abstract void sendCommand(Command command);
+    public abstract void sendCommand(final Command command);
+    public abstract void sendCommands(final Command... commands);
     
     public abstract BooleanProperty getAccess();
     public abstract IntegerProperty getUserStatus();

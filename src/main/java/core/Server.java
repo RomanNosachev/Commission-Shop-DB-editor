@@ -66,8 +66,8 @@ public final class Server
                         {
                             ChannelPipeline p = ch.pipeline();
                             
-                            p.addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
-                            p.addLast(new ObjectEncoder());
+                            p.addFirst(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
+                            p.addFirst(new ObjectEncoder());
                             
                             p.addLast(new LoginCommandHandler());
                             p.addLast(new DisconnectCommandHandler());

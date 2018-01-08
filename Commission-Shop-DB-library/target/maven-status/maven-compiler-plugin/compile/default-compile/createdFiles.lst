@@ -1,6 +1,5 @@
 responce\LoginResponce.class
 command\DisconnectCommand.class
-util\DigestService.class
 dao\ProductImport.class
 command\RemoveCommand.class
 command\Command.class

@@ -11,6 +11,14 @@ extends AbstractCommandHandler<RemoveCommand<? extends DB_Entity>>
     @Override
     protected void commandReceived(ChannelHandlerContext ctx, RemoveCommand<? extends DB_Entity> msg) throws Exception
     {
-        service.remove(msg.getId());
+        try
+        {
+            service.remove(msg.getId());
+        }
+        catch (Exception e)
+        {
+            //TODO
+            e.printStackTrace();
+        }
     }
 }
