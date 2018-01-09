@@ -16,9 +16,8 @@ extends AbstractCommandHandler<CreateCommand<? extends DB_Entity>>
         }
         catch (Exception e) 
         {
+            //TODO
             System.err.println(e.getMessage());
-            
-            //System.out.println("catched");
         }
     }  
 }

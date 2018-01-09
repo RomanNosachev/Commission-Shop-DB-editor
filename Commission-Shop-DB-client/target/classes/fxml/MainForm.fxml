@@ -29,9 +29,9 @@
                                                       <TextField fx:id="committentNameField" prefHeight="25.0" prefWidth="136.0" />
                                                       <TextField fx:id="committentSurnameField" prefHeight="25.0" prefWidth="166.0" />
                                                       <TextField fx:id="committentPatronymicField" prefHeight="25.0" prefWidth="145.0" />
-                                                      <ComboBox fx:id="committentDistrictIdComboBox" onAction="#onDistrictComboBoxAction" prefHeight="25.0" prefWidth="150.0" />
-                                                      <ComboBox fx:id="committentSocialStatusIdComboBox" onAction="#onSocialStatusComboBoxAction" prefHeight="25.0" prefWidth="144.0" />
-                                                      <ComboBox fx:id="committentCompaniesIdComboBox" onAction="#onCompanyComboBoxAction" prefWidth="150.0" />
+                                                      <ComboBox fx:id="committentDistrictIdComboBox" prefHeight="25.0" prefWidth="150.0" />
+                                                      <ComboBox fx:id="committentSocialStatusIdComboBox" prefHeight="25.0" prefWidth="144.0" />
+                                                      <ComboBox fx:id="committentCompaniesIdComboBox" prefWidth="150.0" />
                                                       <DatePicker fx:id="committentDatePicker" prefHeight="25.0" prefWidth="155.0" />
                                                       <TextField fx:id="committentTelephoneNumberField" prefHeight="25.0" prefWidth="142.0" />
                                                       <Button mnemonicParsing="false" onAction="#addCommittent" prefHeight="25.0" prefWidth="138.0" text="Add" />
@@ -40,7 +40,7 @@
                                         </TitledPane>
                                         <TitledPane animated="false" text="Find">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
@@ -67,23 +67,23 @@
                                              <content>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
-                                                      <TextField disable="true" prefHeight="25.0" prefWidth="134.0" />
-                                                      <TextField fx:id="committentNameField1" prefHeight="25.0" prefWidth="136.0" />
-                                                      <TextField fx:id="committentSurnameField1" prefHeight="25.0" prefWidth="166.0" />
-                                                      <TextField fx:id="committentPatronymicField1" prefHeight="25.0" prefWidth="145.0" />
-                                                      <ComboBox fx:id="committentDistrictIdComboBox1" onAction="#onDistrictComboBoxAction" prefHeight="25.0" prefWidth="150.0" />
-                                                      <ComboBox fx:id="committentSocialStatusIdComboBox1" onAction="#onSocialStatusComboBoxAction" prefHeight="25.0" prefWidth="144.0" />
-                                                      <ComboBox fx:id="committentCompaniesIdComboBox1" onAction="#onCompanyComboBoxAction" prefWidth="150.0" />
-                                                      <DatePicker fx:id="committentDatePicker1" prefHeight="25.0" prefWidth="155.0" />
-                                                      <TextField fx:id="committentTelephoneNumberField1" prefHeight="25.0" prefWidth="142.0" />
-                                                      <Button mnemonicParsing="false" onAction="#addCommittent" prefHeight="25.0" prefWidth="138.0" text="Add" />
+                                                      <TextField fx:id="committentSearchIdField" prefHeight="25.0" prefWidth="134.0" />
+                                                      <TextField fx:id="committentSearchNameField" prefHeight="25.0" prefWidth="136.0" />
+                                                      <TextField fx:id="committentSearchSurnameField" prefHeight="25.0" prefWidth="166.0" />
+                                                      <TextField fx:id="committentSearchPatronymicField" prefHeight="25.0" prefWidth="145.0" />
+                                                      <ComboBox fx:id="committentSearchDistrictIdComboBox" prefHeight="25.0" prefWidth="150.0" />
+                                                      <ComboBox fx:id="committentSearchSocialStatusIdComboBox" prefHeight="25.0" prefWidth="144.0" />
+                                                      <ComboBox fx:id="committentSearchCompaniesIdComboBox" prefWidth="150.0" />
+                                                      <DatePicker fx:id="committentSearchDatePicker" prefHeight="25.0" prefWidth="155.0" />
+                                                      <TextField fx:id="committentSearchTelephoneNumberField" prefHeight="25.0" prefWidth="142.0" />
+                                                      <Button mnemonicParsing="false" onAction="#updateCommittent" prefHeight="25.0" prefWidth="138.0" text="Update" />
                                                    </children>
                                                 </HBox>
                                              </content>
                                         </TitledPane>
                                           <TitledPane animated="false" prefHeight="103.0" prefWidth="750.0" text="Delete">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
@@ -124,28 +124,73 @@
                            <children>
                               <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="129.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
+                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="161.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
                                        <panes>
                                           <TitledPane animated="false" text="Add">
                                              <content>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
                                                       <TextField disable="true" prefHeight="25.0" prefWidth="296.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="466.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="533.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="363.0" />
-                                                      <Button mnemonicParsing="false" onAction="#addProduct" prefHeight="25.0" prefWidth="294.0" text="Add" />
+                                                      <ComboBox prefHeight="25.0" prefWidth="371.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="617.0" />
+                                                      <Button mnemonicParsing="false" onAction="#addProduct" prefHeight="25.0" prefWidth="284.0" text="Add" />
                                                    </children></HBox>
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Find">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <Label layoutX="14.0" layoutY="-3.0" text="By ID:" />
+                                                            <TextField fx:id="committentFindByIdField1" layoutY="14.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <TextField fx:id="committentFindBySurnameField1" layoutY="14.0" />
+                                                            <Label layoutX="9.0" layoutY="-4.0" text="By name:" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="63.0">
+                                                         <children>
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#findCommittentById" prefHeight="25.0" prefWidth="61.0" text="Find" />
+                                                         </children>
+                                                      </Pane>
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                           <TitledPane animated="false" text="Update">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <TextField prefHeight="25.0" prefWidth="296.0" />
+                                                      <ComboBox prefHeight="25.0" prefWidth="371.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="617.0" />
+                                                      <Button mnemonicParsing="false" onAction="#addProduct" prefHeight="25.0" prefWidth="284.0" text="Update" />
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                           <TitledPane animated="false" text="Delete">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <Label layoutX="14.0" layoutY="-3.0" text="By ID:" />
+                                                            <TextField fx:id="committentDeleteField1" layoutY="14.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="63.0">
+                                                         <children>
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCommittent" prefHeight="25.0" prefWidth="61.0" text="Delete" />
+                                                         </children>
+                                                      </Pane>
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                        </panes>
@@ -172,21 +217,91 @@
                            <children>
                               <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="129.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
+                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="161.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
                                        <panes>
                                           <TitledPane animated="false" text="Add">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <TextField disable="true" prefHeight="25.0" prefWidth="173.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="184.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="204.0" />
+                                                      <DatePicker prefHeight="25.0" prefWidth="239.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="178.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="253.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" text="Add" />
+                                                   </children></HBox>
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Find">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <Label layoutX="14.0" layoutY="-3.0" text="By ID:" />
+                                                            <TextField fx:id="committentFindByIdField11" layoutY="14.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <TextField fx:id="committentFindBySurnameField11" layoutY="14.0" />
+                                                            <Label layoutX="9.0" layoutY="-4.0" text="By name:" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <TextField fx:id="committentFindBySurnameField111" layoutY="14.0" />
+                                                            <Label layoutX="9.0" layoutY="-4.0" text="By receipt:" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <Label layoutX="9.0" layoutY="-4.0" text="By date:" />
+                                                            <DatePicker layoutY="14.0" prefHeight="25.0" prefWidth="148.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="63.0">
+                                                         <children>
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#findCommittentById" prefHeight="25.0" prefWidth="61.0" text="Find" />
+                                                         </children>
+                                                      </Pane>
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                           <TitledPane animated="false" text="Update">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <TextField disable="true" prefHeight="25.0" prefWidth="173.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="184.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="204.0" />
+                                                      <DatePicker prefHeight="25.0" prefWidth="239.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="178.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="253.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" text="Add" />
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                           <TitledPane animated="false" text="Delete">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <Label layoutX="14.0" layoutY="-3.0" text="By ID:" />
+                                                            <TextField fx:id="committentDeleteField11" layoutY="14.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="63.0">
+                                                         <children>
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCommittent" prefHeight="25.0" prefWidth="61.0" text="Delete" />
+                                                         </children>
+                                                      </Pane>
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                        </panes>
@@ -213,21 +328,91 @@
                            <children>
                               <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="129.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
+                                    <Accordion layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="161.0" prefWidth="750.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
                                        <panes>
                                           <TitledPane animated="false" text="Add">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <TextField disable="true" prefHeight="25.0" prefWidth="174.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="187.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="200.0" />
+                                                      <DatePicker prefHeight="25.0" prefWidth="208.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="150.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="259.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="135.0" text="Add" />
+                                                   </children>
+                                                </HBox>
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Find">
+                                             <content>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <Label layoutX="14.0" layoutY="-3.0" text="By ID:" />
+                                                            <TextField fx:id="committentFindByIdField111" layoutY="14.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <TextField fx:id="committentFindBySurnameField111" layoutY="14.0" />
+                                                            <Label layoutX="9.0" layoutY="-4.0" text="By name:" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <TextField fx:id="committentFindBySurnameField1111" layoutY="14.0" />
+                                                            <Label layoutX="9.0" layoutY="-4.0" text="By committent ID:" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <Label layoutX="9.0" layoutY="-4.0" text="By date:" />
+                                                            <DatePicker layoutY="14.0" prefHeight="25.0" prefWidth="148.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="63.0">
+                                                         <children>
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#findCommittentById" prefHeight="25.0" prefWidth="61.0" text="Find" />
+                                                         </children>
+                                                      </Pane>
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                           <TitledPane animated="false" text="Update">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <TextField prefHeight="25.0" prefWidth="174.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="187.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="200.0" />
+                                                      <DatePicker prefHeight="25.0" prefWidth="208.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="150.0" />
+                                                      <TextField prefHeight="25.0" prefWidth="259.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="135.0" text="Update" />
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                           <TitledPane animated="false" text="Delete">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <Label layoutX="14.0" layoutY="-3.0" text="By ID:" />
+                                                            <TextField fx:id="committentDeleteField111" layoutY="14.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="63.0">
+                                                         <children>
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCommittent" prefHeight="25.0" prefWidth="61.0" text="Delete" />
+                                                         </children>
+                                                      </Pane>
+                                                   </children></HBox>
                                              </content>
                                           </TitledPane>
                                        </panes>
@@ -258,17 +443,40 @@
                                        <panes>
                                           <TitledPane animated="false" text="Add">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Add" />
+                                                   </children></HBox>
                                              </content>
                                           </TitledPane>
                                           <TitledPane animated="false" text="Update">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Update" />
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                           <TitledPane animated="false" text="Delete">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <Label layoutX="14.0" layoutY="-3.0" text="By name:" />
+                                                            <TextField fx:id="committentDeleteField1111" layoutY="14.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="63.0">
+                                                         <children>
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCommittent" prefHeight="25.0" prefWidth="61.0" text="Delete" />
+                                                         </children>
+                                                      </Pane>
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                        </panes>
@@ -299,17 +507,41 @@
                                        <panes>
                                           <TitledPane animated="false" text="Add">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Add" />
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                           <TitledPane animated="false" text="Update">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Update" />
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                           <TitledPane animated="false" text="Delete">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <Label layoutX="14.0" layoutY="-3.0" text="By name:" />
+                                                            <TextField fx:id="committentDeleteField11111" layoutY="14.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="63.0">
+                                                         <children>
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCommittent" prefHeight="25.0" prefWidth="61.0" text="Delete" />
+                                                         </children>
+                                                      </Pane>
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                        </panes>
@@ -340,17 +572,41 @@
                                        <panes>
                                           <TitledPane animated="false" text="Add">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Add" />
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                           <TitledPane animated="false" text="Update">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Update" />
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                           <TitledPane animated="false" text="Delete">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <Label layoutX="14.0" layoutY="-3.0" text="By name:" />
+                                                            <TextField fx:id="committentDeleteField11112" layoutY="14.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="63.0">
+                                                         <children>
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCommittent" prefHeight="25.0" prefWidth="61.0" text="Delete" />
+                                                         </children>
+                                                      </Pane>
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                        </panes>
@@ -381,17 +637,41 @@
                                        <panes>
                                           <TitledPane animated="false" text="Add">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Add" />
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                           <TitledPane animated="false" text="Update">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Update" />
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                           <TitledPane animated="false" text="Delete">
                                              <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                                                   <children>
+                                                      <Pane prefHeight="40.0" prefWidth="149.0">
+                                                         <children>
+                                                            <Label layoutX="14.0" layoutY="-3.0" text="By name:" />
+                                                            <TextField fx:id="committentDeleteField11113" layoutY="14.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="40.0" prefWidth="63.0">
+                                                         <children>
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCommittent" prefHeight="25.0" prefWidth="61.0" text="Delete" />
+                                                         </children>
+                                                      </Pane>
+                                                   </children>
+                                                </HBox>
                                              </content>
                                           </TitledPane>
                                        </panes>
@@ -469,6 +749,8 @@
             <ToolBar prefHeight="16.0" prefWidth="800.0" BorderPane.alignment="CENTER">
                <items>
                   <Button fx:id="refreshButton" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#refresh" prefHeight="25.0" prefWidth="25.0" />
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
+                  <Button fx:id="refreshButton1" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#refresh" prefHeight="25.0" prefWidth="25.0" />
                   <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
                   <HBox prefHeight="25.0" prefWidth="185.0">
                      <children>

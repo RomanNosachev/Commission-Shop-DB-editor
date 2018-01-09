@@ -13,6 +13,7 @@ import command.FetchMode;
 import command.FindAllCommand;
 import command.FindCommand;
 import command.RemoveCommand;
+import command.UpdateCommand;
 import dao.Committent;
 import dao.Company;
 import dao.DB_Entity;
@@ -106,6 +107,24 @@ public class ClientController
     private Label           userStatusLabel;
         
     @FXML
+    private TextField               committentSearchIdField;
+    @FXML
+    private TextField               committentSearchNameField;
+    @FXML
+    private TextField               committentSearchSurnameField;
+    @FXML
+    private TextField               committentSearchPatronymicField;
+    @FXML
+    private ComboBox<District>      committentSearchDistrictIdComboBox;
+    @FXML
+    private ComboBox<SocialStatus>  committentSearchSocialStatusIdComboBox;
+    @FXML
+    private ComboBox<Company>       committentSearchCompaniesIdComboBox;
+    @FXML
+    private DatePicker              committentSearchDatePicker;
+    @FXML
+    private TextField               committentSearchTelephoneNumberField;
+    @FXML
     private TextField               committentNameField;
     @FXML
     private TextField               committentSurnameField;
@@ -139,16 +158,36 @@ public class ClientController
                 .columnBuilder(new ProductImportTableColumnBuilder());
         EntityController<Deal> dealController = new EntityController<>(Deal.class, dealTableView, sheetField)
                 .columnBuilder(new DealTableColumnBuilder());
+        
+        List<ComboBox<Company>> companyComboBoxes = new ArrayList<ComboBox<Company>>();
+        companyComboBoxes.add(committentCompaniesIdComboBox);
+        companyComboBoxes.add(committentSearchCompaniesIdComboBox);
+        
         EntityController<Company> companyController = new DirectoryController<>(Company.class, companyTableView, sheetField, 
-                committentCompaniesIdComboBox)
+                companyComboBoxes)
                 .columnBuilder(new CompanyTableColumnBuilder());
+        
+        List<ComboBox<District>> districtBoxes = new ArrayList<ComboBox<District>>();
+        districtBoxes.add(committentDistrictIdComboBox);
+        districtBoxes.add(committentSearchDistrictIdComboBox);
+        
         EntityController<District> districtController = new DirectoryController<>(District.class, districtTableView, sheetField, 
-                committentDistrictIdComboBox)
+                districtBoxes)
                 .columnBuilder(new DistrictTableColumnBuilder());
-        EntityController<ProductGroup> productGroupController = new DirectoryController<>(ProductGroup.class, productGroupTableView, sheetField)
+        
+        List<ComboBox<ProductGroup>> productProupComboBoxes = new ArrayList<ComboBox<ProductGroup>>();
+        productProupComboBoxes.add(new ComboBox<>());
+        
+        EntityController<ProductGroup> productGroupController = new DirectoryController<>(ProductGroup.class, productGroupTableView, sheetField,
+                productProupComboBoxes)
                 .columnBuilder(new ProductGroupTableColumnBuilder());
+        
+        List<ComboBox<SocialStatus>> socialStatusComboBoxes = new ArrayList<ComboBox<SocialStatus>>();
+        socialStatusComboBoxes.add(committentSocialStatusIdComboBox);
+        socialStatusComboBoxes.add(committentSearchSocialStatusIdComboBox);
+        
         EntityController<SocialStatus> socialStatusController =  new DirectoryController<>(SocialStatus.class, socialStatusTableView, sheetField,
-                committentSocialStatusIdComboBox)
+                socialStatusComboBoxes)
                 .columnBuilder(new SocialStatusTableColumnBuilder());
        
         currentEntityController = committentController;
@@ -226,7 +265,7 @@ public class ClientController
             }
         });
         
-        committentCompaniesIdComboBox.setConverter(new StringConverter<Company>() {         
+        StringConverter<Company> companyConverter = new StringConverter<Company>() {         
             @Override
             public String toString(Company object)
             {
@@ -238,9 +277,12 @@ public class ClientController
             {
                 return new Company(name);
             }
-        });
+        };
         
-        committentSocialStatusIdComboBox.setConverter(new StringConverter<SocialStatus>() {          
+        committentCompaniesIdComboBox.setConverter(companyConverter);
+        committentSearchCompaniesIdComboBox.setConverter(companyConverter);
+        
+        StringConverter<SocialStatus> socialStatusConverter = new StringConverter<SocialStatus>() {          
             @Override
             public String toString(SocialStatus object)
             {
@@ -252,9 +294,12 @@ public class ClientController
             {
                 return new SocialStatus(name);
             }
-        });
+        };
         
-        committentDistrictIdComboBox.setConverter(new StringConverter<District>() {           
+        committentSocialStatusIdComboBox.setConverter(socialStatusConverter);
+        committentSearchSocialStatusIdComboBox.setConverter(socialStatusConverter);
+        
+        StringConverter<District> districtConverter = new StringConverter<District>() {           
             @Override
             public String toString(District object)
             {
@@ -266,7 +311,10 @@ public class ClientController
             {
                 return new District(name);
             }
-        });
+        };
+        
+        committentDistrictIdComboBox.setConverter(districtConverter);
+        committentSearchDistrictIdComboBox.setConverter(districtConverter);
                 
         tabMap = new HashMap<>();
         tabMap.put("Committent", committentController);
@@ -290,43 +338,7 @@ public class ClientController
     {
         networkController.disconnect();
     }
-    
-    @FXML
-    public void onCompanyComboBoxAction()
-    {        
-        if (companyTableView.getItems().size() < 1)
-            refreshDirectories();
-        else
-            committentCompaniesIdComboBox.getItems().addAll(companyTableView.getItems());
-    }
-    
-    @FXML
-    public void onDistrictComboBoxAction()
-    {
-        if (districtTableView.getItems().size() < 1)
-            refreshDirectories();
-        else
-            committentDistrictIdComboBox.getItems().addAll(districtTableView.getItems());
-    }
-    
-    @FXML
-    public void onProductGroupComboBoxAction()
-    {
-        if (productGroupTableView.getItems().size() < 1)
-            refreshDirectories();
-        //else
-            //TODO
-    }
-    
-    @FXML
-    public void onSocialStatusComboBoxAction()
-    {
-        if (socialStatusTableView.getItems().size() < 1)
-            refreshDirectories();
-        else
-            committentSocialStatusIdComboBox.getItems().addAll(socialStatusTableView.getItems());
-    }
-    
+
     @FXML
     public void refreshDirectories()
     {
@@ -404,28 +416,52 @@ public class ClientController
     
     @FXML
     public void addCommittent()
-    {        
-        String name = committentNameField.getText();
-        String surname = committentSurnameField.getText();
-        String patronymic = committentPatronymicField.getText();
-        District district = new District(committentDistrictIdComboBox.getSelectionModel().getSelectedItem().getName());
-        SocialStatus status = new SocialStatus(committentSocialStatusIdComboBox.getSelectionModel().getSelectedItem().getName());
-        
-        List<Company> companies = new ArrayList<>();
-        String[] companiesId = committentCompaniesIdComboBox.getSelectionModel().getSelectedItem().getName().split(",");
-        
-        for (String companyId : companiesId)
-            companies.add(new Company(companyId));
-        
-        LocalDate localDate = committentDatePicker.getValue();
-        Calendar c =  Calendar.getInstance();
-        c.set(localDate.getYear(), localDate.getMonthValue() - 1, localDate.getDayOfMonth());
-        Date date = c.getTime();
-        String telephoneNumber = committentTelephoneNumberField.getText();
+    {    
+        try
+        {
+            String name = committentNameField.getText();
+            String surname = committentSurnameField.getText();
+            String patronymic = committentPatronymicField.getText();
+            District district = null;
+            SocialStatus status = null;
+            String[] companiesId;
+            List<Company> companies = null;
+            LocalDate localDate = null;
+            Date date = null;
+            
+            if (committentDistrictIdComboBox.getSelectionModel().getSelectedItem() != null)
+                district = new District(committentDistrictIdComboBox.getSelectionModel().getSelectedItem().getName());
+            
+            if (committentSocialStatusIdComboBox.getSelectionModel().getSelectedItem() != null)
+                status = new SocialStatus(committentSocialStatusIdComboBox.getSelectionModel().getSelectedItem().getName());
+            
+            if (committentCompaniesIdComboBox.getSelectionModel().getSelectedItem() != null)
+            {
+                companies = new ArrayList<>();
+                companiesId = committentCompaniesIdComboBox.getSelectionModel().getSelectedItem().getName().split(",");
                 
-        Committent committent = new Committent(name, surname, patronymic, district, status, companies, date, telephoneNumber);
-        
-        networkController.sendCommand(new CreateCommand<Committent>(committent));
+                for (String companyId : companiesId)
+                    companies.add(new Company(companyId));
+            }
+
+            if (committentDatePicker.getValue() != null)
+            {
+                localDate = committentDatePicker.getValue();
+            
+                Calendar c =  Calendar.getInstance();
+                c.set(localDate.getYear(), localDate.getMonthValue() - 1, localDate.getDayOfMonth());
+                date = c.getTime();
+            }
+            String telephoneNumber = committentTelephoneNumberField.getText();
+                    
+            Committent committent = new Committent(name, surname, patronymic, district, status, companies, date, telephoneNumber);
+            
+            networkController.sendCommand(new CreateCommand<Committent>(committent));
+        }
+        catch(Exception e) 
+        {
+            e.printStackTrace();
+        }
     }
     
     @FXML
@@ -441,6 +477,60 @@ public class ClientController
         {
             e.printStackTrace();
         }       
+    }
+    
+    @FXML
+    public void updateCommittent()
+    {
+        try
+        {
+            long id = Long.parseLong(committentSearchIdField.getText());
+            String name = committentSearchNameField.getText();
+            String surname = committentSearchSurnameField.getText();
+            String patronymic = committentSearchPatronymicField.getText();
+            
+            District district = null;
+            SocialStatus status = null;
+            String[] companiesId;
+            List<Company> companies = null;
+            LocalDate localDate = null;
+            Date date = null;
+            
+            if (committentSearchDistrictIdComboBox.getSelectionModel().getSelectedItem() != null)
+                district = new District(committentSearchDistrictIdComboBox.getSelectionModel().getSelectedItem().getName());
+            
+            if (committentSearchSocialStatusIdComboBox.getSelectionModel().getSelectedItem() != null)
+                status = new SocialStatus(committentSearchSocialStatusIdComboBox.getSelectionModel().getSelectedItem().getName());
+            
+            if (committentSearchCompaniesIdComboBox.getSelectionModel().getSelectedItem() != null)
+            {
+                companies = new ArrayList<>();
+                companiesId = committentSearchCompaniesIdComboBox.getSelectionModel().getSelectedItem().getName().split(",");
+                
+                for (String companyId : companiesId)
+                    companies.add(new Company(companyId));
+            }
+
+            if (committentSearchDatePicker.getValue() != null)
+            {
+                localDate = committentSearchDatePicker.getValue();
+            
+                Calendar c =  Calendar.getInstance();
+                c.set(localDate.getYear(), localDate.getMonthValue() - 1, localDate.getDayOfMonth());
+                date = c.getTime();
+            }
+            
+            String telephoneNumber = committentSearchTelephoneNumberField.getText();
+                    
+            Committent committent = new Committent(name, surname, patronymic, district, status, companies, date, telephoneNumber);
+            committent.setId(id);
+            
+            networkController.sendCommand(new UpdateCommand<Committent>(committent));
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
     @FXML

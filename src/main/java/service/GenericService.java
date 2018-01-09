@@ -14,7 +14,6 @@ import org.hibernate.SessionFactory;
 
 import command.FetchMode;
 import dao.DB_Entity;
-import dao.User;
 import responce.FindAllResponce;
 
 public class GenericService<T extends DB_Entity, PK extends Serializable>
@@ -23,9 +22,6 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
     
     private SessionFactory  factory;
     private Session         session;
-    
-    private User    user;
-    private boolean logged = false;
     
     private Class<T>    type;
     
@@ -60,16 +56,6 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
         {
             session.close();
         }        
-    }
-    
-    public boolean isLogged()
-    {
-        return logged;
-    }
-    
-    public User getUser()
-    {
-        return user;
     }
     
     public void create(T object) throws HibernateException

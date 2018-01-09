@@ -30,13 +30,16 @@ implements TableColumnBuilder<Committent>
         committentColumnList.get(3).setCellValueFactory(
                 cellData -> new SimpleStringProperty(cellData.getValue().getPatronymic()));
         committentColumnList.get(4).setCellValueFactory(
-                cellData -> new SimpleStringProperty(cellData.getValue().getDistrict().getName()));
+                cellData -> new SimpleStringProperty(cellData.getValue().getDistrict() != null ? 
+                        cellData.getValue().getDistrict().getName() : ""));
         committentColumnList.get(5).setCellValueFactory(
-                cellData -> new SimpleStringProperty(cellData.getValue().getSocialStatus().getName()));
+                cellData -> new SimpleStringProperty(cellData.getValue().getSocialStatus() != null ? 
+                        cellData.getValue().getSocialStatus().getName() : ""));
         committentColumnList.get(6).setCellValueFactory(
                 cellData -> new SimpleStringProperty(cellData.getValue().getCompaniesString()));
         committentColumnList.get(7).setCellValueFactory(
-                cellData -> new SimpleStringProperty(cellData.getValue().getDate().toString()));
+                cellData -> new SimpleStringProperty(cellData.getValue().getDate() != null ?
+                        cellData.getValue().getDate().toString() : ""));
         committentColumnList.get(8).setCellValueFactory(
                 cellData -> new SimpleStringProperty(cellData.getValue().getTelephoneNumber()));
         
