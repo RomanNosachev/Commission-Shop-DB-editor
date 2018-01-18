@@ -6,7 +6,7 @@ import dao.DB_Entity;
 import javafx.collections.FXCollections;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import utils.TableColumnBuilder;
+import utils.tableColumnBuilder.TableColumnBuilder;
 
 public class EntityController<T extends DB_Entity>
 {

@@ -1,5 +1,6 @@
 package controller;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,14 +54,18 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.StringConverter;
 import outboundHandler.ClientOutboundHandler;
-import utils.CommittentTableColumnBuilder;
-import utils.CompanyTableColumnBuilder;
-import utils.DealTableColumnBuilder;
-import utils.DistrictTableColumnBuilder;
-import utils.ProductGroupTableColumnBuilder;
-import utils.ProductImportTableColumnBuilder;
-import utils.ProductTableColumnBuilder;
-import utils.SocialStatusTableColumnBuilder;
+import utils.comboBoxConverter.CompanyConverter;
+import utils.comboBoxConverter.DistrictConverter;
+import utils.comboBoxConverter.ProductGroupConverter;
+import utils.comboBoxConverter.SocialStatusConverter;
+import utils.tableColumnBuilder.CommittentTableColumnBuilder;
+import utils.tableColumnBuilder.CompanyTableColumnBuilder;
+import utils.tableColumnBuilder.DealTableColumnBuilder;
+import utils.tableColumnBuilder.DistrictTableColumnBuilder;
+import utils.tableColumnBuilder.ProductGroupTableColumnBuilder;
+import utils.tableColumnBuilder.ProductImportTableColumnBuilder;
+import utils.tableColumnBuilder.ProductTableColumnBuilder;
+import utils.tableColumnBuilder.SocialStatusTableColumnBuilder;
 
 public class ClientController 
 {                
@@ -69,10 +74,13 @@ public class ClientController
     private Map<String, EntityController<? extends DB_Entity>> tabMap;
     private EntityController<? extends DB_Entity> currentEntityController;
     
+    //TODO
     private DB_Entity   buffer;
     
     @FXML
     private Button      refreshButton;
+    @FXML
+    private Button      refreshDirButton;
     @FXML
     private TextField   sheetField;
     
@@ -107,23 +115,23 @@ public class ClientController
     private Label           userStatusLabel;
         
     @FXML
-    private TextField               committentSearchIdField;
+    private TextField               committentUpdateIdField;
     @FXML
-    private TextField               committentSearchNameField;
+    private TextField               committentUpdateNameField;
     @FXML
-    private TextField               committentSearchSurnameField;
+    private TextField               committentUpdateSurnameField;
     @FXML
-    private TextField               committentSearchPatronymicField;
+    private TextField               committentUpdatePatronymicField;
     @FXML
-    private ComboBox<District>      committentSearchDistrictIdComboBox;
+    private ComboBox<District>      committentUpdateDistrictIdComboBox;
     @FXML
-    private ComboBox<SocialStatus>  committentSearchSocialStatusIdComboBox;
+    private ComboBox<SocialStatus>  committentUpdateSocialStatusIdComboBox;
     @FXML
-    private ComboBox<Company>       committentSearchCompaniesIdComboBox;
+    private ComboBox<Company>       committentUpdateCompaniesIdComboBox;
     @FXML
-    private DatePicker              committentSearchDatePicker;
+    private DatePicker              committentUpdateDatePicker;
     @FXML
-    private TextField               committentSearchTelephoneNumberField;
+    private TextField               committentUpdateTelephoneNumberField;
     @FXML
     private TextField               committentNameField;
     @FXML
@@ -148,6 +156,117 @@ public class ClientController
     private TextField               committentDeleteField;
     
     @FXML
+    private TextField               productUpdateIdField;
+    @FXML
+    private ComboBox<ProductGroup>  productUpdateProductGroupComboBox;
+    @FXML
+    private TextField               productUpdateNameField;
+    @FXML
+    private ComboBox<ProductGroup>  productProductGroupComboBox;
+    @FXML
+    private TextField               productNameField;
+    @FXML
+    private TextField               productFindByIdField;
+    @FXML
+    private TextField               productFindByNameField;
+    @FXML
+    private TextField               productDeleteByIdField;
+    
+    @FXML
+    private TextField               productImportUpdateIdField;
+    @FXML
+    private TextField               productImportUpdateProductIdField;
+    @FXML
+    private TextField               productImportUpdateReceiptNumberField;
+    @FXML
+    private DatePicker              productImportUpdateDatePicker;
+    @FXML
+    private TextField               productImportUpdateCountField;
+    @FXML
+    private TextField               productImportUpdatePriceField;
+    @FXML
+    private TextField               productImportProductIdField;
+    @FXML
+    private TextField               productImportReceiptNumberField;
+    @FXML
+    private DatePicker              productImportDatePicker;
+    @FXML
+    private TextField               productImportCountField;
+    @FXML
+    private TextField               productImportPriceField;
+    @FXML
+    private TextField               productImportFindByIdField;
+    @FXML
+    private TextField               productImportFindByNameField;
+    @FXML
+    private TextField               productImportFindByReceiptNumberField;
+    @FXML
+    private DatePicker              productImportFindByDatePicker;
+    @FXML
+    private TextField               productImportDeleteByIdField;
+    
+    @FXML
+    private TextField               dealUpdateIdField;
+    @FXML
+    private TextField               dealUpdateProductIdField;
+    @FXML
+    private TextField               dealUpdateCommittentIdField;
+    @FXML
+    private DatePicker              dealUpdateDatePicker;
+    @FXML
+    private TextField               dealUpdateCountField;
+    @FXML
+    private TextField               dealUpdatePriceField;
+    @FXML
+    private TextField               dealProductIdField;
+    @FXML
+    private TextField               dealCommittentIdField;
+    @FXML
+    private DatePicker              dealDatePicker;
+    @FXML
+    private TextField               dealCountField;
+    @FXML
+    private TextField               dealPriceField;
+    @FXML
+    private TextField               dealFindByIdField;
+    @FXML
+    private TextField               dealFindByNameField;
+    @FXML
+    private TextField               dealFindByCommittentIdField;
+    @FXML
+    private DatePicker              dealFindByDatePicker;
+    @FXML
+    private TextField               dealDeleteByIdField;
+    
+    @FXML
+    private TextField               companyUpdateIdField;
+    @FXML
+    private TextField               companyIdField;
+    @FXML
+    private TextField               companyDeleteByIdField;
+    
+    @FXML
+    private TextField               districtUpdateIdField;
+    @FXML
+    private TextField               districtIdField;
+    @FXML
+    private TextField               districtDeleteByIdField;
+    
+    @FXML
+    private TextField               socialStatusUpdateIdField;
+    @FXML
+    private TextField               socialStatusIdField;
+    @FXML
+    private TextField               socialStatusDeleteByIdField;
+    
+    @FXML
+    private TextField               productGroupUpdateIdField;
+    @FXML
+    private TextField               productGroupIdField;
+    @FXML
+    private TextField               productGroupDeleteByIdField;
+    
+    @FXML
     public void initialize()
     {                                
         EntityController<Committent> committentController = new EntityController<>(Committent.class, committentTableView, sheetField)
@@ -161,7 +280,7 @@ public class ClientController
         
         List<ComboBox<Company>> companyComboBoxes = new ArrayList<ComboBox<Company>>();
         companyComboBoxes.add(committentCompaniesIdComboBox);
-        companyComboBoxes.add(committentSearchCompaniesIdComboBox);
+        companyComboBoxes.add(committentUpdateCompaniesIdComboBox);
         
         EntityController<Company> companyController = new DirectoryController<>(Company.class, companyTableView, sheetField, 
                 companyComboBoxes)
@@ -169,22 +288,23 @@ public class ClientController
         
         List<ComboBox<District>> districtBoxes = new ArrayList<ComboBox<District>>();
         districtBoxes.add(committentDistrictIdComboBox);
-        districtBoxes.add(committentSearchDistrictIdComboBox);
+        districtBoxes.add(committentUpdateDistrictIdComboBox);
         
         EntityController<District> districtController = new DirectoryController<>(District.class, districtTableView, sheetField, 
                 districtBoxes)
                 .columnBuilder(new DistrictTableColumnBuilder());
         
-        List<ComboBox<ProductGroup>> productProupComboBoxes = new ArrayList<ComboBox<ProductGroup>>();
-        productProupComboBoxes.add(new ComboBox<>());
+        List<ComboBox<ProductGroup>> productGroupComboBoxes = new ArrayList<ComboBox<ProductGroup>>();
+        productGroupComboBoxes.add(productProductGroupComboBox);
+        productGroupComboBoxes.add(productUpdateProductGroupComboBox);
         
         EntityController<ProductGroup> productGroupController = new DirectoryController<>(ProductGroup.class, productGroupTableView, sheetField,
-                productProupComboBoxes)
+                productGroupComboBoxes)
                 .columnBuilder(new ProductGroupTableColumnBuilder());
         
         List<ComboBox<SocialStatus>> socialStatusComboBoxes = new ArrayList<ComboBox<SocialStatus>>();
         socialStatusComboBoxes.add(committentSocialStatusIdComboBox);
-        socialStatusComboBoxes.add(committentSearchSocialStatusIdComboBox);
+        socialStatusComboBoxes.add(committentUpdateSocialStatusIdComboBox);
         
         EntityController<SocialStatus> socialStatusController =  new DirectoryController<>(SocialStatus.class, socialStatusTableView, sheetField,
                 socialStatusComboBoxes)
@@ -228,8 +348,10 @@ public class ClientController
             }
         });
         
-        Image image = new Image(getClass().getResourceAsStream("/icons/refresh.png"));
-        refreshButton.setGraphic(new ImageView(image));
+        Image refreshImage = new Image(getClass().getResourceAsStream("/icons/refresh.png"));
+        refreshButton.setGraphic(new ImageView(refreshImage));
+        Image refreshDirImage = new Image(getClass().getResourceAsStream("/icons/refresh_dir.png"));
+        refreshDirButton.setGraphic(new ImageView(refreshDirImage));
         
         connectPane.disableProperty().bind(networkController.getAccess());
         connectPane.visibleProperty().bind(networkController.getAccess().not());
@@ -251,7 +373,7 @@ public class ClientController
             public void handle(KeyEvent event)
             {
                 if (event.getCode().equals(KeyCode.ENTER))
-                    findCommittentById();
+                    findCommittent();
             }
         });
             
@@ -265,57 +387,26 @@ public class ClientController
             }
         });
         
-        StringConverter<Company> companyConverter = new StringConverter<Company>() {         
-            @Override
-            public String toString(Company object)
-            {
-                return object.getName();
-            }
-            
-            @Override
-            public Company fromString(String name)
-            {
-                return new Company(name);
-            }
-        };
+        StringConverter<Company> companyConverter = new CompanyConverter();
         
         committentCompaniesIdComboBox.setConverter(companyConverter);
-        committentSearchCompaniesIdComboBox.setConverter(companyConverter);
+        committentUpdateCompaniesIdComboBox.setConverter(companyConverter);
         
-        StringConverter<SocialStatus> socialStatusConverter = new StringConverter<SocialStatus>() {          
-            @Override
-            public String toString(SocialStatus object)
-            {
-                return object.getName();
-            }
-            
-            @Override
-            public SocialStatus fromString(String name)
-            {
-                return new SocialStatus(name);
-            }
-        };
+        StringConverter<SocialStatus> socialStatusConverter = new SocialStatusConverter();
         
         committentSocialStatusIdComboBox.setConverter(socialStatusConverter);
-        committentSearchSocialStatusIdComboBox.setConverter(socialStatusConverter);
-        
-        StringConverter<District> districtConverter = new StringConverter<District>() {           
-            @Override
-            public String toString(District object)
-            {
-                return object.getName();
-            }
-            
-            @Override
-            public District fromString(String name)
-            {
-                return new District(name);
-            }
-        };
+        committentUpdateSocialStatusIdComboBox.setConverter(socialStatusConverter);
+ 
+        StringConverter<District> districtConverter = new DistrictConverter();
         
         committentDistrictIdComboBox.setConverter(districtConverter);
-        committentSearchDistrictIdComboBox.setConverter(districtConverter);
-                
+        committentUpdateDistrictIdComboBox.setConverter(districtConverter);
+        
+        StringConverter<ProductGroup> productGroupConverter = new ProductGroupConverter();
+        
+        productProductGroupComboBox.setConverter(productGroupConverter);
+        productUpdateProductGroupComboBox.setConverter(productGroupConverter);
+        
         tabMap = new HashMap<>();
         tabMap.put("Committent", committentController);
         tabMap.put("Product", productController);
@@ -428,12 +519,10 @@ public class ClientController
             List<Company> companies = null;
             LocalDate localDate = null;
             Date date = null;
+            String telephoneNumber = committentTelephoneNumberField.getText();
             
-            if (committentDistrictIdComboBox.getSelectionModel().getSelectedItem() != null)
-                district = new District(committentDistrictIdComboBox.getSelectionModel().getSelectedItem().getName());
-            
-            if (committentSocialStatusIdComboBox.getSelectionModel().getSelectedItem() != null)
-                status = new SocialStatus(committentSocialStatusIdComboBox.getSelectionModel().getSelectedItem().getName());
+            district = committentDistrictIdComboBox.getSelectionModel().getSelectedItem();            
+            status = committentSocialStatusIdComboBox.getSelectionModel().getSelectedItem();
             
             if (committentCompaniesIdComboBox.getSelectionModel().getSelectedItem() != null)
             {
@@ -452,8 +541,7 @@ public class ClientController
                 c.set(localDate.getYear(), localDate.getMonthValue() - 1, localDate.getDayOfMonth());
                 date = c.getTime();
             }
-            String telephoneNumber = committentTelephoneNumberField.getText();
-                    
+                                
             Committent committent = new Committent(name, surname, patronymic, district, status, companies, date, telephoneNumber);
             
             networkController.sendCommand(new CreateCommand<Committent>(committent));
@@ -465,7 +553,7 @@ public class ClientController
     }
     
     @FXML
-    public void findCommittentById()
+    public void findCommittent()
     {
         String text = committentFindByIdField.getText();
         
@@ -484,10 +572,10 @@ public class ClientController
     {
         try
         {
-            long id = Long.parseLong(committentSearchIdField.getText());
-            String name = committentSearchNameField.getText();
-            String surname = committentSearchSurnameField.getText();
-            String patronymic = committentSearchPatronymicField.getText();
+            long id = Long.parseLong(committentUpdateIdField.getText());
+            String name = committentUpdateNameField.getText();
+            String surname = committentUpdateSurnameField.getText();
+            String patronymic = committentUpdatePatronymicField.getText();
             
             District district = null;
             SocialStatus status = null;
@@ -495,33 +583,29 @@ public class ClientController
             List<Company> companies = null;
             LocalDate localDate = null;
             Date date = null;
+            String telephoneNumber = committentUpdateTelephoneNumberField.getText();
             
-            if (committentSearchDistrictIdComboBox.getSelectionModel().getSelectedItem() != null)
-                district = new District(committentSearchDistrictIdComboBox.getSelectionModel().getSelectedItem().getName());
+            district = committentUpdateDistrictIdComboBox.getSelectionModel().getSelectedItem();            
+            status = committentUpdateSocialStatusIdComboBox.getSelectionModel().getSelectedItem();
             
-            if (committentSearchSocialStatusIdComboBox.getSelectionModel().getSelectedItem() != null)
-                status = new SocialStatus(committentSearchSocialStatusIdComboBox.getSelectionModel().getSelectedItem().getName());
-            
-            if (committentSearchCompaniesIdComboBox.getSelectionModel().getSelectedItem() != null)
+            if (committentUpdateCompaniesIdComboBox.getSelectionModel().getSelectedItem() != null)
             {
                 companies = new ArrayList<>();
-                companiesId = committentSearchCompaniesIdComboBox.getSelectionModel().getSelectedItem().getName().split(",");
+                companiesId = committentUpdateCompaniesIdComboBox.getSelectionModel().getSelectedItem().getName().split(",");
                 
                 for (String companyId : companiesId)
                     companies.add(new Company(companyId));
             }
 
-            if (committentSearchDatePicker.getValue() != null)
+            if (committentUpdateDatePicker.getValue() != null)
             {
-                localDate = committentSearchDatePicker.getValue();
+                localDate = committentUpdateDatePicker.getValue();
             
                 Calendar c =  Calendar.getInstance();
                 c.set(localDate.getYear(), localDate.getMonthValue() - 1, localDate.getDayOfMonth());
                 date = c.getTime();
             }
-            
-            String telephoneNumber = committentSearchTelephoneNumberField.getText();
-                    
+                                
             Committent committent = new Committent(name, surname, patronymic, district, status, companies, date, telephoneNumber);
             committent.setId(id);
             
@@ -551,42 +635,381 @@ public class ClientController
     @FXML
     public void addProduct()
     {
-        
+        try
+        {
+            ProductGroup productGroup = null;
+            String name = productNameField.getText();
+            
+            productGroup = productProductGroupComboBox.getSelectionModel().getSelectedItem();
+            
+            Product product = new Product(productGroup, name);
+            
+            networkController.sendCommand(new CreateCommand<>(product));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
     @FXML
-    public void addDeal()
+    public void findProduct()
     {
-        
+        try
+        {
+            String text = productFindByIdField.getText();
+            
+            networkController.sendCommand(new FindCommand<>(Product.class, Long.parseLong(text)));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void updateProduct()
+    {
+        try
+        {
+            long id = Long.parseLong(productUpdateIdField.getText());
+            ProductGroup productGroup = null;
+            String name = productUpdateNameField.getText();
+            
+            productGroup = productUpdateProductGroupComboBox.getSelectionModel().getSelectedItem();
+            
+            Product product = new Product(productGroup, name);
+            product.setId(id);
+            
+            networkController.sendCommand(new UpdateCommand<>(product));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    public void deleteProduct()
+    {
+        try
+        {
+            String text = productDeleteByIdField.getText();
+            
+            networkController.sendCommand(new RemoveCommand<>(Product.class, Long.parseLong(text)));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
     @FXML
     public void addProductImport()
     {
+        try
+        {
+            Product product = new Product();
+            long receiptNumber = Long.parseLong(productImportReceiptNumberField.getText());
+            Date date = null;
+            int count = Integer.parseInt(productImportCountField.getText());
+            BigDecimal price = null;
+            LocalDate localDate = null;
+            
+            product.setId(Long.parseLong(productImportProductIdField.getText()));
+            
+            if (productImportDatePicker.getValue() != null)
+            {
+                localDate = productImportDatePicker.getValue();
+            
+                Calendar c =  Calendar.getInstance();
+                c.set(localDate.getYear(), localDate.getMonthValue() - 1, localDate.getDayOfMonth());
+                date = c.getTime();
+            }
+            
+            price = new BigDecimal(productImportPriceField.getText());
+            
+            ProductImport productImport = new ProductImport(product, receiptNumber, date, count, price);
+            
+            networkController.sendCommand(new CreateCommand<>(productImport));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    public void findProductImport()
+    {
+        String text = productImportFindByIdField.getText();
         
+        try
+        {
+            networkController.sendCommand(new FindCommand<>(ProductImport.class, Long.parseLong(text)));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    public void updateProductImport()
+    {
+        try
+        {
+            long id = Long.parseLong(productImportUpdateIdField.getText());
+            Product product = null;
+            long receiptNumber = 0;
+            Date date = null;
+            int count = 0;
+            BigDecimal price = null;
+            LocalDate localDate = null;
+            
+            if (!productImportUpdateProductIdField.getText().isEmpty())
+            {
+                product = new Product();
+                product.setId(Long.parseLong(productImportUpdateProductIdField.getText()));
+            }
+            
+            if (!productImportUpdateReceiptNumberField.getText().isEmpty())
+                receiptNumber = Long.parseLong(productImportUpdateReceiptNumberField.getText());
+            
+            if (!productImportUpdateCountField.getText().isEmpty())
+                count = Integer.parseInt(productImportUpdateCountField.getText());
+            
+            if (productImportUpdateDatePicker.getValue() != null)
+            {
+                localDate = productImportUpdateDatePicker.getValue();
+            
+                Calendar c =  Calendar.getInstance();
+                c.set(localDate.getYear(), localDate.getMonthValue() - 1, localDate.getDayOfMonth());
+                date = c.getTime();
+            }
+            
+            if (!productImportUpdatePriceField.getText().isEmpty())
+                price = new BigDecimal(productImportUpdatePriceField.getText());
+            
+            ProductImport productImport = new ProductImport(product, receiptNumber, date, count, price);
+            productImport.setId(id);
+            
+            networkController.sendCommand(new UpdateCommand<>(productImport));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    public void deleteProductImport()
+    {
+        String text = productImportDeleteByIdField.getText();
+        
+        try
+        {
+            networkController.sendCommand(new RemoveCommand<>(ProductImport.class, Long.parseLong(text)));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    public void addDeal()
+    {
+        try
+        {
+            Product product = new Product();
+            Committent committent = new Committent();
+            Date date = null;
+            int count = Integer.parseInt(dealCountField.getText());
+            BigDecimal price = new BigDecimal(dealPriceField.getText());
+            LocalDate localDate;
+            
+            product.setId(Long.parseLong(dealProductIdField.getText()));
+            committent.setId(Long.parseLong(dealCommittentIdField.getText()));
+            
+            if (dealDatePicker.getValue() != null)
+            {
+                localDate = dealDatePicker.getValue();
+            
+                Calendar c =  Calendar.getInstance();
+                c.set(localDate.getYear(), localDate.getMonthValue() - 1, localDate.getDayOfMonth());
+                date = c.getTime();
+            }
+            
+            Deal deal = new Deal(product, committent, date, count, price);
+            
+            networkController.sendCommand(new CreateCommand<>(deal));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void findDeal()
+    {
+        String text = dealFindByIdField.getText();
+        
+        try
+        {
+            networkController.sendCommand(new FindCommand<>(Deal.class, Long.parseLong(text)));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    public void updateDeal()
+    {
+        try
+        {
+            long id = Long.parseLong(dealUpdateIdField.getText());
+            Product product = new Product();
+            Committent committent = new Committent();
+            Date date = null;
+            int count = Integer.parseInt(dealUpdateCountField.getText());
+            BigDecimal price = new BigDecimal(dealUpdatePriceField.getText());
+            LocalDate localDate;
+            
+            product.setId(Long.parseLong(dealUpdateProductIdField.getText()));
+            committent.setId(Long.parseLong(dealUpdateCommittentIdField.getText()));
+            
+            if (dealUpdateDatePicker.getValue() != null)
+            {
+                localDate = dealUpdateDatePicker.getValue();
+            
+                Calendar c =  Calendar.getInstance();
+                c.set(localDate.getYear(), localDate.getMonthValue() - 1, localDate.getDayOfMonth());
+                date = c.getTime();
+            }
+            
+            Deal deal = new Deal(product, committent, date, count, price);
+            deal.setId(id);
+            
+            networkController.sendCommand(new UpdateCommand<>(deal));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    public void deleteDeal()
+    {
+        String text = dealDeleteByIdField.getText();
+        
+        try
+        {
+            networkController.sendCommand(new RemoveCommand<>(Deal.class, Long.parseLong(text)));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
     @FXML
     public void addCompany()
     {
+        Company company = new Company(companyIdField.getText());
         
+        networkController.sendCommand(new CreateCommand<>(company));
+    }
+    
+    @FXML
+    public void updateCompany()
+    {
+        Company company = new Company(companyUpdateIdField.getText());
+        
+        networkController.sendCommand(new UpdateCommand<>(company));
+    }
+    
+    @FXML
+    public void deleteCompany()
+    {
+        String name = companyDeleteByIdField.getText();
+        
+        networkController.sendCommand(new RemoveCommand<>(Company.class, name));
     }
     
     @FXML
     public void addDistrict()
     {
+        District district = new District(districtIdField.getText());
         
+        networkController.sendCommand(new CreateCommand<>(district));
+    }
+    
+    @FXML
+    public void updateDistrict()
+    {
+        District district = new District(districtUpdateIdField.getText());
+        
+        networkController.sendCommand(new UpdateCommand<>(district));
+    }
+    
+    @FXML
+    public void deleteDistrict()
+    {
+        String name = districtDeleteByIdField.getText();
+        
+        networkController.sendCommand(new RemoveCommand<>(District.class, name));
     }
     
     @FXML
     public void addSocialStatus()
     {
+        SocialStatus socialStatus = new SocialStatus(socialStatusIdField.getText());
         
+        networkController.sendCommand(new CreateCommand<>(socialStatus));
+    }
+    
+    @FXML
+    public void updateSocialStatus()
+    {
+        SocialStatus socialStatus = new SocialStatus(socialStatusUpdateIdField.getText());
+        
+        networkController.sendCommand(new UpdateCommand<>(socialStatus));
+    }
+    
+    @FXML
+    public void deleteSocialStatus()
+    {
+        String name = socialStatusDeleteByIdField.getText();
+        
+        networkController.sendCommand(new RemoveCommand<>(SocialStatus.class, name));
     }
     
     @FXML
     public void addProductGroup()
     {
+        ProductGroup productGroup = new ProductGroup(productGroupIdField.getText());
         
+        networkController.sendCommand(new CreateCommand<>(productGroup));
+    }
+    
+    @FXML
+    public void updateProductGroup()
+    {
+        ProductGroup productGroup = new ProductGroup(productGroupIdField.getText());
+        
+        networkController.sendCommand(new CreateCommand<>(productGroup));
+    }
+    
+    @FXML
+    public void deleteProductGroup()
+    {
+        String name = productGroupDeleteByIdField.getText();
+        
+        networkController.sendCommand(new RemoveCommand<>(ProductGroup.class, name));
     }
 }

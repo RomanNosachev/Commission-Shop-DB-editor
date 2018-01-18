@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
@@ -183,5 +184,41 @@ implements DB_Entity
     public void setTelephoneNumber(String telephoneNumber)
     {
         this.telephoneNumber = telephoneNumber;
+    }
+
+    public void merge(DB_Entity object)
+    {
+        if (object == null || object.getClass() != this.getClass())
+            return;
+        
+        Committent tempObject = (Committent) object;
+                
+        if (tempObject.name != null && !tempObject.name.isEmpty())
+            name = tempObject.name;
+        
+        if (tempObject.surname != null && !tempObject.surname.isEmpty())
+            surname = tempObject.surname;
+        
+        if (tempObject.patronymic != null && !tempObject.patronymic.isEmpty())
+            patronymic = tempObject.patronymic;
+        
+        if (tempObject.district != null)
+            district = tempObject.district;
+        
+        if (tempObject.socialStatus != null)
+            socialStatus = tempObject.socialStatus;
+        
+        if (tempObject.companies != null && !tempObject.companies.isEmpty())
+            companies = tempObject.companies;
+        
+        if (tempObject.date != null)
+            date = tempObject.date;
+        
+        telephoneNumber = tempObject.telephoneNumber;
+    }
+
+    public Serializable getPK()
+    {
+        return id;
     }
 }

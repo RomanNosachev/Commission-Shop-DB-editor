@@ -1,4 +1,4 @@
-package utils;
+package utils.tableColumnBuilder;
 
 import java.util.List;
 

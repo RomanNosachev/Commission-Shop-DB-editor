@@ -1,4 +1,4 @@
-package utils;
+package utils.tableColumnBuilder;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -17,15 +17,15 @@ implements TableColumnBuilder<Deal>
         List<TableColumn<Deal, String>> dealColumnList = new ArrayList<>();
         
         Field declaredFields[] = Deal.class.getDeclaredFields();
-        
+                
         for (int i = 1; i < declaredFields.length; i++)
             dealColumnList.add(new TableColumn<Deal, String>(declaredFields[i].getName()));
         
         dealColumnList.get(0).setCellValueFactory(
                 cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getId())));
-        
+                
         dealColumnList.get(1).setCellValueFactory(
-                cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
+                cellData -> new SimpleStringProperty("[" + cellData.getValue().getProduct().getId() + "] " + cellData.getValue().getProduct().getName()));
         
         dealColumnList.get(2).setCellValueFactory(
                 cellData -> new SimpleStringProperty("[" + String.valueOf(cellData.getValue().getCommittent().getId()) + "] " + 

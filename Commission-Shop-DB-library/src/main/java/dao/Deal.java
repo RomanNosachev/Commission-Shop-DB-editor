@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -119,5 +120,33 @@ implements DB_Entity
     public void setPrice(BigDecimal price)
     {
         this.price = price;
+    }
+
+    public void merge(DB_Entity object)
+    {
+        if (object == null || object.getClass() != this.getClass())
+            return;
+        
+        Deal tempObject = (Deal) object;
+        
+        if (tempObject.committent != null)
+            committent = tempObject.committent;
+        
+        if (tempObject.count >= 0)
+            count = tempObject.count;
+        
+        if (tempObject.date != null)
+            date = tempObject.date;
+        
+        if (tempObject.price != null)
+            price = tempObject.price;
+        
+        if (tempObject.product != null)
+            product = tempObject.product;
+    }
+
+    public Serializable getPK()
+    {
+        return id;
     }
 }

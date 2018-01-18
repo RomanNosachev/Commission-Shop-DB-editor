@@ -2,7 +2,6 @@ package controller;
 
 import command.Command;
 import command.DisconnectCommand;
-import command.EntityCommand;
 import command.LoginCommand;
 import dao.User;
 import dao.UserStatus;
@@ -159,9 +158,8 @@ extends AbstractNetworkController
             protected Void call() throws Exception
             {
                 User user = new User(login, password);
-                EntityCommand<User> loginCommand = new LoginCommand(user);
                 
-                ChannelFuture future = channel.writeAndFlush(loginCommand);
+                ChannelFuture future = channel.writeAndFlush(new LoginCommand(user));
                 future.sync();
                                 
                 return null;
@@ -183,8 +181,6 @@ extends AbstractNetworkController
     @Override
     public void disconnect()
     {
-        sendCommand(new DisconnectCommand());
-        
         Condition.setLogged(false);
         
         if (!Condition.isConnected())
@@ -197,6 +193,8 @@ extends AbstractNetworkController
             @Override
             protected Void call() throws Exception
             {
+                sendCommand(new DisconnectCommand());
+                
                 channel.close().sync();
                 bootstrap.config().group().shutdownGracefully().sync();
                                 

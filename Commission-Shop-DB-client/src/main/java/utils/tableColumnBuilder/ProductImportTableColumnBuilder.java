@@ -1,4 +1,4 @@
-package utils;
+package utils.tableColumnBuilder;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ implements TableColumnBuilder<ProductImport>
                 cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getId())));
         
         productImportColumnList.get(1).setCellValueFactory(
-                cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
+                cellData -> new SimpleStringProperty("[" + cellData.getValue().getProduct().getId() + "] " + cellData.getValue().getProduct().getName()));
         
         productImportColumnList.get(2).setCellValueFactory(
                 cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getReceiptNumber())));

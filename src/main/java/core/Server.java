@@ -12,6 +12,7 @@ import inboundHandler.FindCommandHandler;
 import inboundHandler.LoginCommandHandler;
 import inboundHandler.RemoveCommandHandler;
 import inboundHandler.ServerDefaultHandler;
+import inboundHandler.UpdateCommandHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelId;
@@ -73,6 +74,7 @@ public final class Server
                             p.addLast(new DisconnectCommandHandler());
                             p.addLast(new CreateCommandHandler());
                             p.addLast(new RemoveCommandHandler());
+                            p.addLast(new UpdateCommandHandler());
                             p.addLast(new FindCommandHandler());
                             p.addLast(new FindAllCommandHandler());
                             p.addLast(new ServerDefaultHandler());

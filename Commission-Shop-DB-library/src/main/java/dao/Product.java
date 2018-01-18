@@ -1,5 +1,7 @@
 package dao;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -73,5 +75,24 @@ implements DB_Entity
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    public void merge(DB_Entity object)
+    {
+        if (object == null || object.getClass() != this.getClass())
+            return;
+        
+        Product tempObject = (Product) object;
+        
+        if (tempObject.name != null && !tempObject.name.isEmpty())
+            name = tempObject.name;
+        
+        if (tempObject.productGroup != null)
+            productGroup = tempObject.productGroup;
+    }
+
+    public Serializable getPK()
+    {
+        return id;
     } 
 }

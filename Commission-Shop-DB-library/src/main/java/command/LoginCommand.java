@@ -1,20 +1,20 @@
 package command;
 
+import java.io.Serializable;
+
 import org.apache.commons.codec.digest.DigestUtils;
 
 import dao.User;
 
 public class LoginCommand
-extends AbstractEntityCommand<User>
+implements Serializable
 {
     private static final long serialVersionUID = 932749875590158691L;
     
     private User user;
     
     public LoginCommand(User user)
-    {
-        super(User.class);
-        
+    {        
         if (user == null || user.getLogin() == null || user.getPassword() == null)
             throw new NullPointerException();
         

@@ -12,5 +12,7 @@ extends SimpleChannelInboundHandler<DisconnectCommand>
     protected void channelRead0(ChannelHandlerContext ctx, DisconnectCommand msg) throws Exception
     {
         Server.deregisterSessionFactory(ctx.channel().id());
+        
+        ctx.channel().closeFuture().sync();
     }   
 }

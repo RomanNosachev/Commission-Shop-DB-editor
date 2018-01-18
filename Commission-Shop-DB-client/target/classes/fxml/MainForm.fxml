@@ -56,7 +56,7 @@
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="63.0">
                                                          <children>
-                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#findCommittentById" prefHeight="25.0" prefWidth="61.0" text="Find" />
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#findCommittent" prefHeight="25.0" prefWidth="61.0" text="Find" />
                                                          </children>
                                                       </Pane>
                                                    </children>
@@ -67,15 +67,15 @@
                                              <content>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
-                                                      <TextField fx:id="committentSearchIdField" prefHeight="25.0" prefWidth="134.0" />
-                                                      <TextField fx:id="committentSearchNameField" prefHeight="25.0" prefWidth="136.0" />
-                                                      <TextField fx:id="committentSearchSurnameField" prefHeight="25.0" prefWidth="166.0" />
-                                                      <TextField fx:id="committentSearchPatronymicField" prefHeight="25.0" prefWidth="145.0" />
-                                                      <ComboBox fx:id="committentSearchDistrictIdComboBox" prefHeight="25.0" prefWidth="150.0" />
-                                                      <ComboBox fx:id="committentSearchSocialStatusIdComboBox" prefHeight="25.0" prefWidth="144.0" />
-                                                      <ComboBox fx:id="committentSearchCompaniesIdComboBox" prefWidth="150.0" />
-                                                      <DatePicker fx:id="committentSearchDatePicker" prefHeight="25.0" prefWidth="155.0" />
-                                                      <TextField fx:id="committentSearchTelephoneNumberField" prefHeight="25.0" prefWidth="142.0" />
+                                                      <TextField fx:id="committentUpdateIdField" prefHeight="25.0" prefWidth="134.0" />
+                                                      <TextField fx:id="committentUpdateNameField" prefHeight="25.0" prefWidth="136.0" />
+                                                      <TextField fx:id="committentUpdateSurnameField" prefHeight="25.0" prefWidth="166.0" />
+                                                      <TextField fx:id="committentUpdatePatronymicField" prefHeight="25.0" prefWidth="145.0" />
+                                                      <ComboBox fx:id="committentUpdateDistrictIdComboBox" prefHeight="25.0" prefWidth="150.0" />
+                                                      <ComboBox fx:id="committentUpdateSocialStatusIdComboBox" prefHeight="25.0" prefWidth="144.0" />
+                                                      <ComboBox fx:id="committentUpdateCompaniesIdComboBox" prefWidth="150.0" />
+                                                      <DatePicker fx:id="committentUpdateDatePicker" prefHeight="25.0" prefWidth="155.0" />
+                                                      <TextField fx:id="committentUpdateTelephoneNumberField" prefHeight="25.0" prefWidth="142.0" />
                                                       <Button mnemonicParsing="false" onAction="#updateCommittent" prefHeight="25.0" prefWidth="138.0" text="Update" />
                                                    </children>
                                                 </HBox>
@@ -131,8 +131,8 @@
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
                                                       <TextField disable="true" prefHeight="25.0" prefWidth="296.0" />
-                                                      <ComboBox prefHeight="25.0" prefWidth="371.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="617.0" />
+                                                      <ComboBox fx:id="productProductGroupComboBox" prefHeight="25.0" prefWidth="371.0" />
+                                                      <TextField fx:id="productNameField" prefHeight="25.0" prefWidth="617.0" />
                                                       <Button mnemonicParsing="false" onAction="#addProduct" prefHeight="25.0" prefWidth="284.0" text="Add" />
                                                    </children></HBox>
                                              </content>
@@ -144,18 +144,18 @@
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
                                                             <Label layoutX="14.0" layoutY="-3.0" text="By ID:" />
-                                                            <TextField fx:id="committentFindByIdField1" layoutY="14.0" />
+                                                            <TextField fx:id="productFindByIdField" layoutY="14.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
-                                                            <TextField fx:id="committentFindBySurnameField1" layoutY="14.0" />
+                                                            <TextField fx:id="productFindByNameField" layoutY="14.0" />
                                                             <Label layoutX="9.0" layoutY="-4.0" text="By name:" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="63.0">
                                                          <children>
-                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#findCommittentById" prefHeight="25.0" prefWidth="61.0" text="Find" />
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#findProduct" prefHeight="25.0" prefWidth="61.0" text="Find" />
                                                          </children>
                                                       </Pane>
                                                    </children>
@@ -166,10 +166,10 @@
                                              <content>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
-                                                      <TextField prefHeight="25.0" prefWidth="296.0" />
-                                                      <ComboBox prefHeight="25.0" prefWidth="371.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="617.0" />
-                                                      <Button mnemonicParsing="false" onAction="#addProduct" prefHeight="25.0" prefWidth="284.0" text="Update" />
+                                                      <TextField fx:id="productUpdateIdField" prefHeight="25.0" prefWidth="296.0" />
+                                                      <ComboBox fx:id="productUpdateProductGroupComboBox" prefHeight="25.0" prefWidth="371.0" />
+                                                      <TextField fx:id="productUpdateNameField" prefHeight="25.0" prefWidth="617.0" />
+                                                      <Button mnemonicParsing="false" onAction="#updateProduct" prefHeight="25.0" prefWidth="284.0" text="Update" />
                                                    </children>
                                                 </HBox>
                                              </content>
@@ -181,12 +181,12 @@
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
                                                             <Label layoutX="14.0" layoutY="-3.0" text="By ID:" />
-                                                            <TextField fx:id="committentDeleteField1" layoutY="14.0" />
+                                                            <TextField fx:id="productDeleteByIdField" layoutY="14.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="63.0">
                                                          <children>
-                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCommittent" prefHeight="25.0" prefWidth="61.0" text="Delete" />
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="25.0" prefWidth="61.0" text="Delete" />
                                                          </children>
                                                       </Pane>
                                                    </children>
@@ -224,12 +224,12 @@
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
                                                       <TextField disable="true" prefHeight="25.0" prefWidth="173.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="184.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="204.0" />
-                                                      <DatePicker prefHeight="25.0" prefWidth="239.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="178.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="253.0" />
-                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" text="Add" />
+                                                      <TextField fx:id="productImportProductIdField" prefHeight="25.0" prefWidth="184.0" />
+                                                      <TextField fx:id="productImportReceiptNumberField" prefHeight="25.0" prefWidth="204.0" />
+                                                      <DatePicker fx:id="productImportDatePicker" prefHeight="25.0" prefWidth="239.0" />
+                                                      <TextField fx:id="productImportCountField" prefHeight="25.0" prefWidth="178.0" />
+                                                      <TextField fx:id="productImportPriceField" prefHeight="25.0" prefWidth="253.0" />
+                                                      <Button onAction="#addProductImport" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" text="Add" />
                                                    </children></HBox>
                                              </content>
                                           </TitledPane>
@@ -240,30 +240,30 @@
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
                                                             <Label layoutX="14.0" layoutY="-3.0" text="By ID:" />
-                                                            <TextField fx:id="committentFindByIdField11" layoutY="14.0" />
+                                                            <TextField fx:id="productImportFindByIdField" layoutY="14.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
-                                                            <TextField fx:id="committentFindBySurnameField11" layoutY="14.0" />
+                                                            <TextField fx:id="productImportFindByNameField" layoutY="14.0" />
                                                             <Label layoutX="9.0" layoutY="-4.0" text="By name:" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
-                                                            <TextField fx:id="committentFindBySurnameField111" layoutY="14.0" />
+                                                            <TextField fx:id="productImportFindByReceiptNumberField" layoutY="14.0" />
                                                             <Label layoutX="9.0" layoutY="-4.0" text="By receipt:" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
                                                             <Label layoutX="9.0" layoutY="-4.0" text="By date:" />
-                                                            <DatePicker layoutY="14.0" prefHeight="25.0" prefWidth="148.0" />
+                                                            <DatePicker fx:id="productImportFindByDatePicker" layoutY="14.0" prefHeight="25.0" prefWidth="148.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="63.0">
                                                          <children>
-                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#findCommittentById" prefHeight="25.0" prefWidth="61.0" text="Find" />
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#findProductImport" prefHeight="25.0" prefWidth="61.0" text="Find" />
                                                          </children>
                                                       </Pane>
                                                    </children>
@@ -274,13 +274,13 @@
                                              <content>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
-                                                      <TextField disable="true" prefHeight="25.0" prefWidth="173.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="184.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="204.0" />
-                                                      <DatePicker prefHeight="25.0" prefWidth="239.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="178.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="253.0" />
-                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" text="Add" />
+                                                      <TextField fx:id="productImportUpdateIdField" prefHeight="25.0" prefWidth="173.0" />
+                                                      <TextField fx:id="productImportUpdateProductIdField" prefHeight="25.0" prefWidth="184.0" />
+                                                      <TextField fx:id="productImportUpdateReceiptNumberField" prefHeight="25.0" prefWidth="204.0" />
+                                                      <DatePicker fx:id="productImportUpdateDatePicker" prefHeight="25.0" prefWidth="239.0" />
+                                                      <TextField fx:id="productImportUpdateCountField" prefHeight="25.0" prefWidth="178.0" />
+                                                      <TextField fx:id="productImportUpdatePriceField" prefHeight="25.0" prefWidth="253.0" />
+                                                      <Button onAction="#updateProductImport" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" text="Update" />
                                                    </children>
                                                 </HBox>
                                              </content>
@@ -292,12 +292,12 @@
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
                                                             <Label layoutX="14.0" layoutY="-3.0" text="By ID:" />
-                                                            <TextField fx:id="committentDeleteField11" layoutY="14.0" />
+                                                            <TextField fx:id="productImportDeleteByIdField" layoutY="14.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="63.0">
                                                          <children>
-                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCommittent" prefHeight="25.0" prefWidth="61.0" text="Delete" />
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteProductImport" prefHeight="25.0" prefWidth="61.0" text="Delete" />
                                                          </children>
                                                       </Pane>
                                                    </children>
@@ -335,12 +335,12 @@
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
                                                       <TextField disable="true" prefHeight="25.0" prefWidth="174.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="187.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="200.0" />
-                                                      <DatePicker prefHeight="25.0" prefWidth="208.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="150.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="259.0" />
-                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="135.0" text="Add" />
+                                                      <TextField fx:id="dealProductIdField" prefHeight="25.0" prefWidth="187.0" />
+                                                      <TextField fx:id="dealCommittentIdField" prefHeight="25.0" prefWidth="200.0" />
+                                                      <DatePicker fx:id="dealDatePicker" prefHeight="25.0" prefWidth="208.0" />
+                                                      <TextField fx:id="dealCountField" prefHeight="25.0" prefWidth="150.0" />
+                                                      <TextField fx:id="dealPriceField" prefHeight="25.0" prefWidth="259.0" />
+                                                      <Button onAction="#addDeal" mnemonicParsing="false" prefHeight="25.0" prefWidth="135.0" text="Add" />
                                                    </children>
                                                 </HBox>
                                              </content>
@@ -352,30 +352,30 @@
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
                                                             <Label layoutX="14.0" layoutY="-3.0" text="By ID:" />
-                                                            <TextField fx:id="committentFindByIdField111" layoutY="14.0" />
+                                                            <TextField fx:id="dealFindByIdField" layoutY="14.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
-                                                            <TextField fx:id="committentFindBySurnameField111" layoutY="14.0" />
+                                                            <TextField fx:id="dealFindByNameField" layoutY="14.0" />
                                                             <Label layoutX="9.0" layoutY="-4.0" text="By name:" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
-                                                            <TextField fx:id="committentFindBySurnameField1111" layoutY="14.0" />
+                                                            <TextField fx:id="dealFindByCommittentIdField" layoutY="14.0" />
                                                             <Label layoutX="9.0" layoutY="-4.0" text="By committent ID:" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
                                                             <Label layoutX="9.0" layoutY="-4.0" text="By date:" />
-                                                            <DatePicker layoutY="14.0" prefHeight="25.0" prefWidth="148.0" />
+                                                            <DatePicker fx:id="dealFindByDatePicker" layoutY="14.0" prefHeight="25.0" prefWidth="148.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="63.0">
                                                          <children>
-                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#findCommittentById" prefHeight="25.0" prefWidth="61.0" text="Find" />
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#findDeal" prefHeight="25.0" prefWidth="61.0" text="Find" />
                                                          </children>
                                                       </Pane>
                                                    </children>
@@ -386,13 +386,13 @@
                                              <content>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
-                                                      <TextField prefHeight="25.0" prefWidth="174.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="187.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="200.0" />
-                                                      <DatePicker prefHeight="25.0" prefWidth="208.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="150.0" />
-                                                      <TextField prefHeight="25.0" prefWidth="259.0" />
-                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="135.0" text="Update" />
+                                                      <TextField fx:id="dealUpdateIdField" prefHeight="25.0" prefWidth="174.0" />
+                                                      <TextField fx:id="dealUpdateProductIdField" prefHeight="25.0" prefWidth="187.0" />
+                                                      <TextField fx:id="dealUpdateCommittentIdField" prefHeight="25.0" prefWidth="200.0" />
+                                                      <DatePicker fx:id="dealUpdateDatePicker" prefHeight="25.0" prefWidth="208.0" />
+                                                      <TextField fx:id="dealUpdateCountField" prefHeight="25.0" prefWidth="150.0" />
+                                                      <TextField fx:id="dealUpdatePriceField" prefHeight="25.0" prefWidth="259.0" />
+                                                      <Button onAction="#updateDeal" mnemonicParsing="false" prefHeight="25.0" prefWidth="135.0" text="Update" />
                                                    </children>
                                                 </HBox>
                                              </content>
@@ -404,12 +404,12 @@
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
                                                             <Label layoutX="14.0" layoutY="-3.0" text="By ID:" />
-                                                            <TextField fx:id="committentDeleteField111" layoutY="14.0" />
+                                                            <TextField fx:id="dealDeleteByIdField" layoutY="14.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="63.0">
                                                          <children>
-                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCommittent" prefHeight="25.0" prefWidth="61.0" text="Delete" />
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteDeal" prefHeight="25.0" prefWidth="61.0" text="Delete" />
                                                          </children>
                                                       </Pane>
                                                    </children></HBox>
@@ -445,8 +445,8 @@
                                              <content>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
-                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
-                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Add" />
+                                                      <TextField fx:id="companyIdField" prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button onAction="#addCompany" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Add" />
                                                    </children></HBox>
                                              </content>
                                           </TitledPane>
@@ -454,8 +454,8 @@
                                              <content>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
-                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
-                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Update" />
+                                                      <TextField fx:id="companyUpdateIdField" prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button onAction="#updateCompany" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Update" />
                                                    </children>
                                                 </HBox>
                                              </content>
@@ -467,12 +467,12 @@
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
                                                             <Label layoutX="14.0" layoutY="-3.0" text="By name:" />
-                                                            <TextField fx:id="committentDeleteField1111" layoutY="14.0" />
+                                                            <TextField fx:id="companyDeleteByIdField" layoutY="14.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="63.0">
                                                          <children>
-                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCommittent" prefHeight="25.0" prefWidth="61.0" text="Delete" />
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCompany" prefHeight="25.0" prefWidth="61.0" text="Delete" />
                                                          </children>
                                                       </Pane>
                                                    </children>
@@ -509,8 +509,8 @@
                                              <content>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
-                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
-                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Add" />
+                                                      <TextField fx:id="districtIdField" prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button onAction="#addDistrict" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Add" />
                                                    </children>
                                                 </HBox>
                                              </content>
@@ -519,8 +519,8 @@
                                              <content>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
-                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
-                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Update" />
+                                                      <TextField fx:id="districtUpdateIdField" prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button onAction="#updateDistrict" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Update" />
                                                    </children>
                                                 </HBox>
                                              </content>
@@ -532,12 +532,12 @@
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
                                                             <Label layoutX="14.0" layoutY="-3.0" text="By name:" />
-                                                            <TextField fx:id="committentDeleteField11111" layoutY="14.0" />
+                                                            <TextField fx:id="districtUpdateIdField" layoutY="14.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="63.0">
                                                          <children>
-                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCommittent" prefHeight="25.0" prefWidth="61.0" text="Delete" />
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteDistrict" prefHeight="25.0" prefWidth="61.0" text="Delete" />
                                                          </children>
                                                       </Pane>
                                                    </children>
@@ -574,8 +574,8 @@
                                              <content>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
-                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
-                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Add" />
+                                                      <TextField fx:id="socialStatusIdField" prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button onAction="#addSocialStatus" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Add" />
                                                    </children>
                                                 </HBox>
                                              </content>
@@ -584,8 +584,8 @@
                                              <content>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
-                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
-                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Update" />
+                                                      <TextField fx:id="socialStatusUpdateIdField" prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button onAction="#updateSocialStatus" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Update" />
                                                    </children>
                                                 </HBox>
                                              </content>
@@ -597,12 +597,12 @@
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
                                                             <Label layoutX="14.0" layoutY="-3.0" text="By name:" />
-                                                            <TextField fx:id="committentDeleteField11112" layoutY="14.0" />
+                                                            <TextField fx:id="socialStatusDeleteByIdField" layoutY="14.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="63.0">
                                                          <children>
-                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCommittent" prefHeight="25.0" prefWidth="61.0" text="Delete" />
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteSocialStatus" prefHeight="25.0" prefWidth="61.0" text="Delete" />
                                                          </children>
                                                       </Pane>
                                                    </children>
@@ -639,8 +639,8 @@
                                              <content>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
-                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
-                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Add" />
+                                                      <TextField fx:id="productGroupIdField" prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button onAction="#addProductGroup" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Add" />
                                                    </children>
                                                 </HBox>
                                              </content>
@@ -649,8 +649,8 @@
                                              <content>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
                                                    <children>
-                                                      <TextField prefHeight="25.0" prefWidth="198.0" />
-                                                      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Update" />
+                                                      <TextField fx:id="productGroupUpdateIdField" prefHeight="25.0" prefWidth="198.0" />
+                                                      <Button onAction="#updateProductGroup" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Update" />
                                                    </children>
                                                 </HBox>
                                              </content>
@@ -662,12 +662,12 @@
                                                       <Pane prefHeight="40.0" prefWidth="149.0">
                                                          <children>
                                                             <Label layoutX="14.0" layoutY="-3.0" text="By name:" />
-                                                            <TextField fx:id="committentDeleteField11113" layoutY="14.0" />
+                                                            <TextField fx:id="productGroupDeleteByIdField" layoutY="14.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="40.0" prefWidth="63.0">
                                                          <children>
-                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCommittent" prefHeight="25.0" prefWidth="61.0" text="Delete" />
+                                                            <Button layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteProductGroup" prefHeight="25.0" prefWidth="61.0" text="Delete" />
                                                          </children>
                                                       </Pane>
                                                    </children>
@@ -750,7 +750,7 @@
                <items>
                   <Button fx:id="refreshButton" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#refresh" prefHeight="25.0" prefWidth="25.0" />
                   <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
-                  <Button fx:id="refreshButton1" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#refresh" prefHeight="25.0" prefWidth="25.0" />
+                  <Button fx:id="refreshDirButton" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#refreshDirectories" prefHeight="25.0" prefWidth="25.0" />
                   <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
                   <HBox prefHeight="25.0" prefWidth="185.0">
                      <children>

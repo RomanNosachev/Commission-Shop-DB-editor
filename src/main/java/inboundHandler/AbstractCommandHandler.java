@@ -25,6 +25,7 @@ extends SimpleChannelInboundHandler<T>
         commandReceived(ctx, msg);
     }
     
+    @SuppressWarnings("unchecked")
     private GenericService<?, Serializable> serviceInstance(ChannelId id, Class<? extends DB_Entity> entityClass)
     {
         SessionFactory factory = Server.getSessionFactory(id);

@@ -68,12 +68,12 @@ public class GenericService<T extends DB_Entity, PK extends Serializable>
         disconnect();
     }
     
-    //TODO
-    public void update(T object) throws IllegalAccessException
+    public void update(T object) throws HibernateException
     {
         connect();
-        
-        session.update(object);
+
+        T tempObject = session.load(type, object.getPK());
+        tempObject.merge(object);
         session.getTransaction().commit();
         
         disconnect();
